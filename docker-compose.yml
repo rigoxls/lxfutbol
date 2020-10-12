@@ -24,13 +24,23 @@ services:
     networks:
       - lxfutbol-compose-network  
 
+  zuul-api-gateway-service:
+    image: lxfutbol/zuul-microservice:0.0.1-SNAPSHOT
+    ports:
+      - "8765:8765"
+    restart: always
+    depends_on: 
+      - eureka-service    
+    networks:
+      - lxfutbol-compose-network       
+
   provider-service:
     image: lxfutbol/provider-service:dockerfile1
     ports:
       - "8080:8080"
     restart: always
     depends_on: 
-      - eureka-service
+      - eureka-service          
       - mysql
       
     environment:

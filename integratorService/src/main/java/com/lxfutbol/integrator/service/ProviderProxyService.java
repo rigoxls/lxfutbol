@@ -8,9 +8,9 @@ import com.lxfutbol.integrator.dto.Providerdto;
 
 //Feign sabe que tiene que hablar con Eureka server
 //@FeignClient(name = "provider-service", url = "http://192.168.99.100:8080")
-@FeignClient(name = "provider-service")
+@FeignClient(name = "zuul-api-gateway-service") //zuul name app
 public interface ProviderProxyService {
 
-	@GetMapping("/provider/get/{providerId}")
+	@GetMapping("/provider-service/provider/get/{providerId}")
 	public Providerdto getProviderById(@PathVariable("providerId") long providerId);	
 }
