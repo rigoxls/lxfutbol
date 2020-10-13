@@ -1,3 +1,49 @@
+#Ejecución con docker compose
+1) Instalar docker 
+
+ 
+
+2) clonar proyectos https://github.com/rigoxls/lxfutbol
+
+ 
+
+3) Abrir un cmd e ir a las carpetas de los proyectos y hacer lo siguiente 
+
+ 
+
+    - \eurekaService
+        - mvn clean package -DskipTests        
+        
+    - \zuulService
+        - mvn clean package -DskipTests    
+        
+    - \providerService
+        - mvn clean package -DskipTests    
+        - docker build -t lxfutbol/provider-service:dockerfile1 .        
+    
+    - \integratorService
+        - mvn clean package -DskipTests    
+        - docker build -t lxfutbol/integrator-service:dockerfile1 .    
+        
+4) Ir a la carpeta base de los proyectos \lxfutbol
+        - docker-compose up
+        - Esperar unos 4 minutos hasta que levanten las dependencias
+
+ 
+
+5) Verificar que los proyectos se registren en eureka 
+        - http://192.168.99.100:8761/
+
+ 
+
+6) Probar comunicación 
+        - http://192.168.99.100:8080/provider/get/1 // da null
+
+ 
+
+7) Ingresar a la db y crear registros 
+
+
 #Pasos basicos despliegue manual
 -------------------------------------------
 - Crear network 

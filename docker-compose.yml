@@ -1,4 +1,4 @@
-version: '3.7'
+version: '3.3'
 services:
   eureka-service:
     image: lxfutbol/eureka-microservice:0.0.1-SNAPSHOT
@@ -19,10 +19,11 @@ services:
       MYSQL_USER: lxfutbol
       MYSQL_PASSWORD: lxfutbolPass
       MYSQL_DATABASE: lxfutbol
+      HOST_URL: 192.168.99.100
     volumes:
       - mysql-database-volume:/var/lib/mysql
     networks:
-      - lxfutbol-compose-network  
+      - lxfutbol-compose-network
 
   zuul-api-gateway-service:
     image: lxfutbol/zuul-microservice:0.0.1-SNAPSHOT
@@ -30,7 +31,9 @@ services:
       - "8765:8765"
     restart: always
     depends_on: 
-      - eureka-service    
+      - eureka-service
+    environment: 
+      HOST_URL: 192.168.99.100
     networks:
       - lxfutbol-compose-network       
 
@@ -41,9 +44,9 @@ services:
     restart: always
     depends_on: 
       - eureka-service          
-      - mysql
-      
-    environment:
+      - mysql      
+    environment: 
+      HOST_URL: 192.168.99.100
       RDS_HOSTNAME: mysql
       RDS_PORT: 3306
       RDS_DB_NAME: lxfutbol
@@ -61,7 +64,8 @@ services:
       - eureka-service
       - mysql
       - provider-service
-    environment:
+    environment: 
+      HOST_URL: 192.168.99.100
       RDS_HOSTNAME: mysql
       RDS_PORT: 3306
       RDS_DB_NAME: lxfutbol
