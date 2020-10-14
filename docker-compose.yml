@@ -72,7 +72,102 @@ services:
       RDS_USERNAME: lxfutbol
       RDS_PASSWORD: lxfutbolPass
     networks:
-      - lxfutbol-compose-network      
+      - lxfutbol-compose-network  
+      
+  lodge-service:
+    image: lxfutbol/lodge-service:dockerfile1
+    ports:
+      - "8082:8080"
+    restart: always
+    depends_on: 
+      - eureka-service
+      - mysql
+      - provider-service
+    environment: 
+      HOST_URL: 192.168.99.100
+      RDS_HOSTNAME: mysql
+      RDS_PORT: 3306
+      RDS_DB_NAME: lxfutbol
+      RDS_USERNAME: lxfutbol
+      RDS_PASSWORD: lxfutbolPass
+    networks:
+      - lxfutbol-compose-network   
+      
+  spectacle-service:
+    image: lxfutbol/spectacle-service:dockerfile1
+    ports:
+      - "8083:8080"
+    restart: always
+    depends_on: 
+      - eureka-service
+      - mysql
+      - provider-service
+    environment: 
+      HOST_URL: 192.168.99.100
+      RDS_HOSTNAME: mysql
+      RDS_PORT: 3306
+      RDS_DB_NAME: lxfutbol
+      RDS_USERNAME: lxfutbol
+      RDS_PASSWORD: lxfutbolPass
+    networks:
+      - lxfutbol-compose-network
+      
+  transport-service:
+    image: lxfutbol/transport-service:dockerfile1
+    ports:
+      - "8084:8080"
+    restart: always
+    depends_on: 
+      - eureka-service
+      - mysql
+      - provider-service
+    environment: 
+      HOST_URL: 192.168.99.100
+      RDS_HOSTNAME: mysql
+      RDS_PORT: 3306
+      RDS_DB_NAME: lxfutbol
+      RDS_USERNAME: lxfutbol
+      RDS_PASSWORD: lxfutbolPass
+    networks:
+      - lxfutbol-compose-network 
+      
+  transform-soap-service:
+    image: lxfutbol/transform-soap-service:dockerfile1
+    ports:
+      - "8085:8080"
+    restart: always
+    depends_on: 
+      - eureka-service
+      - mysql
+      - provider-service
+    environment: 
+      HOST_URL: 192.168.99.100
+      RDS_HOSTNAME: mysql
+      RDS_PORT: 3306
+      RDS_DB_NAME: lxfutbol
+      RDS_USERNAME: lxfutbol
+      RDS_PASSWORD: lxfutbolPass
+    networks:
+      - lxfutbol-compose-network       
+
+  transform-json-service:
+    image: lxfutbol/transform-json-service:dockerfile1
+    ports:
+      - "8086:8080"
+    restart: always
+    depends_on: 
+      - eureka-service
+      - mysql
+      - provider-service
+    environment: 
+      HOST_URL: 192.168.99.100
+      RDS_HOSTNAME: mysql
+      RDS_PORT: 3306
+      RDS_DB_NAME: lxfutbol
+      RDS_USERNAME: lxfutbol
+      RDS_PASSWORD: lxfutbolPass
+    networks:
+      - lxfutbol-compose-network          
   
 # Volumes
 volumes:
