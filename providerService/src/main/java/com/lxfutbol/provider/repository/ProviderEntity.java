@@ -1,9 +1,12 @@
 package com.lxfutbol.provider.repository;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.lxfutbol.provider.dto.ProviderDTO;
@@ -21,6 +24,10 @@ public class ProviderEntity {
 	private String address;
 	private String phone;	
 	private int status;
+	
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "provider_id")
+	private OperationEntity operationEntity;
 	
 	protected ProviderEntity() {}
 	
@@ -55,7 +62,6 @@ public class ProviderEntity {
 		this.phone = providerToUpdate.phone;		
 		this.status = providerToUpdate.status;	
 	}	
-
 
 	public long getId() {
 		return id;
@@ -112,6 +118,13 @@ public class ProviderEntity {
 	public void setStatus(int status) {
 		this.status = status;
 	}
-	
+
+	public OperationEntity getOperationEntity() {
+		return operationEntity;
+	}
+
+	public void setOperationEntity(OperationEntity operationEntity) {
+		this.operationEntity = operationEntity;
+	}	
 	
 }

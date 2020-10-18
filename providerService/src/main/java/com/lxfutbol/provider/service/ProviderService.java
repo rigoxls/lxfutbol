@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import com.lxfutbol.provider.dto.ProviderDTO;
 import com.lxfutbol.provider.exception.ProviderNotFoundException;
+import com.lxfutbol.provider.repository.OperationEntity;
 import com.lxfutbol.provider.repository.ProviderEntity;
 import com.lxfutbol.provider.repository.ProviderRepository;
 
@@ -28,7 +29,14 @@ public class ProviderService {
 	
 	public ProviderEntity createProvider(ProviderDTO newProvider) {
 		ProviderEntity provider = new ProviderEntity(newProvider);
-		System.out.println(provider);
+		OperationEntity operation = new OperationEntity(
+				newProvider.getSearch(), 
+				newProvider.getBook(), 
+				newProvider.getCancelBook()
+		);
+		
+		provider.setOperationEntity(operation);	
+		
 		providerRepository.save(provider);
 		return provider;
 	}
@@ -38,6 +46,14 @@ public class ProviderService {
 		try {
 			ProviderEntity provider = providerRepository.getOne(providerId);
 			provider.setAll(providerToUpdate);
+			
+			OperationEntity operation = new OperationEntity(
+					providerToUpdate.getSearch(), 
+					providerToUpdate.getBook(), 
+					providerToUpdate.getCancelBook()
+			);
+			provider.setOperationEntity(operation);	
+			
 			providerRepository.save(provider);
 			return provider;
 		} catch (Exception err) {
