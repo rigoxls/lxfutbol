@@ -6,6 +6,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.lxfutbol.provider.dto.ProviderDTO;
+
 @Entity
 @Table(name = "`provider`")
 public class ProviderEntity {
@@ -22,6 +24,16 @@ public class ProviderEntity {
 	
 	protected ProviderEntity() {}
 	
+	public ProviderEntity(ProviderDTO newProvider) {
+		super();
+		this.name = newProvider.name;
+		this.lastname = newProvider.lastname;
+		this.email = newProvider.email;
+		this.address = newProvider.address;
+		this.phone = newProvider.phone;		
+		this.status = newProvider.status;		
+	}	
+	
 	
 	public ProviderEntity(long id, String name, String lastname, String email, String address, String phone,
 			int status) {
@@ -34,6 +46,16 @@ public class ProviderEntity {
 		this.phone = phone;		
 		this.status = status;
 	}
+	
+	public void setAll(ProviderDTO providerToUpdate) {
+		this.name = providerToUpdate.name;
+		this.lastname = providerToUpdate.lastname;
+		this.email = providerToUpdate.email;
+		this.address = providerToUpdate.address;
+		this.phone = providerToUpdate.phone;		
+		this.status = providerToUpdate.status;	
+	}	
+
 
 	public long getId() {
 		return id;
