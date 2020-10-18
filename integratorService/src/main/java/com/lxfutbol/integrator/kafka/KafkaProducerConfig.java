@@ -40,6 +40,7 @@ class KafkaProducerConfig {
 		Map<String, Object> props = new HashMap<>();
 		props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
 		props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
+		props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
 		return props;
 	}
 
@@ -65,22 +66,17 @@ class KafkaProducerConfig {
 
 	@Bean
 	public RoutingKafkaTemplate routingTemplate(GenericApplicationContext context) {
-
 		// ProducerFactory with Bytes serializer
 		Map<String, Object> props = new HashMap<>();
-		props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
-		props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
-		props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, ByteArraySerializer.class);
-		DefaultKafkaProducerFactory<Object, Object> bytesPF = new DefaultKafkaProducerFactory<>(props);
-		context.registerBean(DefaultKafkaProducerFactory.class, "bytesPF", bytesPF);
-
+		
 		// ProducerFactory with String serializer
+		props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
 		props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
+		props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
 		DefaultKafkaProducerFactory<Object, Object> stringPF = new DefaultKafkaProducerFactory<>(props);
 
-		Map<Pattern, ProducerFactory<Object, Object>> map = new LinkedHashMap<>();
-		map.put(Pattern.compile(".*-bytes"), bytesPF);
-		map.put(Pattern.compile("reflectoring-.*"), stringPF);
+		Map<Pattern, ProducerFactory<Object, Object>> map = new LinkedHashMap<>();		
+		map.put(Pattern.compile("todo-.*"), stringPF);
 		return new RoutingKafkaTemplate(map);
 	}
 
@@ -93,9 +89,4 @@ class KafkaProducerConfig {
 		return new DefaultKafkaProducerFactory<>(configProps);
 	}
 
-	/*
-	@Bean
-	public KafkaTemplate<String, String> userKafkaTemplate() {
-		return new KafkaTemplate<>(userProducerFactory());
-	}*/
 }

@@ -30,7 +30,7 @@ class KafkaConsumerConfig {
     Map<String, Object> consumerConfigs() {
         Map<String, Object> props = new HashMap<>();
         props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
-        //props.put(ConsumerConfig.GROUP_ID_CONFIG, "reflectoring-group");
+        props.put(ConsumerConfig.GROUP_ID_CONFIG, "integrator-provider-group");
         props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
         props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
         return props;
@@ -53,17 +53,9 @@ class KafkaConsumerConfig {
     public ConsumerFactory<String, String> userConsumerFactory() {
         Map<String, Object> props = new HashMap<>();
         props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
-        //props.put(ConsumerConfig.GROUP_ID_CONFIG, "reflectoring-user");
-        return new DefaultKafkaConsumerFactory<>(props, new StringDeserializer(), new JsonDeserializer<>());
+        props.put(ConsumerConfig.GROUP_ID_CONFIG, "integrator-provider-group");
+        return new DefaultKafkaConsumerFactory<>(props, new StringDeserializer(), new StringDeserializer());
     }
-
-    /*
-    @Bean
-    public ConcurrentKafkaListenerContainerFactory<String, User> userKafkaListenerContainerFactory() {
-        ConcurrentKafkaListenerContainerFactory<String, User> factory = new ConcurrentKafkaListenerContainerFactory<>();
-        factory.setConsumerFactory(userConsumerFactory());
-        return factory;
-    }*/
     
     @Bean
 	public ConcurrentKafkaListenerContainerFactory<String, String> kafkaJsonListenerContainerFactory() {

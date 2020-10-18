@@ -12,7 +12,6 @@ import com.lxfutbol.provider.service.ProviderService;
 
 //import com.lxfutbol.providerDTO;
 
-
 @RestController
 public class ProviderController {
 
@@ -23,5 +22,5 @@ public class ProviderController {
 	public Optional<ProviderEntity> getProviderById(@PathVariable long providerId) {
 		Optional<ProviderEntity> provider = providerService.getProviderById(providerId);
 		return provider;
-	}
+	}	
 }

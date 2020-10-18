@@ -11,16 +11,16 @@ import org.springframework.util.concurrent.ListenableFuture;
 import org.springframework.util.concurrent.ListenableFutureCallback;
 
 @Component
-public class KafkaSenderExample {
+public class KafkaIntegratorSender {
 
-	private final Logger LOG = LoggerFactory.getLogger(KafkaSenderExample.class);
+	private final Logger LOG = LoggerFactory.getLogger(KafkaIntegratorSender.class);
 
 	private KafkaTemplate<String, String> kafkaTemplate;
 	private RoutingKafkaTemplate routingKafkaTemplate;
 	
 
 	@Autowired
-	KafkaSenderExample(KafkaTemplate<String, String> kafkaTemplate, RoutingKafkaTemplate routingKafkaTemplate,
+	KafkaIntegratorSender(KafkaTemplate<String, String> kafkaTemplate, RoutingKafkaTemplate routingKafkaTemplate,
 			KafkaTemplate<String, String> userKafkaTemplate) {
 		this.kafkaTemplate = kafkaTemplate;
 		this.routingKafkaTemplate = routingKafkaTemplate;		
@@ -47,7 +47,7 @@ public class KafkaSenderExample {
 		kafkaTemplate.send(topicName, user);
 	}
 
-	void sendMessageWithCallback(String message, String topicName) {
+	public void sendMessageWithCallback(String message, String topicName) {
 		LOG.info("Sending : {}", message);
 		LOG.info("---------------------------------");
 
@@ -56,8 +56,9 @@ public class KafkaSenderExample {
 		future.addCallback(new ListenableFutureCallback<SendResult<String, String>>() {
 			@Override
 			public void onSuccess(SendResult<String, String> result) {
-				LOG.info("Success Callback: [{}] delivered with offset -{}", message,
-						result.getRecordMetadata().offset());
+				LOG.info("Callback returned:" + result.toString());
+				/*LOG.info("Success Callback: [{}] delivered with offset -{}", message,
+						result.getRecordMetadata().offset());*/
 			}
 
 			@Override

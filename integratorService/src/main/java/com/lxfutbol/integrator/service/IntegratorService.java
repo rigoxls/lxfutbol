@@ -17,7 +17,7 @@ public class IntegratorService {
 	private IntegratorRepository providerRepository;
 	
 	@Autowired
-	private KafkaSenderExample kafkaSenderExample;
+	private KafkaIntegratorSender kafkaIntegratorSender;
 	
 	@Value("${com.lxfutbol.integrator.kafka.topic-1}")
 	private String topic_1;
@@ -25,8 +25,7 @@ public class IntegratorService {
 	protected IntegratorService() {		
 	}
 	
-	public Optional<IntegratorEntity> getProviderById(long providerId) {
-		kafkaSenderExample.sendMessage("XXXX", topic_1);
+	public Optional<IntegratorEntity> getProviderById(long providerId) {		
 		Optional<IntegratorEntity> provider = providerRepository.findById(providerId);
 		return provider;
 	}

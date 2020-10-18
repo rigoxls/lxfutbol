@@ -9,7 +9,7 @@ import org.springframework.kafka.config.TopicBuilder;
 @Configuration
 class KafkaTopicConfig {
 
-	@Value("${com.lxfutbol.integrador.kafka.topic-1}")
+	@Value("${com.lxfutbol.provider.kafka.topic-1}")
 	private String topic1;
 
 	@Bean

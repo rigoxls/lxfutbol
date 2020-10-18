@@ -16,8 +16,8 @@ services:
       - 'kafka_data:/bitnami'
     environment:
       #- KAFKA_BROKER_ID=1
-      - KAFKA_LISTENERS=PLAINTEXT://192.168.99.100:9092
-      - KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://192.168.99.100:9092
+      - KAFKA_LISTENERS=PLAINTEXT://:9092
+      - KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://localhost:9092
       - KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181
       - ALLOW_PLAINTEXT_LISTENER=yes
     depends_on:
@@ -42,7 +42,7 @@ services:
       MYSQL_USER: lxfutbol
       MYSQL_PASSWORD: lxfutbolPass
       MYSQL_DATABASE: lxfutbol
-      HOST_URL: 192.168.99.100
+      HOST_URL: localhost
     volumes:
       - mysql-database-volume:/var/lib/mysql
     networks:
@@ -56,7 +56,7 @@ services:
     depends_on: 
       - eureka-service
     environment: 
-      HOST_URL: 192.168.99.100
+      HOST_URL: localhost
     networks:
       - lxfutbol-compose-network       
   
