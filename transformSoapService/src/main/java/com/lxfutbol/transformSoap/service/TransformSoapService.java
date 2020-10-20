@@ -10,8 +10,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
-
-import com.lxfutbol.transformSoap.dto.Contractdto;
 import com.lxfutbol.transformSoap.repository.TransformSoapEntity;
 import com.lxfutbol.transformSoap.repository.TransformSoapRepository;
 
@@ -41,7 +39,7 @@ public class TransformSoapService {
 		return provider;
 	}
 
-	public void getContractById(Contractdto contractDTO) {
-		contractDTO = flightClient.getContract();
+	public void getContractById() {
+		flightClient.getContract();
 	}
 }
