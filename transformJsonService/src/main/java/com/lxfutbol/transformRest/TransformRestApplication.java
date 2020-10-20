@@ -1,4 +1,4 @@
-package com.lxfutbol.transformJson;
+package com.lxfutbol.transformRest;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -8,10 +8,10 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @SpringBootApplication
 @EnableFeignClients("com.lxfutbol.transformJson")
 @EnableDiscoveryClient
-public class TransformJsonApplication {
+public class TransformRestApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(TransformJsonApplication.class, args);
+		SpringApplication.run(TransformRestApplication.class, args);
 	}
 
 }
