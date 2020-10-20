@@ -47,12 +47,9 @@ public class ProviderService {
 			ProviderEntity provider = providerRepository.getOne(providerId);
 			provider.setAll(providerToUpdate);
 			
-			OperationEntity operation = new OperationEntity(
-					providerToUpdate.getSearch(), 
-					providerToUpdate.getBook(), 
-					providerToUpdate.getCancelBook()
-			);
-			provider.setOperationEntity(operation);	
+			provider.getOperationEntity().setSearch(providerToUpdate.getSearch());
+			provider.getOperationEntity().setBook(providerToUpdate.getBook());
+			provider.getOperationEntity().setCancelBook(providerToUpdate.getCancelBook());
 			
 			providerRepository.save(provider);
 			return provider;
