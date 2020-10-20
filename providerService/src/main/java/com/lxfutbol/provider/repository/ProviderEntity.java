@@ -18,12 +18,16 @@ public class ProviderEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
+	private String nit;
 	private String name;
-	private String lastname;
+	private String representative;
 	private String email;
 	private String address;
-	private String phone;	
+	private String phone;
+	
 	private int status;
+	private int agreement;
+	private int type;
 	
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "provider_id")
@@ -33,34 +37,43 @@ public class ProviderEntity {
 	
 	public ProviderEntity(ProviderDTO newProvider) {
 		super();
+		this.nit = newProvider.nit;
 		this.name = newProvider.name;
-		this.lastname = newProvider.lastname;
+		this.representative = newProvider.representative;
 		this.email = newProvider.email;
 		this.address = newProvider.address;
 		this.phone = newProvider.phone;		
-		this.status = newProvider.status;		
+		this.status = newProvider.status;
+		this.agreement = newProvider.agreement;
+		this.type = newProvider.type;
 	}	
 	
 	
-	public ProviderEntity(long id, String name, String lastname, String email, String address, String phone,
-			int status) {
+	public ProviderEntity(long id, String nit, String name, String representative, String email, String address, String phone,
+			int status, int agreement, int type) {
 		super();
 		this.id = id;
+		this.nit = nit;
 		this.name = name;
-		this.lastname = lastname;
+		this.representative = representative;
 		this.email = email;
 		this.address = address;
 		this.phone = phone;		
 		this.status = status;
+		this.agreement = agreement;
+		this.type = type;
 	}
 	
 	public void setAll(ProviderDTO providerToUpdate) {
+		this.nit = providerToUpdate.nit;
 		this.name = providerToUpdate.name;
-		this.lastname = providerToUpdate.lastname;
+		this.representative = providerToUpdate.representative;
 		this.email = providerToUpdate.email;
 		this.address = providerToUpdate.address;
-		this.phone = providerToUpdate.phone;		
-		this.status = providerToUpdate.status;	
+		this.phone = providerToUpdate.phone;
+		this.status = providerToUpdate.status;
+		this.agreement = providerToUpdate.agreement;
+		this.type = providerToUpdate.type;
 	}	
 
 	public long getId() {
@@ -79,12 +92,12 @@ public class ProviderEntity {
 		this.name = name;
 	}
 
-	public String getLastname() {
-		return lastname;
+	public String getRepresentative() {
+		return representative;
 	}
 
-	public void setLastname(String lastname) {
-		this.lastname = lastname;
+	public void setRepresentative(String representative) {
+		this.representative = representative;
 	}
 
 	public String getEmail() {
@@ -125,6 +138,30 @@ public class ProviderEntity {
 
 	public void setOperationEntity(OperationEntity operationEntity) {
 		this.operationEntity = operationEntity;
+	}
+
+	public int getAgreement() {
+		return agreement;
+	}
+
+	public void setAgreement(int agreement) {
+		this.agreement = agreement;
+	}
+
+	public int getType() {
+		return type;
+	}
+
+	public void setType(int type) {
+		this.type = type;
+	}
+
+	public String getNit() {
+		return nit;
+	}
+
+	public void setNit(String nit) {
+		this.nit = nit;
 	}	
 	
 }

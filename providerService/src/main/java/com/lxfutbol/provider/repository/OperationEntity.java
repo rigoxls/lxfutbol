@@ -15,11 +15,13 @@ public class OperationEntity {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	
+	@Column(columnDefinition = "TEXT")
 	private String search;
 	
+	@Column(columnDefinition = "TEXT")
 	private String book;
 	
-	@Column(name = "cancel_book")
+	@Column(name = "cancel_book", columnDefinition = "TEXT")	
 	private String cancelBook;
 	
 	protected OperationEntity() {}
