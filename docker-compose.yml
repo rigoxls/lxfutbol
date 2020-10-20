@@ -23,13 +23,25 @@ services:
     depends_on:
       - zookeeper
 
+  redis:
+    image: "redis:alpine"  
+    command: redis-server 
+    ports:
+      - "6379:6379"  
+    volumes:
+      - redis-data:/data
+    environment:
+      - REDIS_REPLICATION_MODE=master
+    networks:
+      - lxfutbol-compose-network    
+
   eureka-service:
     image: lxfutbol/eureka-microservice:0.0.1-SNAPSHOT
     ports:
       - "8761:8761"
     restart: always
     networks:
-      - lxfutbol-compose-network  
+      - lxfutbol-compose-network
 
   mysql:
     image: mysql:5.7
@@ -63,6 +75,7 @@ services:
 # Volumes
 volumes:
   mysql-database-volume:
+  redis-data:    
   zookeeper_data:
     driver: local  
   kafka_data:  

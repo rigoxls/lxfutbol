@@ -11,6 +11,6 @@ import com.lxfutbol.integrator.dto.Providerdto;
 @FeignClient(name = "zuul-api-gateway-service") //zuul name app
 public interface ProviderProxyService {
 
-	@GetMapping("/provider-service/provider/get/{providerId}")
+	@GetMapping("/provider-service/provider/{providerId}")
 	public Providerdto getProviderById(@PathVariable("providerId") long providerId);	
 }
