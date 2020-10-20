@@ -12,5 +12,6 @@ import com.lxfutbol.transformSoap.dto.Providerdto;
 public interface ProviderProxyService {
 
 	@GetMapping("/provider-service/provider/get/{providerId}")
-	public Providerdto getProviderById(@PathVariable("providerId") long providerId);	
+	public Providerdto getProviderById(@PathVariable("providerId") long providerId);
+
 }

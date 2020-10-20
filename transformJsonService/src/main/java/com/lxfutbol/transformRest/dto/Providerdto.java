@@ -1,4 +1,4 @@
-package com.lxfutbol.transformJson.dto;
+package com.lxfutbol.transformRest.dto;
 
 public class Providerdto {
 	

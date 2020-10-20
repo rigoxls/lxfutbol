@@ -1,4 +1,4 @@
-package com.lxfutbol.transformJson.repository;
+package com.lxfutbol.transformRest.repository;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,18 +8,18 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "`integrator`")
-public class TransformJsonEntity {
+public class TransformRestEntity {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	private String name;
 	
-	protected TransformJsonEntity() {}
+	protected TransformRestEntity() {}
 	
 	
 
-	public TransformJsonEntity(long id, String name) {
+	public TransformRestEntity(long id, String name) {
 		super();
 		this.id = id;
 		this.name = name;
