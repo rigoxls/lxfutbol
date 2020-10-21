@@ -76,16 +76,11 @@ public class ProviderService {
 	/*******************************
 	/* Kafka matters ***************
 	/******************************/
-	@KafkaListener(topics = "integrator-provider")
-	public void listener(String message) {
-		LOG.info("Listener [{}]", message);
-	}
-	
-	@KafkaListener(topics = "integrator-provider")
-	@SendTo("integrator-provider")
+	@KafkaListener(topics = "integrator-provider", groupId = "group_id")
+	@SendTo
 	String listenAndReply(String message) {
 		LOG.info("ListenAndReply [{}]", message);
-		return "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
+		return "================================= RESPUESTA DESDE PROVIDER ================================= ";
 	}	
 
 }
