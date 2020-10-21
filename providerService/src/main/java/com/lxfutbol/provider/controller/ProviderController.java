@@ -4,10 +4,13 @@ import java.io.IOException;
 import java.net.URI;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.TimeUnit;
 
 import javax.validation.Valid;
 
 import org.codehaus.jettison.json.JSONException;
+import org.codehaus.jettison.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -30,29 +33,58 @@ public class ProviderController {
 
 	@Autowired
 	private ProviderService providerService;
-	
+
 	@Autowired
 	private RedisService redisService;
+
+	ProviderController() {
+		// Providers in memory
+		CompletableFuture.delayedExecutor(5, TimeUnit.SECONDS).execute(() -> {
+			List<ProviderEntity> providers = providerService.listActiveProviders();
+			
+			for (ProviderEntity provider : providers) {
+				System.out.println(provider);
+				String search = provider.getOperationEntity().getSearch();
+				String book = provider.getOperationEntity().getBook();
+				String cancelBook = provider.getOperationEntity().getCancelBook();
+				JSONObject template = new JSONObject();
+				
+				try {					
+					JSONObject searchTemplate = new JSONObject(search);
+					JSONObject bookTemplate = new JSONObject(book);
+					JSONObject cancelTemplate = new JSONObject(cancelBook);
+					
+					template.put("search", searchTemplate.get("search"));
+					template.put("book", bookTemplate.get("book"));
+					template.put("cancelBook", cancelTemplate.get("cancelBook"));
+					System.out.println(template);
+					
+					ProviderTemplateEntity providerTemplate = new ProviderTemplateEntity();
+					providerTemplate.setId(Long.toString(provider.getId()));
+					providerTemplate.setTemplate(template.toString());
+					redisService.save(providerTemplate);	
+										
+					System.out.println(redisService.findById(Long.toString(provider.getId())));					
+					
+				} catch(Exception  e) {
+					System.out.println(e.getMessage());
+				}
+			}
+		});
+	}
 
 	@GetMapping("/provider/{providerId}")
 	public Optional<ProviderEntity> getProviderById(@PathVariable long providerId) throws JSONException {
 		Optional<ProviderEntity> provider = providerService.getProviderById(providerId);
-		
-		ProviderTemplateEntity em = new ProviderTemplateEntity();
-		em.setId("1");
-		em.setTemplate("{\"search\":{\"endpoint\":\"http://192.168.1.100:8888/TuresBalonProviders-AA-context-root/AAFlightsServiceSoapHttpPort\",\"parameters\":[{\"root\":\"/searchFlightElement\",\"name\":\"departinCity\",\"type\":\"string\",\"isNull\":true},{\"root\":\"/searchFlightElement\",\"name\":\"arrivingCity\",\"type\":\"string\",\"isNull\":true},{\"root\":\"/searchFlightElement\",\"name\":\"departinDate\",\"type\":\"dateTime\",\"isNull\":true},{\"root\":\"/searchFlightElement\",\"name\":\"cabin\",\"type\":\"string\",\"isNull\":true},{\"root\":\"/searchFlightElement\",\"name\":\"PromotionCode\",\"type\":\"string\",\"isNull\":true}],\"mapping\":{\"properties\":{\"departureDate\":\"/Flight/departinDate\",\"arrivalDate\":\"/Flight/arrivingDate\",\"departureCity\":\"/Flight/departinCity\",\"flight\":\"/Flight/number\",\"class\":\"\",\"arrivalCity\":\"/Flight/arrivingCity\",\"price\":\"/Flight/price\",\"cabin\":\"/Flight/cabin\",\"meals\":\"/Flight/meals\"}}},\"book\":{\"endpoint\":\"http://192.168.1.100:8888/TuresBalonProviders-AA-context-root/AAFlightsServiceSoapHttpPort\",\"parameters\":[{\"name\":\"f\",\"type\":\"Flight\",\"isNull\":true,\"properties\":[{\"root\":\"/searchFlightElement\",\"name\":\"departinCity\",\"type\":\"string\",\"isNull\":true},{\"root\":\"/searchFlightElement\",\"name\":\"arrivingCity\",\"type\":\"string\",\"isNull\":true},{\"root\":\"/searchFlightElement\",\"name\":\"departinDate\",\"type\":\"dateTime\",\"isNull\":true},{\"root\":\"/searchFlightElement\",\"name\":\"cabin\",\"type\":\"string\",\"isNull\":true},{\"root\":\"/searchFlightElement\",\"name\":\"PromotionCode\",\"type\":\"string\",\"isNull\":true}]}],\"mapping\":{\"properties\":{\"result\":\"/\"}}},\"cancelBook\":{\"endpoint\":\"\",\"parameters\":[],\"mapping\":{\"properties\":{}}}}");		
-		redisService.save(em);
-		
-		redisService.findById("1");
 		return provider;
 	}
-	
+
 	@GetMapping("/provider/list/active")
 	public List<ProviderEntity> listActiveProviders() {
 		List<ProviderEntity> providers = providerService.listActiveProviders();
 		return providers;
-	}	
-	
+	}
+
 	@PostMapping("/provider")
 	public ResponseEntity<ProviderEntity> createProvider(@RequestBody ProviderDTO newProvider) throws IOException {
 		ProviderEntity provider = providerService.createProvider(newProvider);
@@ -64,16 +96,16 @@ public class ProviderController {
 				.toUri();
 		return ResponseEntity.created(location).build();
 	}
-	
+
 	@PutMapping("/provider")
 	public ProviderEntity updateProvider(@Valid @RequestBody ProviderDTO providerToUpdate) throws Exception {
 		ProviderEntity provider = providerService.updateProvider(providerToUpdate);
 		return provider;
 	}
-	
+
 	@DeleteMapping("/user/{providerId}")
 	public ResponseEntity<Void> deleteUser(@PathVariable long providerId) {
 		providerService.deleteProvider(providerId);
 		return ResponseEntity.noContent().build();
-	}	
+	}
 }
