@@ -1,6 +1,7 @@
 package com.lxfutbol.integrator.controller;
 
 import java.util.Optional;
+import java.util.concurrent.ExecutionException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -38,7 +39,7 @@ public class IntegratorController {
 	}
 	
 	@GetMapping("/provider/send/message")
-	public void sendMessage() {
-		kafkaIntegratorSender.sendMessageWithCallback("{\"glossary\":{\"title\":\"example glossary\",\"GlossDiv\":{\"title\":\"S\",\"GlossList\":{\"GlossEntry\":{\"ID\":\"SGML\",\"SortAs\":\"SGML\",\"GlossTerm\":\"Standard Generalized Markup Language\",\"Acronym\":\"SGML\",\"Abbrev\":\"ISO 8879:1986\",\"GlossDef\":{\"para\":\"A meta-markup language, used to create markup languages such as DocBook.\",\"GlossSeeAlso\":[\"GML\",\"XML\"]},\"GlossSee\":\"markup\"}}}}}", topic_1);		
+	public String sendMessage() throws InterruptedException, ExecutionException {
+		return kafkaIntegratorSender.sendMessageWithCallback("Rigoberto Giraldo", topic_1);		
 	}
 }

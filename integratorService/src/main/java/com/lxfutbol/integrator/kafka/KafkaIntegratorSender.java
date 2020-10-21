@@ -10,62 +10,37 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.concurrent.ListenableFuture;
 import org.springframework.util.concurrent.ListenableFutureCallback;
 
+import org.springframework.kafka.requestreply.ReplyingKafkaTemplate;
+import org.springframework.kafka.requestreply.RequestReplyFuture;
+
+import java.util.concurrent.ExecutionException;
+
+import org.apache.kafka.clients.consumer.ConsumerRecord;
+import org.apache.kafka.clients.producer.ProducerRecord;
+
 @Component
 public class KafkaIntegratorSender {
 
 	private final Logger LOG = LoggerFactory.getLogger(KafkaIntegratorSender.class);
 
 	private KafkaTemplate<String, String> kafkaTemplate;
-	private RoutingKafkaTemplate routingKafkaTemplate;
-	
-
+	//private RoutingKafkaTemplate routingKafkaTemplate;
+	    
 	@Autowired
-	KafkaIntegratorSender(KafkaTemplate<String, String> kafkaTemplate, RoutingKafkaTemplate routingKafkaTemplate,
-			KafkaTemplate<String, String> userKafkaTemplate) {
-		this.kafkaTemplate = kafkaTemplate;
-		this.routingKafkaTemplate = routingKafkaTemplate;		
-	}
+    private ReplyingKafkaTemplate<String, String, String> replyingKafkaTemplate;
 
-	public void sendMessage(String message, String topicName) {
-		LOG.info("Sending : {}", message);
-		LOG.info("--------------------------------");
-
-		kafkaTemplate.send(topicName, message);
-	}
-
-	void sendWithRoutingTemplate(String message, String topicName) {
-		LOG.info("Sending : {}", message);
-		LOG.info("--------------------------------");
-
-		routingKafkaTemplate.send(topicName, message.getBytes());
-	}
-
-	void sendCustomMessage(String user, String topicName) {
-		LOG.info("Sending Json Serializer : {}", user);
-		LOG.info("--------------------------------");
-
-		kafkaTemplate.send(topicName, user);
-	}
-
-	public void sendMessageWithCallback(String message, String topicName) {
-		LOG.info("Sending : {}", message);
-		LOG.info("---------------------------------");
-
-		ListenableFuture<SendResult<String, String>> future = kafkaTemplate.send(topicName, message);
-
-		future.addCallback(new ListenableFutureCallback<SendResult<String, String>>() {
-			@Override
-			public void onSuccess(SendResult<String, String> result) {
-				LOG.info("Callback returned:" + result.toString());
-				/*LOG.info("Success Callback: [{}] delivered with offset -{}", message,
-						result.getRecordMetadata().offset());*/
-			}
-
-			@Override
-			public void onFailure(Throwable ex) {
-				LOG.warn("Failure Callback: Unable to deliver message [{}]. {}", message, ex.getMessage());
-			}
-		});
+	public String sendMessageWithCallback(String message, String topicName) throws InterruptedException, ExecutionException {
+		
+		ProducerRecord<String, String> record = new ProducerRecord<>(topicName, null, message, message);
+		RequestReplyFuture<String, String, String> future = replyingKafkaTemplate.sendAndReceive(record);
+		ConsumerRecord<String, String> response = future.get();
+		
+		LOG.info("***************************************-");
+		LOG.info("***************************************-");
+		System.out.println(response.value());
+		LOG.info("***************************************-");
+		LOG.info("***************************************-");
+		return response.value();
 	}
 
 }

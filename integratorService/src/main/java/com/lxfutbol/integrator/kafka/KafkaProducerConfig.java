@@ -16,10 +16,13 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.GenericApplicationContext;
+import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory;
 import org.springframework.kafka.core.DefaultKafkaProducerFactory;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.core.ProducerFactory;
 import org.springframework.kafka.core.RoutingKafkaTemplate;
+import org.springframework.kafka.listener.ConcurrentMessageListenerContainer;
+import org.springframework.kafka.requestreply.ReplyingKafkaTemplate;
 import org.springframework.kafka.support.ProducerListener;
 import org.springframework.kafka.support.converter.StringJsonMessageConverter;
 import org.springframework.kafka.support.serializer.JsonSerializer;
@@ -34,59 +37,22 @@ class KafkaProducerConfig {
 
 	@Value("${com.lxfutbol.integrator.kafka.bootstrap-servers}")
 	private String bootstrapServers;
+	
+    @Bean
+    public ReplyingKafkaTemplate<String, String, String> replyingKafkaTemplate(ProducerFactory<String, String> pf,
+            ConcurrentKafkaListenerContainerFactory<String, String> factory) {
+        ConcurrentMessageListenerContainer<String, String> replyContainer = factory.createContainer("reply-integrator-provider");
+        replyContainer.getContainerProperties().setMissingTopicsFatal(false);
+        replyContainer.getContainerProperties().setGroupId("group_id");
+        return new ReplyingKafkaTemplate<>(pf, replyContainer);
+    }	
 
-	@Bean
-	Map<String, Object> producerConfigs() {
-		Map<String, Object> props = new HashMap<>();
-		props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
-		props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
-		props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
-		return props;
-	}
-
-	@Bean
-	ProducerFactory<String, String> producerFactory() {
-		return new DefaultKafkaProducerFactory<>(producerConfigs());
-	}
-
-	@Bean
-	KafkaTemplate<String, String> kafkaTemplate() {
-		KafkaTemplate<String, String> kafkaTemplate = new KafkaTemplate<>(producerFactory());
-		kafkaTemplate.setMessageConverter(new StringJsonMessageConverter());
-		kafkaTemplate.setDefaultTopic("integrator-provider");
-		kafkaTemplate.setProducerListener(new ProducerListener<String, String>() {
-			@Override
-			public void onSuccess(ProducerRecord<String, String> producerRecord, RecordMetadata recordMetadata) {
-				LOG.info("ACK from ProducerListener message: {} offset:  {}", producerRecord.value(),
-						recordMetadata.offset());
-			}
-		});
-		return kafkaTemplate;
-	}
-
-	@Bean
-	public RoutingKafkaTemplate routingTemplate(GenericApplicationContext context) {
-		// ProducerFactory with Bytes serializer
-		Map<String, Object> props = new HashMap<>();
-		
-		// ProducerFactory with String serializer
-		props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
-		props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
-		props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
-		DefaultKafkaProducerFactory<Object, Object> stringPF = new DefaultKafkaProducerFactory<>(props);
-
-		Map<Pattern, ProducerFactory<Object, Object>> map = new LinkedHashMap<>();		
-		map.put(Pattern.compile("todo-.*"), stringPF);
-		return new RoutingKafkaTemplate(map);
-	}
-
-	@Bean
-	public ProducerFactory<String, String> userProducerFactory() {
-		Map<String, Object> configProps = new HashMap<>();
-		configProps.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
-		configProps.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
-		configProps.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, JsonSerializer.class);
-		return new DefaultKafkaProducerFactory<>(configProps);
-	}
-
+    @Bean
+    public KafkaTemplate<String, String> replyTemplate(ProducerFactory<String, String> pf,
+            ConcurrentKafkaListenerContainerFactory<String, String> factory) {
+        KafkaTemplate<String, String> kafkaTemplate = new KafkaTemplate<>(pf);
+        factory.getContainerProperties().setMissingTopicsFatal(false);
+        factory.setReplyTemplate(kafkaTemplate);
+        return kafkaTemplate;
+    }
 }
