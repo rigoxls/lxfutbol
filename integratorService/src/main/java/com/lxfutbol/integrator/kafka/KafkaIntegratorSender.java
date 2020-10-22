@@ -17,6 +17,7 @@ import java.util.concurrent.ExecutionException;
 
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.producer.ProducerRecord;
+import org.codehaus.jettison.json.JSONObject;
 
 @Component
 public class KafkaIntegratorSender {
@@ -24,7 +25,6 @@ public class KafkaIntegratorSender {
 	private final Logger LOG = LoggerFactory.getLogger(KafkaIntegratorSender.class);
 
 	private KafkaTemplate<String, String> kafkaTemplate;
-	//private RoutingKafkaTemplate routingKafkaTemplate;
 	    
 	@Autowired
     private ReplyingKafkaTemplate<String, String, String> replyingKafkaTemplate;
@@ -34,12 +34,10 @@ public class KafkaIntegratorSender {
 		ProducerRecord<String, String> record = new ProducerRecord<>(topicName, null, message, message);
 		RequestReplyFuture<String, String, String> future = replyingKafkaTemplate.sendAndReceive(record);
 		ConsumerRecord<String, String> response = future.get();
+		/*
+		JSONObject template = new JSONObject();
+		template.put("providers", value)*/
 		
-		LOG.info("***************************************-");
-		LOG.info("***************************************-");
-		System.out.println(response.value());
-		LOG.info("***************************************-");
-		LOG.info("***************************************-");
 		return response.value();
 	}
 
