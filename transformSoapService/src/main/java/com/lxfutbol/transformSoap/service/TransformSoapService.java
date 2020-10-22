@@ -31,6 +31,8 @@ public class TransformSoapService {
 		JSONObject jsonObjectMessage = new JSONObject(message); //String entrada
 		JSONArray providers = jsonObjectMessage.optJSONArray("providers"); //Json contenido
 		JSONObject params = jsonObjectMessage.getJSONObject("params");//Json contenido
+		getProviderById(1);
+		getContractById();
 	}
 
 	
@@ -40,6 +42,6 @@ public class TransformSoapService {
 	}
 
 	public void getContractById() {
-		flightClient.getContract();
+		flightClient.bookFlight();
 	}
 }
