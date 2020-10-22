@@ -10,6 +10,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
+
+import com.lxfutbol.transformSoap.repository.ProviderTemplateEntity;
 import com.lxfutbol.transformSoap.repository.TransformSoapEntity;
 import com.lxfutbol.transformSoap.repository.TransformSoapRepository;
 
@@ -21,18 +23,22 @@ public class TransformSoapService {
 	@Autowired
 	private TransformSoapRepository providerRepository;
 	
-	 @Autowired
-	 private FlightClient flightClient;
+	@Autowired
+	private TransportClientService transportClient;
+	
+	@Autowired
+	private RedisService redisService;
 	
 	protected TransformSoapService() {}
 	
 	@KafkaListener(topics = "transform-soap")
 	public void listener(String message) throws JSONException {
-		JSONObject jsonObjectMessage = new JSONObject(message); //String entrada
-		JSONArray providers = jsonObjectMessage.optJSONArray("providers"); //Json contenido
-		JSONObject params = jsonObjectMessage.getJSONObject("params");//Json contenido
-		getProviderById(1);
-		getContractById();
+		getTemplate(1);
+		requestBook();
+		//JSONObject jsonObjectMessage = new JSONObject(message); //String entrada
+		//JSONArray providers = jsonObjectMessage.optJSONArray("providers"); //Json contenido
+		//JSONObject params = jsonObjectMessage.getJSONObject("params");//Json contenido
+
 	}
 
 	
@@ -40,8 +46,16 @@ public class TransformSoapService {
 		Optional<TransformSoapEntity> provider = providerRepository.findById(providerId);
 		return provider;
 	}
+	
+	public void getTemplate(long providerId) throws JSONException{
+		redisService.findById(Long.toString(providerId));
+	}
 
-	public void getContractById() {
-		flightClient.bookFlight();
+	public void requestBook() {
+		transportClient.bookFlight(null);
+	}
+	
+	public void requestSearch() {
+		transportClient.searchFlight(null);
 	}
 }

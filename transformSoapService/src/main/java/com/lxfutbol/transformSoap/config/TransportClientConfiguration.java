@@ -1,4 +1,4 @@
-package com.lxfutbol.transformSoap.service;
+package com.lxfutbol.transformSoap.config;
 
 import feign.codec.Decoder;
 import feign.codec.EncodeException;
