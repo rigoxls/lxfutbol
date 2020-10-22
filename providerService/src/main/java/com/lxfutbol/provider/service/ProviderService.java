@@ -1,8 +1,11 @@
 package com.lxfutbol.provider.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.codehaus.jettison.json.JSONException;
+import org.codehaus.jettison.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -75,12 +78,29 @@ public class ProviderService {
 	
 	/*******************************
 	/* Kafka matters ***************
-	/******************************/
+	/
+	 * @throws JSONException ******************************/	
 	@KafkaListener(topics = "integrator-provider", groupId = "group_id")
 	@SendTo
-	String listenAndReply(String message) {
+	String listenAndReply(String message) throws JSONException {
 		LOG.info("ListenAndReply [{}]", message);
-		return "================================= RESPUESTA DESDE PROVIDER ================================= ";
+		List<ProviderEntity> listProviders = this.listActiveProviders();
+		
+		ArrayList<Object> providersObjs = new ArrayList<Object>();
+		
+		for (ProviderEntity provider : listProviders) {
+			JSONObject providerObj = new JSONObject();
+			long providerId = provider.getId();
+			providerObj.put("id", providerId);
+			providerObj.put("dataType", "xml");
+			providerObj.put("agreement", provider.getAgreement());
+			providersObjs.add(providerObj);
+		}
+		
+		JSONObject template = new JSONObject();
+		template.put("providers", providersObjs);
+				
+		return template.toString();
 	}	
 
 }

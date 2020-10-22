@@ -50,14 +50,6 @@ class KafkaConsumerConfig {
         return factory;
     }
     
-    /*
-    public ConsumerFactory<String, String> userConsumerFactory() {
-        Map<String, Object> props = new HashMap<>();
-        props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
-        props.put(ConsumerConfig.GROUP_ID_CONFIG, "group_id");
-        return new DefaultKafkaConsumerFactory<>(props, new StringDeserializer(), new StringDeserializer());
-    }*/
-    
     @Bean
 	public ConcurrentKafkaListenerContainerFactory<String, String> kafkaJsonListenerContainerFactory() {
 		ConcurrentKafkaListenerContainerFactory<String, String> factory =
