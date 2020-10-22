@@ -37,13 +37,13 @@ public class TransportService {
 	
 	private JSONArray result;
 	
-	@KafkaListener(topics = "integrator-transport", groupId = "integrator-transport-group")
+	@KafkaListener(topics = "integrator-transport", groupId = "integrator_group_1")
 	@SendTo
 	String listenAndReply(String message) {
 		LOG.info("ListenAndReply [{}]", message);
 		processMessage(message);
 		return result.toString();
-		//return "================================= RESPUESTA DESDE PROVIDER ================================= ";
+		//return "================================= RESPUESTA DESDE INTEGRATOR ================================= ";
 	}		
 	
 	private void processMessage(String message) {
@@ -128,8 +128,8 @@ public class TransportService {
 			 json.put("idProvider", idProvider);
 			 json.put("params", params);
 			 
-			 String responseServiceSoa = kafkaTransportSender.sendMessageWithCallback(json.toString(), topic_4);
-			 /*String responseServiceSoa = "{\n" + 
+			 //String responseServiceSoa = kafkaTransportSender.sendMessageWithCallback(json.toString(), topic_4);
+			 String responseServiceSoa = "{\n" + 
 			 		"	\"transport\":{\n" + 
 			 		"		\"idProvider\" = \"1\",\n" + 
 			 		"		\"flight\" = \"avianca\",\n" + 
@@ -140,7 +140,7 @@ public class TransportService {
 			 		"	    \"arrivalDate\" = \"2020-12-15\",\n" + 
 			 		"	    \"price\" = 2000412\n" + 
 			 		"	}    \n" + 
-			 		"}\n";*/
+			 		"}\n";
 			 
 			JSONObject temp = transportUtil.processReplyMessage(responseServiceSoa);
 			temp.put("agreement", Integer.valueOf(agreement));

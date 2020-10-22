@@ -80,7 +80,7 @@ public class ProviderService {
 	/* Kafka matters ***************
 	/
 	 * @throws JSONException ******************************/	
-	@KafkaListener(topics = "integrator-provider", groupId = "group_id")
+	@KafkaListener(topics = "integrator-provider", groupId = "integrator_group_1")
 	@SendTo
 	String listenAndReply(String message) throws JSONException {
 		LOG.info("ListenAndReply [{}]", message);

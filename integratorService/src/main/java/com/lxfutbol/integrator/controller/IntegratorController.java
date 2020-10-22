@@ -3,6 +3,7 @@ package com.lxfutbol.integrator.controller;
 import java.util.Optional;
 import java.util.concurrent.ExecutionException;
 
+import org.codehaus.jettison.json.JSONArray;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,8 +62,12 @@ public class IntegratorController {
 		JSONObject providersObj = new JSONObject(providersString);
 		
 		template.put("params", params);
-		template.put("providers", providersObj);
+		template.put("providers", providersObj.get("providers"));
 		
-		return template.toString();		
+		String transportResponse = kafkaIntegratorSender.sendMessageWithCallback(template.toString(), "integrator-transport");
+		
+		JSONArray response = new JSONArray(transportResponse);
+		
+		return transportResponse;			
 	}
 }
