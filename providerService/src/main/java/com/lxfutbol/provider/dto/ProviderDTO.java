@@ -18,6 +18,7 @@ public class ProviderDTO {
 	public int status;
 	public int agreement;
 	public int type;
+	public String dataType;
 	
 	private String search;	
 	private String book;
@@ -29,7 +30,7 @@ public class ProviderDTO {
 	}
 
 	public ProviderDTO(Long id, String nit, String name, String representative, String email, String address, String phone, 
-			int status, int agreement, int type) {
+			int status, int agreement, int type, String dataType) {
 		super();
 		this.id = id;
 		this.nit = nit;
@@ -41,6 +42,7 @@ public class ProviderDTO {
 		this.status = status;
 		this.agreement = agreement;
 		this.type = type;
+		this.dataType = dataType;
 	}
 
 	public long getId() {
@@ -154,5 +156,13 @@ public class ProviderDTO {
 	public void setNit(String nit) {
 		this.nit = nit;
 	}
-	
+
+	public String getDataType() {
+		return dataType;
+	}
+
+	public void setDataType(String dataType) {
+		this.dataType = dataType;
+	}
+		
 }

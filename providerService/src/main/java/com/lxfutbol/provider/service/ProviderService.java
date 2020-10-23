@@ -100,7 +100,7 @@ public class ProviderService {
 			JSONObject providerObj = new JSONObject();
 			long providerId = provider.getId();
 			providerObj.put("id", providerId);
-			providerObj.put("dataType", "xml");
+			providerObj.put("dataType", provider.getDataType());
 			providerObj.put("agreement", provider.getAgreement());
 			providersObjs.add(providerObj);
 		}

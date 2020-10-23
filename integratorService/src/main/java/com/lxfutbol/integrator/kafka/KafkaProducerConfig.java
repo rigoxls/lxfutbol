@@ -30,15 +30,6 @@ class KafkaProducerConfig {
         replyContainer.getContainerProperties().setGroupId("integrator_group_1");
         return new ReplyingKafkaTemplate<>(pf, replyContainer);
     }
-    /*
-    @Bean
-    public ReplyingKafkaTemplate<String, String, String> replyingKafkaTemplate2(ProducerFactory<String, String> pf,
-            ConcurrentKafkaListenerContainerFactory<String, String> factory) {
-        ConcurrentMessageListenerContainer<String, String> replyContainer = factory.createContainer("reply-integrator-transport");
-        replyContainer.getContainerProperties().setMissingTopicsFatal(false);
-        replyContainer.getContainerProperties().setGroupId("integrator-transport-group");
-        return new ReplyingKafkaTemplate<>(pf, replyContainer);
-    }    */
 
     @Bean
     public KafkaTemplate<String, String> replyTemplate(ProducerFactory<String, String> pf,

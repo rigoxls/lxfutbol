@@ -28,6 +28,7 @@ public class ProviderEntity {
 	private int status;
 	private int agreement;
 	private int type;
+	private String dataType;
 	
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "provider_id")
@@ -46,11 +47,12 @@ public class ProviderEntity {
 		this.status = newProvider.status;
 		this.agreement = newProvider.agreement;
 		this.type = newProvider.type;
+		this.dataType = newProvider.dataType;
 	}	
 	
 	
 	public ProviderEntity(long id, String nit, String name, String representative, String email, String address, String phone,
-			int status, int agreement, int type) {
+			int status, int agreement, int type, String dataType) {
 		super();
 		this.id = id;
 		this.nit = nit;
@@ -62,6 +64,7 @@ public class ProviderEntity {
 		this.status = status;
 		this.agreement = agreement;
 		this.type = type;
+		this.dataType = dataType;
 	}
 	
 	public void setAll(ProviderDTO providerToUpdate) {
@@ -74,6 +77,7 @@ public class ProviderEntity {
 		this.status = providerToUpdate.status;
 		this.agreement = providerToUpdate.agreement;
 		this.type = providerToUpdate.type;
+		this.dataType = providerToUpdate.dataType;
 	}	
 
 	public long getId() {
@@ -162,6 +166,14 @@ public class ProviderEntity {
 
 	public void setNit(String nit) {
 		this.nit = nit;
+	}
+
+	public String getDataType() {
+		return dataType;
+	}
+
+	public void setDataType(String dataType) {
+		this.dataType = dataType;
 	}	
 	
 }
