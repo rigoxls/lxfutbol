@@ -20,7 +20,7 @@ public class RedisService {
     private final String PROVIDER_TEMPLATE_CACHE = "PROVIDER_TEMPLATE";
  
     @Autowired
-    RedisTemplate<String, Object> redisTemplate;
+    RedisTemplate<String, ProviderTemplateEntity> redisTemplate;
     private HashOperations<String, String, ProviderTemplateEntity> hashOperations;
 
     @PostConstruct
