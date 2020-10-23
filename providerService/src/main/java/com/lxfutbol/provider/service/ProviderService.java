@@ -73,7 +73,15 @@ public class ProviderService {
 	
 	public List<ProviderEntity> listActiveProviders() {
 		List<ProviderEntity> providers = providerRepository.findAll();
-		return providers;
+		List<ProviderEntity> activeProviders = new ArrayList<ProviderEntity>();
+		
+		for (ProviderEntity provider : providers) {
+			if(provider.getStatus() == 1) {
+				activeProviders.add(provider);
+			}
+		}
+		
+		return activeProviders;
 	}
 	
 	/*******************************

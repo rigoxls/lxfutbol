@@ -1,19 +1,20 @@
 package com.lxfutbol.integrator.controller;
 
-import java.util.Optional;
 import java.util.concurrent.ExecutionException;
 
-import org.codehaus.jettison.json.JSONArray;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.lxfutbol.integrator.dto.Providerdto;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lxfutbol.integrator.kafka.KafkaIntegratorSender;
 import com.lxfutbol.integrator.service.IntegratorService;
 import com.lxfutbol.integrator.service.ProviderProxyService;
@@ -44,10 +45,11 @@ public class IntegratorController {
 	}*/
 	
 	@GetMapping("/integrator/transport/{departureCity}/{arrivalCity}/{departureDate}")	
-	public String searchTransport(			
+	public ResponseEntity<JsonNode> searchTransport(			
 			@PathVariable String departureCity,
 			@PathVariable String arrivalCity, 
-			@PathVariable String departureDate) throws InterruptedException, ExecutionException, JSONException {
+			@PathVariable String departureDate) 
+					throws InterruptedException, ExecutionException, JSONException, JsonMappingException, JsonProcessingException {
 		
 		JSONObject template = new JSONObject();
 		
@@ -66,8 +68,9 @@ public class IntegratorController {
 		
 		String transportResponse = kafkaIntegratorSender.sendMessageWithCallback(template.toString(), "integrator-transport");
 		
-		JSONArray response = new JSONArray(transportResponse);
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode json = mapper.readTree(transportResponse);
+        return ResponseEntity.ok(json);
 		
-		return transportResponse;			
 	}
 }
