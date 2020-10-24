@@ -15,7 +15,7 @@ public interface LodgingClientService {
     void bookRoom(@RequestBody String template1);
 
 @RequestMapping(method = RequestMethod.POST, value = "/initiate", consumes = "application/xml", produces = "application/xml")
-    void roomService(@RequestBody TemplateDto template);
+    void roomService(@RequestBody String template1);
 
 
 
