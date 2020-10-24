@@ -61,6 +61,17 @@ public class ProviderService {
 		}
 	}
 	
+	public ProviderEntity setProviderStatus(long providerId, int status) throws ProviderNotFoundException {		
+		try {
+			ProviderEntity provider = providerRepository.getOne(providerId);
+			provider.setStatus(status);
+			providerRepository.save(provider);
+			return provider;
+		} catch (Exception err) {
+			throw new ProviderNotFoundException("Provider not found : " + providerId, err);
+		}
+	}	
+	
 	public Void deleteProvider(long providerId) {
 		providerRepository.deleteById(providerId);
 		return null;
