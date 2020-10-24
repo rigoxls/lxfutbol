@@ -120,7 +120,7 @@ public class TransportEntity {
 	@Override
 	public int hashCode() {
 		// TODO Auto-generated method stub
-		return (getArrivalCity() + getDepartureCity() + getArrivalCity() + getArrivalDate()).hashCode();
+		return (getIdProvider() + getDepartureCity() + getArrivalCity() + getDepartureDate() ).hashCode();
 	}
 	
 

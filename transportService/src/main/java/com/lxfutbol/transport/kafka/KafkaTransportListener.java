@@ -1,4 +1,4 @@
-package com.lxfutbol.transport.kafka.Consumer;
+package com.lxfutbol.transport.kafka;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
