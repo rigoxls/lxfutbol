@@ -14,10 +14,12 @@ import com.lxfutbol.transport.repository.TransportEntity;
 public class TransportService {
 
 	private final String TYPE_SOAP = "xml";
-	private final String TYPE_REST = "json";
 
 	@Autowired
-	private TransformSoapProxyService proxyService;
+	private TransformSoapProxyService proxyServiceSaop;
+	
+	@Autowired
+	private TransformRestProxyService proxyServiceRest;
 
 	@Autowired
 	private TransportUtil transportUtil;
@@ -103,21 +105,14 @@ public class TransportService {
 		try {
 			
 			JSONObject param = new JSONObject().put("params", params);
-
+			String responseService = "";
 			if (typeService.equals(TYPE_SOAP)) {
-				proxyService.transfor(Integer.valueOf(idProvider), param.toString());
+				responseService =proxyServiceSaop.transfor(Integer.valueOf(idProvider), param.toString());
 			} else {
+				responseService  = proxyServiceRest.transfor(Integer.valueOf(idProvider), param.toString());
+			}		
 
-			}
-			
-
-			String responseServiceSoa = "{\n" + "	\"transport\":{\n" + "		\"idProvider\" = \"1\",\n"
-					+ "		\"flight\" = \"avianca\",\n" + "		\"class\" = \"2500\",\n"
-					+ "	    \"departureCity\" = \"Bogota\",\n" + "	    \"arrivalCity\" = \"Cartagena\",\n"
-					+ "	    \"departureDate\" = \"2020-12-01\",\n" + "	    \"arrivalDate\" = \"2020-12-15\",\n"
-					+ "	    \"price\" = 2000412\n" + "	}    \n" + "}\n";
-
-			JSONObject temp = transportUtil.processReplyMessage(responseServiceSoa);
+			JSONObject temp = transportUtil.processReplyMessage(responseService);
 			temp.put("agreement", Integer.valueOf(agreement));
 
 			JSONObject resultTransport = new JSONObject();
