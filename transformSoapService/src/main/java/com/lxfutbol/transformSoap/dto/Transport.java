@@ -13,7 +13,5 @@ public class Transport {
 
 	    @XmlAttribute
 	    public String departinDate;
-	    
-	    @XmlValue
-	    public String value;
+
 }
