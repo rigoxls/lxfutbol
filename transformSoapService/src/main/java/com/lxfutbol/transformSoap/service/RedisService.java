@@ -5,6 +5,8 @@ import javax.annotation.PostConstruct;
 import org.codehaus.jettison.json.JSONArray;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
+
+import java.util.Iterator;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.HashOperations;
@@ -31,17 +33,17 @@ public class RedisService {
         hashOperations.put(PROVIDER_TEMPLATE_CACHE, providerTemplateEntity.getId(), providerTemplateEntity);
     }
 
-    public JSONArray findById(final String id) throws JSONException {
+    public JSONObject findById(final String id, String operation) throws JSONException {
         var template = hashOperations.get(PROVIDER_TEMPLATE_CACHE, id);
         JSONObject jsonObjectMessage = new JSONObject(template.getTemplate());
-        var search = jsonObjectMessage.getJSONObject("search");
-        var book = jsonObjectMessage.getJSONObject("book");
-
-        JSONArray jsonTemplate = new JSONArray();
-        jsonTemplate.put(search);
-        jsonTemplate.put(book);
-
-
+        Iterator<?> keys = jsonObjectMessage.keys();
+        var jsonTemplate = new JSONObject();
+        while(keys.hasNext()) {
+            String key = (String)keys.next();
+            if (operation.equals(key)) {
+            	jsonTemplate = jsonObjectMessage.getJSONObject(key);
+			}
+        }
         return jsonTemplate;
     }
 
