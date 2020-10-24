@@ -8,11 +8,9 @@ public class TemplateDto {
 	public List<properties> parameters;
 	public List<properties> mapping;
 	
-	public TemplateDto(String endPoint, List<properties> parameters, List<properties> mapping) {
+	public TemplateDto( List<properties> parameters) {
 		super();
-		this.endPoint = endPoint;
 		this.parameters = parameters;
-		this.mapping = mapping;
 	}
 	public String getEndPoint() {
 		return endPoint;

@@ -10,6 +10,10 @@ import org.w3c.dom.Document;
 
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElementRef;
+import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.soap.MessageFactory;
@@ -52,7 +56,7 @@ public class TransportClientConfiguration {
                 soapMessage.getSOAPBody().addDocument(document);
                 ByteArrayOutputStream bos = new ByteArrayOutputStream();
                 soapMessage.writeTo(bos);
-                template.body(new String(bos.toByteArray()).replaceAll("bookFligthElement", "typ:bookFligthElement"));
+                template.body(new String(bos.toByteArray()).replaceAll("searchFlightElement", "typ:searchFlightElement"));
             } catch (SOAPException | JAXBException | ParserConfigurationException | IOException | TransformerFactoryConfigurationError e) {
                 throw new EncodeException(e.toString(), e);
             }
