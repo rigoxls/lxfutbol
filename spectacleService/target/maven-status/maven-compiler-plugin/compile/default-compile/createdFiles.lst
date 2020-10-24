@@ -1,0 +1,7 @@
+com\lxfutbol\spectacle\repository\SpectacleRepository.class
+com\lxfutbol\spectacle\service\SpectacleService.class
+com\lxfutbol\spectacle\service\ProviderProxyService.class
+com\lxfutbol\spectacle\dto\Providerdto.class
+com\lxfutbol\spectacle\controller\SpectacleController.class
+com\lxfutbol\spectacle\SpectacleApplication.class
+com\lxfutbol\spectacle\repository\SpectacleEntity.class

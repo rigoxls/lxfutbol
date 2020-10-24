@@ -107,7 +107,7 @@ public class TransportService {
 			JSONObject param = new JSONObject().put("params", params);
 			String responseService = "";
 			if (typeService.equals(TYPE_SOAP)) {
-				//responseService =proxyServiceSaop.transfor(Integer.valueOf(idProvider), param.toString());
+				responseService =proxyServiceSaop.transfor(Integer.valueOf(idProvider), param.toString());
 			} else {
 				responseService  = proxyServiceRest.transfor(Integer.valueOf(idProvider), param.toString());
 			}		
