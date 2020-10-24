@@ -41,6 +41,7 @@ public class RedisService {
         jsonTemplate.put(search);
         jsonTemplate.put(book);
 
+
         return jsonTemplate;
     }
 
