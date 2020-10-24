@@ -31,18 +31,17 @@ public class RedisService {
         hashOperations.put(PROVIDER_TEMPLATE_CACHE, providerTemplateEntity.getId(), providerTemplateEntity);
     }
  
-    public JSONObject findById(final String id) throws JSONException {
+    public JSONObject findSearchTemplateById(final String id) throws JSONException {
         var template = hashOperations.get(PROVIDER_TEMPLATE_CACHE, id);
         JSONObject jsonObjectMessage = new JSONObject(template.getTemplate());
-        var search = jsonObjectMessage.getJSONObject("search");
-        var book = jsonObjectMessage.getJSONObject("book");
-        
-        JSONObject jsonTemplate = new JSONObject();
-        jsonTemplate.put("search", search);
-        jsonTemplate.put("book", book);
-        
-        return jsonTemplate;
+        return jsonObjectMessage.getJSONObject("search");
     }
+    
+    public JSONObject findBookTemplateById(final String id) throws JSONException {
+        var template = hashOperations.get(PROVIDER_TEMPLATE_CACHE, id);
+        JSONObject jsonObjectMessage = new JSONObject(template.getTemplate());        
+        return jsonObjectMessage.getJSONObject("book");
+    }    
     
     public Map<String, ProviderTemplateEntity> findAll() {
         return hashOperations.entries(PROVIDER_TEMPLATE_CACHE);

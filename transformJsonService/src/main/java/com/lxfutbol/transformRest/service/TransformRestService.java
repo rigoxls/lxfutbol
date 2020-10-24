@@ -1,5 +1,7 @@
 package com.lxfutbol.transformRest.service;
 
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.codehaus.jettison.json.JSONArray;
@@ -38,32 +40,61 @@ public class TransformRestService {
 		return provider;
 	}
 	
-	public String getProviderData(int idProvider, String stringParams) throws JSONException {	
+	public JSONObject getProviderData(int idProvider, String stringParams) throws JSONException {
+				
+		//Getting params
+		JSONObject params = new JSONObject(stringParams);
+		JSONObject reqParams = (JSONObject) params.get("params");
 		
-		JSONObject providerTemplate = redisService.findById(Long.toString(idProvider));	
+		String operation = (String) reqParams.get("operation");
 		
+		JSONObject template = new JSONObject();
+		
+		switch(operation) {
+		  case "search":
+			  //Getting search template
+			  template = redisService.findSearchTemplateById(Long.toString(idProvider));			  
+		    break;
+		    
+		  case "book":
+			  //Getting book template
+			  template = redisService.findBookTemplateById(Long.toString(idProvider));		  
+			  
+		    break;
+		}		
+		
+		return distpach(template, stringParams);				
+	}
+	
+	public JSONObject distpach(JSONObject template, String stringParams) throws JSONException {
 	    HttpHeaders headers = new HttpHeaders();
 	    headers.setContentType(MediaType.APPLICATION_JSON);
 		
-	    final String uri = "http://localhost:3000/json-provider-1";
+	    String uri = "http://localhost:3000/json-provider-1"; //(String) searchValues.get("endpoint");
 	    
 	    HttpEntity<String> request = new HttpEntity<String>(stringParams, headers);
 	    
-
 	    RestTemplate restTemplate = new RestTemplate();
 	    ResponseEntity<String> result = restTemplate.postForEntity(uri, request, String.class);
+	    JSONObject resParams = new JSONObject(result.getBody());
 	    
-		JSONObject params = new JSONObject(result.getBody());
-		System.out.println("**************************");
-		System.out.println(params);
-
-	    LOG.info("*******************************+");
-	    System.out.println(result);		
-		
-		return stringParams;		
+	    JSONObject mapping = (JSONObject) template.get("mapping");
+	    JSONObject mappingProp = (JSONObject) mapping.get("properties");
+	    	    
+	    JSONArray params = mappingProp.names();
+	    
+	    JSONObject mappedParams = new JSONObject();
+	    
+	    for (int i = 0; i < params.length(); i++) {	    	
+	    	String key = params.getString(i);
+	    	String value = mappingProp.getString(key);	    	
+	    	mappedParams.put(key, resParams.get(value));
+	    }
+	    
+	    return mappedParams;	    
 	}
 	
-	public void mappingAttributes() {
+	public void mappingAttributes(JSONObject resParams) {
 		
 	}
 

@@ -24,8 +24,8 @@ public class TransformRestController {
 	@PostMapping("/transform/{idProvider}")
 	public String transfor(@PathVariable int idProvider, @RequestBody String params) throws JSONException {		
 	
-		transformRestService.getProviderData(idProvider, params);
+		JSONObject result = transformRestService.getProviderData(idProvider, params);
 		
-		return "lo que retorna a nat";
+		return result.toString();
 	}	
 }
