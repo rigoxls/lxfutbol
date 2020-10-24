@@ -1,4 +1,4 @@
-package com.lxfutbol.transformRest.kafka;
+package com.lxfutbol.lodge.kafka;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -6,9 +6,14 @@ import org.springframework.kafka.annotation.KafkaHandler;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
 
+/**
+ * 
+ * @author natalialeon
+ *
+ */
 @Component
-@KafkaListener(id = "class-level", topics = "transform-rest")
-class KafkaClassListener {
+@KafkaListener(id = "class-level", topics = "integrator-lodge")
+class KafkaTransportListener {
 
 	private final Logger LOG = LoggerFactory.getLogger(getClass());
 	
@@ -22,3 +27,4 @@ class KafkaClassListener {
 		LOG.info("ClassLevel KafkaHandler[Default] {}", object);
 	}
 }
+

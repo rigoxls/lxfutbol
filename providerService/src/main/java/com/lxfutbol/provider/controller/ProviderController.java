@@ -101,6 +101,12 @@ public class ProviderController {
 		ProviderEntity provider = providerService.updateProvider(providerToUpdate);
 		return provider;
 	}
+	
+	@PutMapping("/provider/status/{providerId}/{status}")
+	public ProviderEntity statusProvider(@PathVariable long providerId, @PathVariable int status) throws Exception {
+		ProviderEntity provider = providerService.setProviderStatus(providerId, status);
+		return provider;
+	}	
 
 	@DeleteMapping("/user/{providerId}")
 	public ResponseEntity<Void> deleteUser(@PathVariable long providerId) {

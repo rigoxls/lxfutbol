@@ -9,12 +9,14 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.lxfutbol.integrator.dto.Providerdto;
 import com.lxfutbol.integrator.kafka.KafkaIntegratorSender;
 import com.lxfutbol.integrator.service.IntegratorService;
 import com.lxfutbol.integrator.service.ProviderProxyService;
@@ -37,12 +39,12 @@ public class IntegratorController {
 	@Value("${com.lxfutbol.integrator.kafka.topic-1}")
 	private String topic_1;	
 	
-	/*
-	@GetMapping("/provider/get/{providerId}")
-	public Providerdto getProviderById(@PathVariable long providerId) {
-		Providerdto provider = providerProxyService.getProviderById(providerId);
+	
+	@PutMapping("/integrator/status/{providerId}/{status}")
+	public Providerdto statusProviderById(@PathVariable long providerId, @PathVariable int status) {
+		Providerdto provider = providerProxyService.statusProviderById(providerId, status);
 		return provider;
-	}*/
+	}
 	
 	@GetMapping("/integrator/transport/{departureCity}/{arrivalCity}/{departureDate}")	
 	public ResponseEntity<JsonNode> searchTransport(			

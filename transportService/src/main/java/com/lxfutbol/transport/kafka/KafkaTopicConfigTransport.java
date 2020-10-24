@@ -1,4 +1,4 @@
-package com.lxfutbol.transport.kafka.Consumer;
+package com.lxfutbol.transport.kafka;
 
 import org.apache.kafka.clients.admin.NewTopic;
 import org.springframework.beans.factory.annotation.Value;

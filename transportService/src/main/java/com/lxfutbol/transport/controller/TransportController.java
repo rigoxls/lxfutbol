@@ -1,14 +1,6 @@
 package com.lxfutbol.transport.controller;
 
-import java.util.Optional;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.lxfutbol.transport.dto.Providerdto;
-import com.lxfutbol.transport.service.TransportService;
 
 //import com.lxfutbol.integratorDTO;
 
@@ -16,8 +8,6 @@ import com.lxfutbol.transport.service.TransportService;
 @RestController
 public class TransportController {
 
-	@Autowired
-	private TransportService integratorService;
 	
 	
 }

@@ -15,11 +15,11 @@ import com.lxfutbol.transformRest.repository.ProviderTemplateEntity;
 
 @Service
 public class RedisService {
-
+ 
     private final String PROVIDER_TEMPLATE_CACHE = "PROVIDER_TEMPLATE";
-
+ 
     @Autowired
-    RedisTemplate<String, Object> redisTemplate;
+    RedisTemplate<String, ProviderTemplateEntity> redisTemplate;
     private HashOperations<String, String, ProviderTemplateEntity> hashOperations;
 
     @PostConstruct
@@ -30,20 +30,20 @@ public class RedisService {
     public void save(final ProviderTemplateEntity providerTemplateEntity) {
         hashOperations.put(PROVIDER_TEMPLATE_CACHE, providerTemplateEntity.getId(), providerTemplateEntity);
     }
-
+ 
     public JSONArray findById(final String id) throws JSONException {
         var template = hashOperations.get(PROVIDER_TEMPLATE_CACHE, id);
         JSONObject jsonObjectMessage = new JSONObject(template.getTemplate());
         var search = jsonObjectMessage.getJSONObject("search");
         var book = jsonObjectMessage.getJSONObject("book");
-
+        
         JSONArray jsonTemplate = new JSONArray();
         jsonTemplate.put(search);
         jsonTemplate.put(book);
-
+        
         return jsonTemplate;
     }
-
+    
     public Map<String, ProviderTemplateEntity> findAll() {
         return hashOperations.entries(PROVIDER_TEMPLATE_CACHE);
     }
