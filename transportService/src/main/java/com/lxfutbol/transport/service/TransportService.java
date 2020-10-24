@@ -101,11 +101,11 @@ public class TransportService {
 	private void invocationTransform(String idProvider, JSONObject params, String agreement, String typeService) {
 		LOG.info("Entra a invocationServicesSoa: ");
 		try {
-
-			JSONArray list = params.getJSONArray("params");
+			
+			JSONObject param = new JSONObject().put("params", params);
 
 			if (typeService.equals(TYPE_SOAP)) {
-				proxyService.transfor(Integer.valueOf(idProvider), params.toString());
+				proxyService.transfor(Integer.valueOf(idProvider), param.toString());
 			} else {
 
 			}
