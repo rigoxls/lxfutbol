@@ -41,10 +41,10 @@ public class LodgeService {
 	private LodgeRepository lodgeRepository;
 	
 	@Autowired
-	private TransformRestProxyService proxyServiceSoap;
+	private TransformRestProxyService proxyServiceRest;
 	
 	@Autowired
-	private TransformSoapProxyService proxyServiceRest;
+	private TransformSoapProxyService proxyServiceSoap;
 
 	private void processMessage(String message) {
 
@@ -123,7 +123,7 @@ public class LodgeService {
 			JSONObject param = new JSONObject().put("params", params);
 			String responseService = "";
 			if (typeService.equals(TYPE_SOAP)) {
-				responseService =proxyServiceSoap.transforLodge(Integer.valueOf(idProvider), param.toString());
+				//responseService =proxyServiceSoap.transforLodge(Integer.valueOf(idProvider), param.toString());
 			} else {
 				responseService  = proxyServiceRest.transforLodge(Integer.valueOf(idProvider), param.toString());
 			}	

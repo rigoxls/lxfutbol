@@ -56,14 +56,14 @@ public class ProviderController {
 					template.put("search", searchTemplate.get("search"));
 					template.put("book", bookTemplate.get("book"));
 					template.put("cancelBook", cancelTemplate.get("cancelBook"));
-					System.out.println(template);
-					
+										
 					ProviderTemplateEntity providerTemplate = new ProviderTemplateEntity();
 					providerTemplate.setId(Long.toString(provider.getId()));
 					providerTemplate.setTemplate(template.toString());
 					redisService.save(providerTemplate);	
 										
-					System.out.println(redisService.findById(Long.toString(provider.getId())));					
+					System.out.println("*********************************");
+					System.out.println(provider.getId());					
 					
 				} catch(Exception  e) {
 					System.out.println(e.getMessage());

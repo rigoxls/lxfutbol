@@ -70,7 +70,7 @@ public class TransformRestService {
 	    HttpHeaders headers = new HttpHeaders();
 	    headers.setContentType(MediaType.APPLICATION_JSON);
 		
-	    String uri = "http://localhost:3000/json-provider-1"; //(String) searchValues.get("endpoint");
+	    String uri = (String) template.get("endpoint");
 	    
 	    HttpEntity<String> request = new HttpEntity<String>(stringParams, headers);
 	    

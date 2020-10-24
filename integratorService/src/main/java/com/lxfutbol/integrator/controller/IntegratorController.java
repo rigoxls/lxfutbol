@@ -9,7 +9,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -47,7 +49,7 @@ public class IntegratorController {
 	}
 	
 	@GetMapping("/integrator/transport/{departureCity}/{arrivalCity}/{departureDate}")	
-	public ResponseEntity<JsonNode> searchTransport(			
+	public ResponseEntity<JsonNode> searchTransport(
 			@PathVariable String departureCity,
 			@PathVariable String arrivalCity, 
 			@PathVariable String departureDate) 
@@ -75,4 +77,37 @@ public class IntegratorController {
         return ResponseEntity.ok(json);
 		
 	}
+	
+	@PostMapping("/integrator/lodge")	
+	public ResponseEntity<JsonNode> searchLodge(@RequestBody String request) 
+					throws InterruptedException, ExecutionException, JSONException, JsonMappingException, JsonProcessingException {
+		
+		JSONObject data = (JSONObject) new JSONObject(request).getJSONObject("data");
+		
+		JSONObject template = new JSONObject();
+		
+		JSONObject params = new JSONObject();
+		params.put("operation", "search");
+		params.put("city", data.get("city"));
+		params.put("country", data.get("country"));
+		params.put("checkIn", data.get("checkIn"));
+		params.put("checkOut", data.get("checkOut"));
+		params.put("rooms", data.get("room"));
+		params.put("type", data.get("type"));
+
+		
+		String providersString = kafkaIntegratorSender.sendMessageWithCallback("request_providers", topic_1);
+		
+		JSONObject providersObj = new JSONObject(providersString);
+		
+		template.put("params", params);
+		template.put("providers", providersObj.get("providers"));
+		
+		String transportResponse = kafkaIntegratorSender.sendMessageWithCallback(template.toString(), "integrator-lodge");
+		
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode json = mapper.readTree(transportResponse);
+        return ResponseEntity.ok(json);
+		
+	}	
 }

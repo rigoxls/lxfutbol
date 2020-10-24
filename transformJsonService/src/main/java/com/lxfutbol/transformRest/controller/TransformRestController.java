@@ -25,7 +25,20 @@ public class TransformRestController {
 	public String transfor(@PathVariable int idProvider, @RequestBody String params) throws JSONException {		
 	
 		JSONObject result = transformRestService.getProviderData(idProvider, params);
+	    
+	    JSONObject transportResult = new JSONObject();
+	    transportResult.put("transport", result);		
 		
-		return result.toString();
+		return transportResult.toString();
+	}
+	
+	@PostMapping("/transformLodge/{idProvider}")
+	public String transforLodge(@PathVariable int idProvider, @RequestBody String params) throws JSONException {		
+	
+		JSONObject result = transformRestService.getProviderData(idProvider, params);
+	    JSONObject lodgeResult = new JSONObject();
+	    lodgeResult.put("lodge", result);	
+		
+		return lodgeResult.toString();
 	}	
 }
