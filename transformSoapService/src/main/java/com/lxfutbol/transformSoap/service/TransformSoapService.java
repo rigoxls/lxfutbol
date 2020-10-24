@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import com.lxfutbol.transformSoap.dto.TemplateDto;
 import com.lxfutbol.transformSoap.dto.Transport;
+import com.lxfutbol.transformSoap.dto.TransportResult;
 import com.lxfutbol.transformSoap.dto.properties;
 import com.lxfutbol.transformSoap.repository.ProviderTemplateEntity;
 import com.lxfutbol.transformSoap.repository.TransformSoapEntity;
@@ -48,35 +49,21 @@ public class TransformSoapService {
 		String operation = parameters.get("operation").toString();
 		//JSONObject template = (JSONObject) getTemplate(idProvider,operation);
 		String type = "Transport";
-		String template1 = "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:typ=\"http://services.aa.com/types/\">\r\n" + 
-				"   <soapenv:Header/>\r\n" + 
-				"   <soapenv:Body>\r\n" + 
-				"      <typ:searchFlightElement>\r\n" + 
-				"         <typ:departinCity>Bogotá</typ:departinCity>\r\n" + 
-				"         <typ:arrivingCity>Cartagena</typ:arrivingCity>\r\n" + 
-				"         <typ:departinDate>2020-10-19T00:00:00.000-05:00</typ:departinDate>\r\n" + 
-				"         <typ:cabin>8E</typ:cabin>\r\n" + 
-				"         <typ:PromotionCode xsi:nil=\"true\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"/>\r\n" + 
-				"      </typ:searchFlightElement>\r\n" + 
-				"   </soapenv:Body>\r\n" + 
-				"</soapenv:Envelope>";
-		
-		checkProvider(type,template1,operation);
-
+		checkProvider(type,operation,parameters);
 	}
 
 
-	private void checkProvider(String type, String templatetype, String operation) {
+	private void checkProvider(String type, String operation,JSONObject parameters) {
 		
 		if (type == "Transport") {
 			
 			switch (operation) {
 			case "search":
-				requestSearch(templatetype);
+				requestSearch(parameters);
 				break;
 
 			case "book":
-				requestBook(templatetype);
+				requestBook(parameters);
 				break;
 			}
 			
@@ -84,11 +71,11 @@ public class TransformSoapService {
 			
 			switch (operation) {
 			case "search":
-				requestRoom(templatetype);
+				requestRoom(parameters);
 				break;
 
 			case "book":
-				requestService(templatetype);
+				requestService(parameters);
 				break;
 			}
 		} 
@@ -106,21 +93,22 @@ public class TransformSoapService {
 		return redisService.findById(Long.toString(providerId), operation);
 	}
 
-	public void requestBook(String template1) {
-		transportClient.bookFlight();
-	}
-	
-	public void requestSearch(String template1) {
+	public void requestBook(JSONObject parameters) {
 		Transport trasport = new Transport();
-		transportClient.searchFlight(trasport);
+		transportClient.bookFlight(trasport);
 	}
 	
-	public void requestRoom(String template1) {
-		lodgingClient.bookRoom(template1);
+	public void requestSearch(JSONObject parameters) {
+		Transport trasnport = new Transport();
+		transportClient.searchFlight(trasnport); 
 	}
 	
-	public void requestService(String template1) {
-		lodgingClient.roomService(template1);
+	public void requestRoom(JSONObject parameters) {
+		lodgingClient.bookRoom(null);
+	}
+	
+	public void requestService(JSONObject parameters) {
+		lodgingClient.roomService(null);
 	}
 	
 
