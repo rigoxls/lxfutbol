@@ -2,10 +2,19 @@ package com.lxfutbol.transformSoap.controller;
 
 import java.util.Optional;
 
+import javax.websocket.server.PathParam;
+import javax.ws.rs.POST;
+
 import org.codehaus.jettison.json.JSONException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import com.lxfutbol.transformSoap.dto.Providerdto;
 import com.lxfutbol.transformSoap.repository.ProviderTemplateEntity;
@@ -20,6 +29,8 @@ import com.lxfutbol.transformSoap.service.TransformSoapService;
 @RestController
 public class TransformSoapController {
 	
+	private final Logger LOG = LoggerFactory.getLogger(TransformSoapController.class);
+
 	@Autowired
 	private TransformSoapService transformSoapService;	
 
@@ -37,5 +48,22 @@ public class TransformSoapController {
 		redisService.findById("1");
 		return provider;
 	}
+	
+	@PostMapping("/transform/{idProvider}")
+	public String transfor(@PathVariable int idProvider, @RequestBody String menssage) {
+		
+		LOG.info("*******************************+");
+		LOG.info(String.valueOf(idProvider));
+		LOG.info(menssage);
+		LOG.info("*******************************+");
+		
+		return "{\\n\" + \"	\\\"transport\\\":{\\n\" + \"		\\\"idProvider\\\" = \\\"1\\\",\\n\"\n" + 
+				"					+ \"		\\\"flight\\\" = \\\"avianca\\\",\\n\" + \"		\\\"class\\\" = \\\"2500\\\",\\n\"\n" + 
+				"					+ \"	    \\\"departureCity\\\" = \\\"Bogota\\\",\\n\" + \"	    \\\"arrivalCity\\\" = \\\"Cartagena\\\",\\n\"\n" + 
+				"					+ \"	    \\\"departureDate\\\" = \\\"2020-12-01\\\",\\n\" + \"	    \\\"arrivalDate\\\" = \\\"2020-12-15\\\",\\n\"\n" + 
+				"					+ \"	    \\\"price\\\" = 2000412\\n\" + \"	}    \\n\" + \"}\\n";
+	}
+	
+	
 	
 }
