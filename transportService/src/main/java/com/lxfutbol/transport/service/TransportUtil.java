@@ -103,7 +103,7 @@ public class TransportUtil {
 			Query q = entityManager
 					.createNativeQuery("SELECT id_provider, flight, class_flight, departure_city, arrival_city,"
 							+ " departure_date, arrival_date, price"
-							+ " FROM transport where hash_code = :hash or date_update_transport between :date and :date2");
+							+ " FROM transport where hash_code = :hash  and  date_update_transport between :date and :date2");
 			q.setParameter("hash", hashCode);
 			q.setParameter("date", dateFormat);
 			q.setParameter("date2", dateFormat2);
