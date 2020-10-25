@@ -16,8 +16,8 @@ import com.lxfutbol.transformSoap.dto.TransportResult;
 @FeignClient(name="searchFlight", url="${externalServer.url}", configuration=TransportClientConfiguration.class)
 public interface TransportClientService {
 
-	@RequestMapping(method = RequestMethod.POST, value = "{operation.value}", consumes =  "text/xml", produces =  "text/xml")
-	@ResponseBody List<Transport> bookFlight(@RequestBody Transport transport );
+	@RequestMapping(method = RequestMethod.POST, value = "/bookFlight", consumes =  "text/xml", produces =  "text/xml")
+	void bookFlight(@RequestBody Transport transport );
 	
 	
 	@RequestMapping(method = RequestMethod.POST, value = "/searchFlight", consumes = "text/xml", produces = "text/xml")
