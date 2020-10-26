@@ -63,7 +63,7 @@ public class IntegratorController {
 		params.put("arrivalCity", arrivalCity);
 		params.put("departureDate", departureDate);
 		
-		String providersString = kafkaIntegratorSender.sendMessageWithCallback("request_providers", topic_1);
+		String providersString = kafkaIntegratorSender.sendMessageWithCallback("1", topic_1);
 		
 		JSONObject providersObj = new JSONObject(providersString);
 		
@@ -96,7 +96,7 @@ public class IntegratorController {
 		params.put("type", data.get("type"));
 
 		
-		String providersString = kafkaIntegratorSender.sendMessageWithCallback("request_providers", topic_1);
+		String providersString = kafkaIntegratorSender.sendMessageWithCallback("2", topic_1);
 		
 		JSONObject providersObj = new JSONObject(providersString);
 		
@@ -109,5 +109,36 @@ public class IntegratorController {
         JsonNode json = mapper.readTree(transportResponse);
         return ResponseEntity.ok(json);
 		
-	}	
+	}
+	
+	@PostMapping("/integrator/spectacle")	
+	public ResponseEntity<JsonNode> searchEspectacle(@RequestBody String request) 
+					throws InterruptedException, ExecutionException, JSONException, JsonMappingException, JsonProcessingException {
+		
+		JSONObject data = (JSONObject) new JSONObject(request).getJSONObject("data");
+		
+		JSONObject template = new JSONObject();
+		
+		JSONObject params = new JSONObject();
+		params.put("operation", "search");
+		params.put("type", data.get("type"));
+		params.put("date", data.get("date"));
+		params.put("dateEnd", data.get("dateEnd"));
+		params.put("city", data.get("city"));
+		params.put("country", data.get("country"));
+		
+		String providersString = kafkaIntegratorSender.sendMessageWithCallback("3", topic_1);
+		
+		JSONObject providersObj = new JSONObject(providersString);
+		
+		template.put("params", params);
+		template.put("providers", providersObj.get("providers"));
+		
+		String transportResponse = kafkaIntegratorSender.sendMessageWithCallback(template.toString(), "integrator-spectacle");
+		
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode json = mapper.readTree(transportResponse);
+        return ResponseEntity.ok(json);
+		
+	}		
 }

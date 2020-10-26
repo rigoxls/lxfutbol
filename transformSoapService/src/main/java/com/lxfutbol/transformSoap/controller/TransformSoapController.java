@@ -40,28 +40,13 @@ public class TransformSoapController {
 	@GetMapping("/provider/get/{providerId}")
 	public Optional<TransformSoapEntity> getProviderById(@PathVariable long providerId) throws JSONException {
 		Optional<TransformSoapEntity> provider = transformSoapService.getProviderById(providerId);
-		ProviderTemplateEntity em = new ProviderTemplateEntity();
-		em.setId("1");
-		em.setTemplate("{\"search\":{\"endpoint\":\"http://192.168.1.100:8888/TuresBalonProviders-AA-context-root/AAFlightsServiceSoapHttpPort\",\"parameters\":[{\"root\":\"/searchFlightElement\",\"name\":\"departinCity\",\"type\":\"string\",\"isNull\":true},{\"root\":\"/searchFlightElement\",\"name\":\"arrivingCity\",\"type\":\"string\",\"isNull\":true},{\"root\":\"/searchFlightElement\",\"name\":\"departinDate\",\"type\":\"dateTime\",\"isNull\":true},{\"root\":\"/searchFlightElement\",\"name\":\"cabin\",\"type\":\"string\",\"isNull\":true},{\"root\":\"/searchFlightElement\",\"name\":\"PromotionCode\",\"type\":\"string\",\"isNull\":true}],\"mapping\":{\"properties\":{\"departureDate\":\"/Flight/departinDate\",\"arrivalDate\":\"/Flight/arrivingDate\",\"departureCity\":\"/Flight/departinCity\",\"flight\":\"/Flight/number\",\"class\":\"\",\"arrivalCity\":\"/Flight/arrivingCity\",\"price\":\"/Flight/price\",\"cabin\":\"/Flight/cabin\",\"meals\":\"/Flight/meals\"}}},\"book\":{\"endpoint\":\"http://192.168.1.100:8888/TuresBalonProviders-AA-context-root/AAFlightsServiceSoapHttpPort\",\"parameters\":[{\"name\":\"f\",\"type\":\"Flight\",\"isNull\":true,\"properties\":[{\"root\":\"/searchFlightElement\",\"name\":\"departinCity\",\"type\":\"string\",\"isNull\":true},{\"root\":\"/searchFlightElement\",\"name\":\"arrivingCity\",\"type\":\"string\",\"isNull\":true},{\"root\":\"/searchFlightElement\",\"name\":\"departinDate\",\"type\":\"dateTime\",\"isNull\":true},{\"root\":\"/searchFlightElement\",\"name\":\"cabin\",\"type\":\"string\",\"isNull\":true},{\"root\":\"/searchFlightElement\",\"name\":\"PromotionCode\",\"type\":\"string\",\"isNull\":true}]}],\"mapping\":{\"properties\":{\"result\":\"/\"}}},\"cancelBook\":{\"endpoint\":\"\",\"parameters\":[],\"mapping\":{\"properties\":{}}}}");		
-		redisService.save(em);
 		return provider;
 	}
 	
 	@PostMapping("/transform/{idProvider}")
-	public String transform(@PathVariable int idProvider, @RequestBody String menssage) throws JSONException {
-		
-		LOG.info("*******************************+");
-		LOG.info(String.valueOf(idProvider));
-		LOG.info(menssage);
-		LOG.info("*******************************+");
-		
-		transformSoapService.listener(idProvider,menssage);
-		
-		return "{\\n\" + \"	\\\"transport\\\":{\\n\" + \"		\\\"idProvider\\\" = \\\"1\\\",\\n\"\n" + 
-				"					+ \"		\\\"flight\\\" = \\\"avianca\\\",\\n\" + \"		\\\"class\\\" = \\\"2500\\\",\\n\"\n" + 
-				"					+ \"	    \\\"departureCity\\\" = \\\"Bogota\\\",\\n\" + \"	    \\\"arrivalCity\\\" = \\\"Cartagena\\\",\\n\"\n" + 
-				"					+ \"	    \\\"departureDate\\\" = \\\"2020-12-01\\\",\\n\" + \"	    \\\"arrivalDate\\\" = \\\"2020-12-15\\\",\\n\"\n" + 
-				"					+ \"	    \\\"price\\\" = 2000412\\n\" + \"	}    \\n\" + \"}\\n";
+	public String transform(@PathVariable int idProvider, @RequestBody String menssage) throws JSONException {	
+
+		return transformSoapService.listener(idProvider,menssage);
 	}
 	
 	

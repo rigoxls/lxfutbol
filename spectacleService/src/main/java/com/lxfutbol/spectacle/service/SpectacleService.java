@@ -37,10 +37,10 @@ public class SpectacleService {
 
 	
 	@Autowired
-	private TransformRestProxyService proxyServiceSoap;
+	private TransformRestProxyService proxyServiceRest;
 	
 	@Autowired
-	private TransformSoapProxyService proxyServiceRest;
+	private TransformSoapProxyService proxyServiceSoap;
 	
 	@Autowired
 	private SpectacleRepository spectacleRepository;
@@ -73,7 +73,7 @@ public class SpectacleService {
 			JSONObject param = new JSONObject().put("params", params);
 			String responseService = "";
 			if (typeService.equals(TYPE_SOAP)) {
-				responseService =proxyServiceSoap.transformSpectacle(Integer.valueOf(idProvider), param.toString());
+				//responseService =proxyServiceSoap.transformSpectacle(Integer.valueOf(idProvider), param.toString());
 			} else {
 				responseService  = proxyServiceRest.transformSpectacle(Integer.valueOf(idProvider), param.toString());
 			}	
