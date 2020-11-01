@@ -1,0 +1,105 @@
+<app-header-one></app-header-one>
+
+<div class="page-title-area page-title-bg1">
+    <div class="container">
+        <div class="page-title-content">
+            <h2>Resumen de cotización</h2>
+        </div>
+    </div>
+</div>
+
+
+<ng-template #content let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Generar cotización</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <p>¿Está seguro que desea generar una cotización con este paquete y proceder al pago?</p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="c('Cross click')">Cancelar</button>
+        <button type="button" class="btn btn-outline-dark" (click)="cotizar()">Ir a pagar</button>
+    </div>
+</ng-template>
+
+<section class="cart-area ptb-100">
+    <div class="container">
+        <form>
+            <div class="cart-table table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col">Item</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Valor unitario</th>
+                            <th scope="col">Personas</th>
+                            <th scope="col">Total</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr *ngFor="let item of cotizacion.seleccionProvedores">
+                            <td class="product-thumbnail">
+                                <a routerLink="/products-details">
+                                    <img src="assets/img/cotizacion_font.jpg" alt="item">
+                                </a>
+                            </td> 
+                            
+                            <td class="product-name">
+                                <a routerLink="/products-details">{{item.nombre}}</a>
+                            </td>
+
+                            <td class="product-price">
+                                <span class="unit-amount">{{item.costoPersona | currency: "COP ":false:"2.0"}}</span>
+                            </td>
+
+                            <td class="product-quantity">
+                                <div class="input-counter">
+                                   
+                                    <input type="text" readonly="readonly" min="1" value="{{cotizacion.numPersonas}}">
+                            
+                                </div>
+                            </td>
+
+                            <td class="product-subtotal">
+                                <span class="subtotal-amount">{{item.costoPersona * cotizacion.numPersonas | currency: "COP ":false:"2.0"}}</span>
+
+                                <!-- <a routerLink="/cart" class="remove"><i class='bx bx-trash'></i></a> -->
+                            </td>
+
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="cart-buttons">
+                <div class="row align-items-center">
+                    <div class="col-lg-7 col-sm-7 col-md-7">
+                        <!-- <a routerLink="/listing-details" class="default-btn">Descartar</a> -->
+                    </div>
+
+                    <!-- <div class="col-lg-5 col-sm-5 col-md-5 text-right">
+                        <a routerLink="/cart" class="default-btn">Update Cart</a>
+                    </div> -->
+                </div>
+            </div>
+
+            <div class="cart-totals">
+                <h3>Total cotización</h3>
+
+                <ul>
+                    <li>Subtotal <span> {{ subtotal | currency: "COP ":false:"2.0" }}</span></li>
+                    <li>IVA <span>{{ iva | currency: "COP ":false:"2.0" }}</span></li>
+                    <li>Total <span>{{ total | currency: "COP ":false:"2.0" }}</span></li>
+                </ul>
+                <button type="button" (click)="open(content)" class="default-btn success">Cotizar</button>
+                <a routerLink="/" class="default-btn danger">Descartar</a>
+                <app-toast-container aria-live="polite" aria-atomic="true"></app-toast-container>
+
+            </div>
+        </form>
+    </div>
+</section>

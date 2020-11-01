@@ -1,0 +1,230 @@
+<app-header-one></app-header-one>
+
+<div class="page-title-area page-title-bg2">
+    <div class="container">
+        <div class="page-title-content">
+            <h2>Checkout</h2>
+        </div>
+    </div>
+</div>
+
+<section class="checkout-area ptb-100">
+    <div class="container">
+        <div  *ngIf="!loggedIn" class="user-actions">
+            <i class='bx bx-log-in'></i>
+            <span>Retornar a la página principal? <a routerLink="/login">Clic para iniciar sesión</a></span>
+        </div>
+
+        <form  [formGroup]="frmGroup">
+            <div class="row">
+                <div class="col-lg-6 col-md-12">
+                    <div class="billing-details">
+                        <h3 class="title">Detalles de facturación</h3>
+
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12">
+                                <div class="form-group">
+                                    <label>País <span class="required">*</span></label>
+
+                                    <div class="select-box">
+                                        <select class="form-control">
+                                            <option>Colombia</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6 col-md-6">
+                                <div class="form-group">
+                                    <label>Nombres <span class="required">*</span></label>
+                                    <input type="text"  formControlName="txtName" class="form-control">
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6 col-md-6">
+                                <div class="form-group">
+                                    <label>Apellidos <span class="required">*</span></label>
+                                    <input type="text"  formControlName="txtLastName" class="form-control">
+                                </div>
+                            </div>
+
+                            <!-- <div class="col-lg-12 col-md-12">
+                                <div class="form-group">
+                                    <label>Company Name</label>
+                                    <input type="text" class="form-control">
+                                </div>
+                            </div> -->
+
+                            <div class="col-lg-12 col-md-6">
+                                <div class="form-group">
+                                    <label>Dirección <span class="required">*</span></label>
+                                    <input type="text"  formControlName="txtAddress" class="form-control">
+                                </div>
+                            </div>
+
+                            <div class="col-lg-12 col-md-6">
+                                <div class="form-group">
+                                    <label>Ciudad / Municipio <span class="required">*</span></label>
+                                    <input type="text"   formControlName="txtCity" class="form-control">
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6 col-md-6">
+                                <div class="form-group">
+                                    <label>Estado / Departamento <span class="required">*</span></label>
+                                    <input type="text"  formControlName="txtState" class="form-control">
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6 col-md-6">
+                                <div class="form-group">
+                                    <label>Correo Electrónico <span class="required">*</span></label>
+                                    <input type="email"  formControlName="txtEmail" class="form-control">
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6 col-md-6">
+                                <div class="form-group">
+                                    <label>Teléfono <span class="required">*</span></label>
+                                    <input type="text"  formControlName="txtPhone" class="form-control">
+                                </div>
+                            </div>
+
+                            <div *ngIf="!loggedIn" class="col-lg-12 col-md-12">
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="create-an-account">
+                                    <label class="form-check-label" for="create-an-account">Crear una cuenta?</label>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-12 col-md-12">
+                                <!-- <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="ship-different-address">
+                                    <label class="form-check-label" for="ship-different-address">Ship to a different address?</label>
+                                </div> -->
+                            </div>
+
+                            <div class="col-lg-12 col-md-12">
+                                <div class="form-group">
+                                    <textarea name="notes" id="notes" cols="30" rows="5" placeholder="Notas adicionales" class="form-control"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 col-md-12">
+                    <div class="order-details">
+                        <h3 class="title">Su cotización</h3>
+
+                        <div class="order-table table-responsive">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Product Name</th>
+                                        <th scope="col">Total</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <tr>
+                                        <td class="product-name">
+                                            <a routerLink="/products-details">Ham Salad</a>
+                                        </td>
+
+                                        <td class="product-total">
+                                            <span class="subtotal-amount">$20.00</span>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="product-name">
+                                            <a routerLink="/products-details">Fresh Cappuccino</a>
+                                        </td>
+
+                                        <td class="product-total">
+                                            <span class="subtotal-amount">$25.00</span>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="product-name">
+                                            <a routerLink="/products-details">Honey Cake</a>
+                                        </td>
+
+                                        <td class="product-total">
+                                            <span class="subtotal-amount">$11.50</span>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="product-name">
+                                            <a routerLink="/products-details">Delicious Dish</a>
+                                        </td>
+
+                                        <td class="product-total">
+                                            <span class="subtotal-amount">$50.00</span>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="order-subtotal">
+                                            <span>Cart Subtotal</span>
+                                        </td>
+
+                                        <td class="order-subtotal-price">
+                                            <span class="order-subtotal-amount">$106.00</span>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="order-shipping">
+                                            <span>Shipping</span>
+                                        </td>
+
+                                        <td class="shipping-price">
+                                            <span>$4.00</span>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="total-price">
+                                            <span>Order Total</span>
+                                        </td>
+
+                                        <td class="product-subtotal">
+                                            <span class="subtotal-amount">$110.00</span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="payment-box">
+                            <div class="payment-method">
+                                <p>
+                                    <input type="radio" id="direct-bank-transfer" name="radio-group" checked>
+                                    <label for="direct-bank-transfer">Transferencia bancaria</label>
+                                    Realice su pago directamente en nuestra cuenta bancaria. Utilice su ID de cotización como referencia de pago. Su reserva no se enviará hasta que los fondos se hayan liquidado en nuestra cuenta.
+                                </p>
+                                <p>
+                                    <input type="radio" id="paypal" name="radio-group">
+                                    <label for="paypal">PayU</label>
+                                </p>
+                                <p>
+                                    <input type="radio" id="cash-on-delivery" name="radio-group">
+                                    <label for="cash-on-delivery">Pago en sitio</label>
+                                </p>
+                            </div>
+
+                            <button (click)="simularPago()" class="default-btn">Realizar pago</button>
+                            <br>
+                            <ngb-progressbar  value="1000" *ngIf="isPaying" type="sucess"></ngb-progressbar>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>

@@ -1,0 +1,62 @@
+<div class="breadcrumb-area">
+    <h1>Servicios de Hospedaje</h1>
+
+    <ol class="breadcrumb">
+        <li class="item"><a routerLink="/"><i class='bx bx-home-alt'></i></a></li>
+
+        <li class="item">Dashboard</li>
+
+        <li class="item">Servicios de Hospedaje</li>
+    </ol>
+</div>
+
+<div class="alert hidden" [ngClass]="{'hidden': !showMessage, 'alert-danger': errorMessage, 'alert-success': !errorMessage}">
+    {{ message }}
+</div>
+
+<ng-template #content let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Eliminar Servicio de Hospedaje</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <p>¿Está seguro que desea eliminar el servicio de Hospedaje seleccionado ?</p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="c('Cross click')">Cancelar</button>
+        <button type="button" class="btn btn-outline-dark" (click)="delete()">Eliminar</button>
+    </div>
+</ng-template>
+
+<div class="todo-content-area mt-20">
+    <div class="content-right">
+        <div class="todo-area">
+            <div class="todo-list-wrapper">
+                <div class="todo-list">
+                    <div class="todo-list-header d-flex align-items-center">
+
+                    </div>
+
+                    <ul class="list-wrapper" data-simplebar>
+                        <li class="todo-list-item" *ngFor="let lodging of lodgings">
+                            <div class="todo-item-title">
+                                <h3>{{lodging['nombre']}}</h3>
+                                <p>Dirección: {{lodging['direccion']}}</p>
+                                <p>Teléfono: {{lodging['telefono']}}</p>
+                            </div>
+
+                            <div class="todo-item-action">
+                                <a routerLink="/lodging-edit/{{lodging['id_hospedaje']}}" class="edit"><i class='bx bx-edit-alt'></i></a>
+                                <a routerLink="javascript:void(0)" (click)="open(content, lodging['id_hospedaje'])" class="delete"><i class='bx bx-trash'></i></a>
+                            </div>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

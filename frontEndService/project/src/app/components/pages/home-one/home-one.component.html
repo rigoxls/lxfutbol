@@ -1,0 +1,120 @@
+<app-header-one></app-header-one>
+
+<div class="home-area">
+    <div class="home-slides owl-carousel owl-theme">
+        <div class="hero-banner banner-bg2"></div>
+        <div class="hero-banner banner-bg3"></div>
+        <div class="hero-banner banner-bg4"></div>
+    </div>
+
+    <div class="main-banner-content">
+        <h1><span>Descubre</span> Sitios Maravillosos</h1>
+
+        <div class="main-search-wrap">
+            <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                <div class="row">
+                    <div class="col-lg-5 col-md-12">
+                        <div class="form-group">
+                            <label><i class='bx bx-walk'></i></label>
+                            <input type="text" formControlName="searchActivity" placeholder="¿ Qué sitio quieres descubrir ?">
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6">
+                        <div class="form-group">
+                            <label><i class='bx bx-world'></i></label>
+                            <select formControlName="searchPlace" >
+                                <option selected="selected">Lugares</option>
+                                <option *ngFor="let place of places" [ngValue]="place">{{place.nombreDepartamento}}</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Inicio calendario -->
+                        <div class="form-group">
+                            <div class="input-group calendar_1">
+                                <label class="calendar"><i class='bx bx-calendar'></i></label>
+                                <input class="form-control fix" placeholder="Fecha de viaje"
+                                       name="dp" formControlName="searchCalendar" ngbDatepicker #d="ngbDatepicker"
+                                       (click)="d.toggle()">
+                                <div class="input-group-append">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- fin calendario -->
+
+                </div>
+
+                <div class="main-search-btn">
+                    <button type="submit">
+                        Buscar <i class='bx bx-search-alt'></i>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<section #actividades class="listing-area pt-100 pb-70">
+    <div class="container">
+        <div class="section-title">
+            <span class="sub-title">Descubre</span>
+            <h2>Destinos Populares</h2>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-4" *ngFor="let activity of activities">
+                <div class="single-listing-box">
+                    <a  class="listing-image">
+                        <img src="{{imagePath}}{{activity.imagenesActividad[0]}}" alt="image" style="height: 280px">
+                    </a>
+
+                    <div class="listing-badge" [ngClass]="{'closed': activity.estado != 1}">
+                        {{activity.estado != 1 ? 'Agotado' : 'Disponible'}}
+                    </div>
+
+                    <div class="listing-content">
+                        <div class="content">
+                            <h3><a routerLink="/listing-details"  [ngClass]="{'disabled': activity.estado != 1}" [queryParams]="{id: activity.idActividad}" >{{activity.nombreActividad}}</a></h3>
+                            <span class="location"><i class='bx bx-map'></i>
+                                {{activity.nombreDepartamento}},
+                                {{activity.nombreSitioTuristico}}
+                            </span>
+
+                            <div class="rating fix">
+                                <i class='bx bxs-star' *ngFor="let cnt of [1,2,3]"></i>
+                            </div>
+                        </div>
+
+                        <div class="footer-content">
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div class="listing-option-list">
+                                    <a routerLink="/" title="On the Map"><i class='bx bx-map'></i></a>
+                                </div>
+
+                                <div class="price-level">
+                                    <span data-toggle="tooltip" data-placement="top" title="Ultra Hight">
+                                        Desde <strong>{{activity.precioBase | currency: 'COP ':false:'2.0' }}</strong>
+                                    </span>
+                                </div>
+
+                                <div class="listing-category">
+                                    <a routerLink="/" data-toggle="tooltip" data-placement="top" title="Category">
+                                        <i class='bx bx-walk'></i>
+                                        {{activity.categoria}}
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<app-process></app-process>
