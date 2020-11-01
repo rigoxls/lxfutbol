@@ -1,0 +1,58 @@
+<section class="login-area">
+    <div class="row m-0">
+        <div class="col-lg-6 col-md-12 p-0">
+            <div class="login-image">
+                <img src="assets/img/login-bg.jpg" alt="image">
+            </div>
+        </div>
+
+        <div class="col-lg-6 col-md-12 p-0">
+            <div class="login-content">
+                <div class="d-table">
+                    <div class="d-table-cell">
+                        <div class="login-form">
+                            <!--div class="logo">
+                                <a routerLink="/"><img src="assets/img/logo.png" alt="image"></a>
+                            </div-->
+
+                            <h3>Autenticación</h3>
+                            <!--p>No estas registrado?<a routerLink="/register">Nuevo Usuario</a></p-->
+
+                            <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                                <div class="form-group">
+                                    <input type="email" formControlName="email" placeholder="Correo Electrónico"
+                                        class="form-control">
+                                </div>
+
+                                <div class="form-group">
+                                    <input type="password" formControlName="password" placeholder="Contraseña"
+                                        class="form-control">
+                                </div>
+                                <p>
+                                    <ngb-progressbar value="1000" type="info" *ngIf="isLoad"></ngb-progressbar>
+                                  </p>
+                                  <br>
+                                <div class="main-search-btn">
+                                    <button type="submit">
+                                        Iniciar Sesión
+                                    </button>
+                                </div>
+                                <app-toast-container aria-live="polite" aria-atomic="true"></app-toast-container>
+
+
+                                <!--div class="forgot-password">
+                                    <a routerLink="/">Forgot Password?</a>
+                                </div>
+
+                                <div class="connect-with-social">
+                                    <button type="submit" class="facebook"><i class='bx bxl-facebook'></i> Connect with Facebook</button>
+                                    <button type="submit" class="twitter"><i class='bx bxl-twitter'></i> Connect with Twitter</button>
+                                </div-->
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

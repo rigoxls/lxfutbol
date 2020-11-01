@@ -63,6 +63,22 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
+			
+       <dependency>
+          <groupId>org.springframework.kafka</groupId>
+          <artifactId>spring-kafka</artifactId>
+        </dependency>	
+		
+		
+	    <dependency>
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-starter-data-redis</artifactId>		    
+		</dependency>
+
+        <dependency>
+            <groupId>redis.clients</groupId>
+            <artifactId>jedis</artifactId>
+        </dependency>	
 		
 	</dependencies>
 	
@@ -108,7 +124,22 @@
 			        </execution>
 			    </executions>
 			</plugin>	
-						
+            <!-- tag::wsdl[] -->
+			<plugin>
+					<groupId>org.jvnet.jaxb2.maven2</groupId>
+					<artifactId>maven-jaxb2-plugin</artifactId>
+					<version>0.14.0</version>
+					<configuration>
+						<schemaLanguage>WSDL</schemaLanguage>
+						<generatePackage>com.example.consumingwebservice.wsdl</generatePackage>
+						<schemas>
+							<schema>
+								<url>http://localhost:8080/ws/countries.wsdl</url>
+							</schema>
+						</schemas>
+					</configuration>
+			</plugin>
+			<!-- end::wsdl[] -->
 		</plugins>
 	</build>
 

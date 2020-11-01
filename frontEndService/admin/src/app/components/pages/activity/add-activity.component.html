@@ -1,0 +1,165 @@
+<div class="breadcrumb-area">
+    <h1>Agregar Actividad</h1>
+
+    <ol class="breadcrumb">
+        <li class="item"><a routerLink="/"><i class='bx bx-home-alt'></i></a></li>
+
+        <li class="item">Dashboard</li>
+
+        <li class="item">Agregar Actividad</li>
+    </ol>
+</div>
+
+<div class="alert hidden" [ngClass]="{'hidden': !showMessage, 'alert-danger': errorMessage, 'alert-success': !errorMessage}">
+    {{ message }}
+</div>
+
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="add-listing-box mb-30">
+        <h3>Información Básica</h3>
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+                <div class="form-group">
+                    <label><i class='bx bx-briefcase-alt'></i> Nombre de Actividad:</label>
+                    <input formControlName="nombreActividad" type="text" class="form-control"
+                           placeholder="Nombre de actividad">
+                    <div *ngIf="submitted && form.controls.nombreActividad.errors" class="error-form">
+                        <div class="error-message" *ngIf="form.controls.nombreActividad.errors.required">Campo requerido</div>
+                        <div class="error-message" *ngIf="form.controls.nombreActividad.errors.minlength">Campo debe tener mínimo 3 caracteres</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6 col-md-6">
+                <div class="form-group">
+                    <label><i class='bx bx-duplicate'></i> Categoría:</label>
+                    <select formControlName="categoria" class="custom-select">
+                        <option value="Trekking">Trekking</option>
+                        <option value="Mountains">Mountains</option>
+                        <option value="Rivers">Rivers</option>
+                        <option value="HighLevel">HighLevel</option>
+                    </select>
+                    <div *ngIf="submitted && form.controls.categoria.errors" class="error-form">
+                        <div class="error-message" *ngIf="form.controls.categoria.errors.required">Campo requerido</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6 col-md-6">
+                <div class="form-group">
+                    <label><i class='bx bx-duplicate'></i> Sitio Turístico:</label>
+                    <select formControlName="idSitio" class="custom-select">
+                        <option>Todos los sitios turísticos</option>
+                        <option *ngFor="let site of sites" [ngValue]="site">{{site.name}}</option>
+                    </select>
+                    <div *ngIf="submitted && form.controls.idSitio.errors" class="error-form">
+                        <div class="error-message" *ngIf="form.controls.idSitio.errors.required">Campo requerido</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="add-listing-box mb-30">
+        <h3>Descripción de Actividad</h3>
+
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+                <div class="form-group">
+                    <label><i class='bx bx-text'></i> </label>
+                    <textarea formControlName="descripcion" cols="30" rows="7" class="form-control"
+                              placeholder="Descripción de actividad"></textarea>
+                    <div *ngIf="submitted && form.controls.descripcion.errors" class="error-form">
+                        <div class="error-message" *ngIf="form.controls.descripcion.errors.required">Campo requerido</div>
+                        <div class="error-message" *ngIf="form.controls.descripcion.errors.minlength">Campo debe tener mínimo 10 caracteres</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="add-listing-box mb-30">
+        <h3>Imágenes de Actividad</h3>
+
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+                <div class="form-group">
+                    <div class="add-list-media-header">
+                        <label class="radio">
+                            <input type="radio" name="header-media" value="background-image" checked>
+                            <span>Imágenes</span>
+                        </label>
+                    </div>
+
+                    <div class="add-list-media-wrap">
+                        <div class="text">
+                            <span>
+                                <i class='bx bx-image-add'></i>
+                                Click para agregar imagenes
+                            </span>
+                        </div>
+                        <input type="file" class="upload" (change)="onFileChanged($event)" style="width: 100%;">
+                    </div>
+                </div>
+                <div class="images-load">
+                    <div *ngFor="let image of images" (click)="removeImage(image)" class="div-image">
+                        <img src="{{urlPath}}{{image}}" class="img-upload">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="add-listing-box mb-30">
+        <h3>Precio Base</h3>
+
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+                <div class="form-group">
+                    <label><i class='bx bx-purchase-tag'></i> Precio:</label>
+                    <input formControlName="precioBase" type="text" class="form-control" placeholder="$542">
+                    <div *ngIf="submitted && form.controls.precioBase.errors" class="error-form">
+                        <div class="error-message" *ngIf="form.controls.precioBase.errors.required">Campo requerido</div>
+                        <div class="error-message" *ngIf="form.controls.precioBase.errors.minlength">Campo debe tener mínimo 3 caracteres</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="add-listing-box mb-30">
+        <h3>Estado</h3>
+
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+                <div class="form-group">
+                    <ul class="facilities-list">
+                        <li>
+                            <label class="checkbox">
+                                <input type="radio" formControlName="estado" name="estado" value=1
+                                       [checked]="form.get('estado').value == 1">
+                                <span>Activa</span>
+                            </label>
+                        </li>
+                        <li>
+                            <label class="checkbox">
+                                <input type="radio" formControlName="estado" name="estado" value=0
+                                       [checked]="form.get('estado').value == 0">
+                                <span>Inactiva</span>
+                            </label>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="add-listing-box mb-30">
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+                <button type="submit" style="float: right">Guardar Actividad</button>
+            </div>
+        </div>
+    </div>
+</form>
