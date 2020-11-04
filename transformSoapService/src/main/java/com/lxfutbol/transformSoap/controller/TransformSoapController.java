@@ -48,22 +48,22 @@ public class TransformSoapController {
 	}
 	
 	@PostMapping("/transform/{idProvider}")
-	public String transform(@PathVariable int idProvider, @RequestBody String menssage) throws JSONException {
-		
-		LOG.info("*******************************+");
-		LOG.info(String.valueOf(idProvider));
-		LOG.info(menssage);
-		LOG.info("*******************************+");
-		
-		transformSoapService.listener(idProvider,menssage);
-		
-		return "{\\n\" + \"	\\\"transport\\\":{\\n\" + \"		\\\"idProvider\\\" = \\\"1\\\",\\n\"\n" + 
-				"					+ \"		\\\"flight\\\" = \\\"avianca\\\",\\n\" + \"		\\\"class\\\" = \\\"2500\\\",\\n\"\n" + 
-				"					+ \"	    \\\"departureCity\\\" = \\\"Bogota\\\",\\n\" + \"	    \\\"arrivalCity\\\" = \\\"Cartagena\\\",\\n\"\n" + 
-				"					+ \"	    \\\"departureDate\\\" = \\\"2020-12-01\\\",\\n\" + \"	    \\\"arrivalDate\\\" = \\\"2020-12-15\\\",\\n\"\n" + 
-				"					+ \"	    \\\"price\\\" = 2000412\\n\" + \"	}    \\n\" + \"}\\n";
+	public String transform(@PathVariable int idProvider, @RequestBody String message) throws JSONException {
+		String type = "Transport";
+		return transformSoapService.listener(idProvider,message,type);
 	}
 	
+	@PostMapping("/transformLodge/{idProvider}")
+	public String transformLodge(@PathVariable int idProvider, @RequestBody String message) throws JSONException {	
+		String type = "Lodging";
+		return transformSoapService.listener(idProvider,message,type);
+	}
+	
+	@PostMapping("/transformSpectacle/{idProvider}")
+	public String transformSpectacle(@PathVariable int idProvider, @RequestBody String message) throws JSONException {
+		String type = "Spectacle";
+		return transformSoapService.listener(idProvider,message,type);
+	}
 	
 	
 }

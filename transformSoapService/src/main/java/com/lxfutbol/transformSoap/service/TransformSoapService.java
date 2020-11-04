@@ -43,12 +43,11 @@ public class TransformSoapService {
 	protected TransformSoapService() {}
 	
 
-	public String listener(int idProvider, String message) throws JSONException {
+	public String listener(int idProvider, String message, String type) throws JSONException {
 		JSONObject jsonObjectMessage = new JSONObject(message); //String entrada
 		JSONObject parameters = jsonObjectMessage.getJSONObject("params");//Json contenido
 		String operation = parameters.get("operation").toString();
-		//JSONObject template = (JSONObject) getTemplate(idProvider,operation);
-		String type = "Transport";
+		JSONObject template = (JSONObject) getTemplate(idProvider,operation);
 		checkProvider(type,operation,parameters);
 		String jsonResult ="{\"transport\":{\"idProvider\"=\"1\",\"flight\"=\"avianca\",\"class\"=\"Ejecutiva\",\"departureCity\"=\"Bogota\",\"arrivalCity\"=\"España\",\"departureDate\"=\"2020-12-02\",\"arrivalDate\"=\"2020-12-30\",\"price\"=2000412}}";
 		return jsonResult; 
@@ -96,15 +95,22 @@ public class TransformSoapService {
 	}
 
 	public void requestBook(JSONObject parameters) {
-		Transport trasport = new Transport();
-		transportClient.bookFlight(trasport);
+		Transport transport = new Transport();
+		transportClient.bookFlight(transport);
 	}
 	
 	public void requestSearch(JSONObject parameters) {
-		Transport trasnport = new Transport();
-		transportClient.searchFlight(trasnport); 
+		Transport transport = new Transport();
+		TransportResult t = transportClient.searchFlight(transport); 
+		getMapping(t);
 	}
 	
+	private void getMapping(TransportResult t) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
 	public void requestRoom(JSONObject parameters) {
 		lodgingClient.bookRoom(null);
 	}

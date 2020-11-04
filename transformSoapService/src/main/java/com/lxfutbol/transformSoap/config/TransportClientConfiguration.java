@@ -1,5 +1,6 @@
 package com.lxfutbol.transformSoap.config;
 
+import feign.codec.DecodeException;
 import feign.codec.Decoder;
 import feign.codec.EncodeException;
 import feign.codec.Encoder;
@@ -8,8 +9,11 @@ import feign.soap.SOAPDecoder;
 import org.springframework.context.annotation.Bean;
 import org.w3c.dom.Document;
 
+import com.lxfutbol.transformSoap.dto.TransportResult;
+
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElementRef;
@@ -29,7 +33,7 @@ import java.nio.charset.StandardCharsets;
 import static javax.xml.soap.SOAPConstants.DEFAULT_SOAP_PROTOCOL;
 
 
-public class TransportClientConfiguration {
+public class TransportClientConfiguration  {
 
     private Charset charsetEncoding = StandardCharsets.UTF_8;
     private String soapProtocol = DEFAULT_SOAP_PROTOCOL;
@@ -65,8 +69,9 @@ public class TransportClientConfiguration {
 
     @Bean
     public Decoder feignDecoder() {
-        return new SOAPDecoder(jaxbContextFactory);
-    }
-	};
+        return new SOAPDecoder(jaxbContextFactory);    
+       }
+    
+	}
 	
   

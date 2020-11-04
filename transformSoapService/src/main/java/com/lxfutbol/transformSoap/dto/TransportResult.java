@@ -3,33 +3,51 @@ package com.lxfutbol.transformSoap.dto;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "searchFlightResponseElement")
 public class TransportResult {
 
-	public List<TransportResult> list;
+	       @XmlElement(required = true)
+			public List<result> result;
 	
-		   @XmlAttribute
-		    public String departinCity;
+			@XmlRootElement(name="result")	
+			public static class result {
 
-		    @XmlAttribute
-		    public String arrivingCity;
+				 @XmlElement
+			     public List<flights> flights;
+			     
+			     @XmlRootElement(name = "flights")
+			     public static class flights {
+			    	 
+			    	    @XmlAttribute
+			    	    public String departinCity;
+			    	
+			    		@XmlAttribute
+			    	    public String arrivingCity;
 
-		    @XmlAttribute
-		    public String departinDate;
-		    
-		    @XmlAttribute
-	        public String cabin;
-		    
-		    @XmlAttribute 
-	        public String arrivingDate;
-		    
-		    @XmlAttribute 
-		    public String price;
-		    
-		    @XmlAttribute 
-	        public String meals;
+			    	    @XmlAttribute
+			    	    public String departinDate;
+			    	    
+			    	    @XmlAttribute
+			            public String cabin;
+			    	    
+			    	    @XmlAttribute 
+			            public String arrivingDate;
+			    	    
+			    	    @XmlAttribute 
+			    	    public String price;
+			    	    
+			    	    @XmlAttribute 
+			            public String meals;
 
-	        @XmlAttribute 
-	        public int number;
-}
+			            @XmlAttribute 
+			            public int number;
+
+			    	 
+			     }
+			     
+						
+			}
+
+	}

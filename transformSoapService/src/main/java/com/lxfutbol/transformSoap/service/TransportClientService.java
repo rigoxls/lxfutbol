@@ -17,11 +17,11 @@ import com.lxfutbol.transformSoap.dto.TransportResult;
 public interface TransportClientService {
 
 	@RequestMapping(method = RequestMethod.POST, value = "/bookFlight", consumes =  "text/xml", produces =  "text/xml")
-	void bookFlight(@RequestBody Transport transport );
+	TransportResult bookFlight(@RequestBody Transport transport );
 	
 	
 	@RequestMapping(method = RequestMethod.POST, value = "/searchFlight", consumes = "text/xml", produces = "text/xml")
-	void searchFlight(@RequestBody Transport transport);
+	TransportResult searchFlight(@RequestBody Transport transport);
 	
 	@RequestMapping(method = RequestMethod.POST, value = "/cancelFlight", consumes = "text/xml", produces = "text/xml")
        void cancelFlight(@RequestBody TemplateDto template);
