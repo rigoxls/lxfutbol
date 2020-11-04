@@ -101,19 +101,26 @@ public class ProviderService {
 	 * @throws JSONException ******************************/	
 	@KafkaListener(topics = "integrator-provider", groupId = "integrator_group_1")
 	@SendTo
-	String listenAndReply(String message) throws JSONException {
-		LOG.info("ListenAndReply [{}]", message);
+	String listenAndReply(String type) throws JSONException {
+		LOG.info("ListenAndReply [{}]", type);
 		List<ProviderEntity> listProviders = this.listActiveProviders();
 		
 		ArrayList<Object> providersObjs = new ArrayList<Object>();
 		
-		for (ProviderEntity provider : listProviders) {
-			JSONObject providerObj = new JSONObject();
-			long providerId = provider.getId();
-			providerObj.put("id", providerId);
-			providerObj.put("dataType", provider.getDataType());
-			providerObj.put("agreement", provider.getAgreement());
-			providersObjs.add(providerObj);
+		for (ProviderEntity provider : listProviders) {			
+			String pType = Integer.valueOf(provider.getType()).toString();
+
+			if(type.equals(pType)) {
+				LOG.info("***************************");
+				LOG.info("***************************");
+				JSONObject providerObj = new JSONObject();
+				long providerId = provider.getId();
+				providerObj.put("id", providerId);
+				providerObj.put("dataType", provider.getDataType());
+				providerObj.put("agreement", provider.getAgreement());				
+				providersObjs.add(providerObj);	
+			}
+			
 		}
 		
 		JSONObject template = new JSONObject();

@@ -40,5 +40,15 @@ public class TransformRestController {
 	    lodgeResult.put("lodge", result);	
 		
 		return lodgeResult.toString();
+	}
+	
+	@PostMapping("/transformSpectacle/{idProvider}")
+	public String transforEspectacle(@PathVariable int idProvider, @RequestBody String params) throws JSONException {		
+	
+		JSONObject result = transformRestService.getProviderData(idProvider, params);
+	    JSONObject espectacleResult = new JSONObject();
+	    espectacleResult.put("spectacle", result);	
+		
+		return espectacleResult.toString();
 	}	
 }

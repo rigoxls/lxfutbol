@@ -1,0 +1,150 @@
+<div class="sidemenu-area">
+    <div class="sidemenu-header">
+        <a href="/" class="navbar-brand d-flex align-items-center">
+            <img src="assets/img/small-logo.png" alt="image">
+        </a>
+
+        <div class="burger-menu d-none d-lg-block">
+            <span class="top-bar"></span>
+            <span class="middle-bar"></span>
+            <span class="bottom-bar"></span>
+        </div>
+
+        <div class="responsive-burger-menu d-block d-lg-none">
+            <span class="top-bar"></span>
+            <span class="middle-bar"></span>
+            <span class="bottom-bar"></span>
+        </div>
+    </div>
+
+    <div class="sidemenu-body">
+        <ul class="sidemenu-nav metisMenu h-100" id="sidemenu-nav" data-simplebar>
+            <li class="nav-item-title">
+                Principal
+            </li>
+
+            <li class="nav-item">
+                <a routerLink="/" class="nav-link" routerLinkActive="active">
+                    <span class="icon"><i class='bx bx-home-circle'></i></span>
+                    <span class="menu-title">Tablero Principal</span>
+                </a>
+            </li>
+
+            <li class="nav-item-title">
+                Menu Administrativo
+            </li>
+
+            <li class="nav-item" *ngIf="role===3">
+                <a href="#" class="collapsed-nav-link nav-link" aria-expanded="false">
+                    <span class="icon"><i class='bx bx-menu'></i></span>
+                    <span class="menu-title">Actividades</span>
+                </a>
+
+                <ul class="sidemenu-nav-second-level">
+                    <li class="nav-item">
+                        <a href="/activity" class="nav-link">
+                            <span class="icon"><i class='bx bx-right-arrow-alt'></i></span>
+                            <span class="menu-title">Crear Actividad</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="/activity-list" class="nav-link">
+                            <span class="icon"><i class='bx bx-right-arrow-alt'></i></span>
+                            <span class="menu-title">Listar Actividades</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="nav-item" *ngIf="role===2">
+                <a href="#" class="collapsed-nav-link nav-link" aria-expanded="false">
+                    <span class="icon"><i class='bx bx-menu'></i></span>
+                    <span class="menu-title">Transporte</span>
+                </a>
+
+                <ul class="sidemenu-nav-second-level">
+                    <li class="nav-item">
+                        <a href="/transport" class="nav-link">
+                            <span class="icon"><i class='bx bx-right-arrow-alt'></i></span>
+                            <span class="menu-title">Crear Transporte</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="/transport-list" class="nav-link">
+                            <span class="icon"><i class='bx bx-right-arrow-alt'></i></span>
+                            <span class="menu-title">Listar Transporte</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="nav-item" *ngIf="role===2">
+                <a href="#" class="collapsed-nav-link nav-link" aria-expanded="false">
+                    <span class="icon"><i class='bx bx-menu'></i></span>
+                    <span class="menu-title">Hospedaje</span>
+                </a>
+
+                <ul class="sidemenu-nav-second-level">
+                    <li class="nav-item">
+                        <a href="/lodging" class="nav-link">
+                            <span class="icon"><i class='bx bx-right-arrow-alt'></i></span>
+                            <span class="menu-title">Crear Hospedaje</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="/lodging-list" class="nav-link">
+                            <span class="icon"><i class='bx bx-right-arrow-alt'></i></span>
+                            <span class="menu-title">Listar Hospedaje</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="nav-item" *ngIf="role===3">
+                <a href="#" class="collapsed-nav-link nav-link" aria-expanded="false">
+                    <span class="icon"><i class='bx bx-menu'></i></span>
+                    <span class="menu-title">Usuarios</span>
+                </a>
+
+                <ul class="sidemenu-nav-second-level">
+                    <li class="nav-item">
+                        <a href="/user" class="nav-link">
+                            <span class="icon"><i class='bx bx-right-arrow-alt'></i></span>
+                            <span class="menu-title">Crear Usuario</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="/user-list" class="nav-link">
+                            <span class="icon"><i class='bx bx-right-arrow-alt'></i></span>
+                            <span class="menu-title">Listar Usuarios</span>
+                        </a>
+                    </li>
+                </ul>
+
+            </li>
+
+            <li class="nav-item-title">
+                Cuenta
+            </li>
+
+            <!--
+            <li class="nav-item">
+                <a routerLink="/my-profile" class="nav-link" routerLinkActive="active">
+                    <span class="icon"><i class='bx bx-user-pin'></i></span>
+                    <span class="menu-title">My Profile</span>
+                </a>
+            </li>
+            -->
+            <li class="nav-item">
+                <a href="javascript:void(0)" class="nav-link" routerLinkActive="active" (click)="logOut()">
+                    <span class="icon"><i class='bx bx-log-out'></i></span>
+                    <span class="menu-title">Logout</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
