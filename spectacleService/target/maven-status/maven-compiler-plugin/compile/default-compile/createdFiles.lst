@@ -1,5 +1,10 @@
 com\lxfutbol\spectacle\repository\SpectacleRepository.class
+com\lxfutbol\spectacle\service\TransformRestProxyService.class
+com\lxfutbol\spectacle\service\TransformSoapProxyService.class
+com\lxfutbol\spectacle\kafka\KafkaConsumuerConfigSpectacle.class
+com\lxfutbol\spectacle\kafka\KafkaTopicConfigLodge.class
 com\lxfutbol\spectacle\service\SpectacleService.class
 com\lxfutbol\spectacle\controller\SpectacleController.class
 com\lxfutbol\spectacle\SpectacleApplication.class
+com\lxfutbol\spectacle\kafka\KafkaTransportListener.class
 com\lxfutbol\spectacle\repository\SpectacleEntity.class
