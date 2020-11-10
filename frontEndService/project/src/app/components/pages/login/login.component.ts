@@ -13,7 +13,7 @@ import { ToastService } from '../Toast/toast-container/toast.service';
     styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
-    usuario: Usuario;
+    user: Usuario;
     message: string;
     isLoad = false;
     form = new FormGroup({
@@ -48,29 +48,30 @@ export class LoginComponent {
     }
 
     getUsusario() {
-        this.loginService.getAtutenticar(this.form.value.email, this.form.value.password).subscribe(
+        this.loginService.login(this.form.value.email, this.form.value.password).subscribe(
             result => {
-                this.usuario = result;
+                this.user = result;
             },
             err => {
                 this.showError();
             }
         );
 
-        localStorage.setItem('userAutenticado', JSON.stringify(this.usuario));
+        localStorage.setItem('userAutenticado', JSON.stringify(this.user));
         setTimeout(() => {
 
-            if (this.usuario.roles['id_rol'] === 1) {
-                window.location.href = CONFIG.userLoggedPath;
+            if (this.user.rol['id'] === 1) {
+                //window.location.href = CONFIG.userLoggedPath;
+                this.router.navigate(["/"]);
             } else {
                 window.location.href = CONFIG.adminPath;
             }
         }, 1000);
-        return this.usuario;
+        return this.user;
     }
 
     showErrorDatos() {
-        this.toastService.show("Ingrese los datos para autenticarse", { classname: 'bg-danger text-light', delay: 1500 });
+        this.toastService.show("Ingrese los datos para autenticarse", { classname: 'bg-success text-light', delay: 1500 });
         this.router.navigate(["/login"]);
     }
 
