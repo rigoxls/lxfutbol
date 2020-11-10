@@ -8,7 +8,7 @@ import { QuotationDetails } from "../../interfaces/ctemporal.interface";
 import { DomSanitizer } from '@angular/platform-browser';
 import { ProviderSelection } from '../../interfaces/providerSelection..interface'
 import { ToastService } from '../Toast/toast-container/toast.service';
-import { CONFIG } from 'dist/louise-ng/assets/config';
+//import { CONFIG } from 'dist/louise-ng/assets/config';
 
 @Component({
     selector: "app-listing-details",
@@ -29,7 +29,7 @@ export class ListingDetailsComponent implements OnInit {
     url: any;
     base:boolean;
     showToast: boolean;
-    imagePath = CONFIG.imagePath;
+    imagePath = '';
     constructor(
         private dom: DomSanitizer,
         private listingDetailsService: ListingDetailsService,
