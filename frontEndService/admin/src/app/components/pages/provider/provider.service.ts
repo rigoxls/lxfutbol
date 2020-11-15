@@ -13,12 +13,12 @@ export class ProviderService {
     constructor(private http: HttpClient) {
     }
 
-    getTransportById(transportId?: number): Promise<any[]> {
+    getProvidertById(providerId?: number): Promise<any[]> {
         return new Promise((resolve, reject) => {
             const headers = {
                 'Content-Type': 'application/json'
             };
-            this.http.get<any[]>(`${this.baseUrl}transport/get/${transportId}`,
+            this.http.get<any[]>(`${this.baseUrl}/provider/${providerId}`,
                 {headers}).subscribe(result => {
                     resolve(result);
                 },
@@ -51,7 +51,7 @@ export class ProviderService {
                 search: providerSave.searchContract,
                 book: providerSave.bookContract,
                 cancelBook: providerSave.cancelContract,
-                state: providerSave.state,
+                status: providerSave.status,
                 dataType: providerSave.dataType,
                 agreement: providerSave.agreement
             };

@@ -11,7 +11,7 @@ export interface ProviderInterface {
     searchContract: string;
     bookContract: string;
     cancelContract: string;
-    state: string;
+    status: string;
     dataType: string;
     agreement: string
 }

@@ -13,7 +13,7 @@ import {HttpClientModule} from '@angular/common/http';
 import { UserComponent } from './components/pages/user/user.component';
 import { UserListComponent } from './components/pages/user-list/user-list.component';
 import { ProviderComponent } from './components/pages/provider/provider.component';
-import { TransportListComponent } from './components/pages/transport-list/transport-list.component';
+import { ProviderListComponent } from './components/pages/provider-list/provider-list.component';
 
 @NgModule({
     declarations: [
@@ -26,7 +26,7 @@ import { TransportListComponent } from './components/pages/transport-list/transp
         UserComponent,
         UserListComponent,
         ProviderComponent,
-        TransportListComponent,
+        ProviderListComponent,
     ],
     imports: [
         BrowserModule,

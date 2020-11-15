@@ -29,7 +29,7 @@ export class ProviderComponent implements OnInit {
     ngOnInit(): void {
         this.providerId = this.route.snapshot.params.id;
         if (this.providerId) {
-            this.getTransport(this.providerId);
+            this.getProvider(this.providerId);
         }
 
         this.form = new FormGroup({
@@ -83,15 +83,19 @@ export class ProviderComponent implements OnInit {
         });
     }
 
-    async getTransport(providerId) {
-        const transport = await this.providerService.getTransportById(providerId);
-        this.form.controls['transportadora'].setValue(transport['transportadora']);
-        this.form.controls['nombreRepresentante'].setValue(transport['nombreRepresentante']);
-        this.form.controls['telefono'].setValue(transport['telefono']);
-        this.form.controls['actividades'].setValue(transport['idActividades']);
-        this.form.controls['descripcion'].setValue(transport['descripcion']);
-        this.form.controls['costoPersona'].setValue(transport['costoPersona']);
-
+    async getProvider(providerId) {
+        const provider = await this.providerService.getProvidertById(providerId);
+        this.form.controls['nit'].setValue(provider['nit']);
+        this.form.controls['name'].setValue(provider['name']);
+        this.form.controls['representative'].setValue(provider['representative']);
+        this.form.controls['phone'].setValue(provider['phone']);
+        this.form.controls['email'].setValue(provider['email']);
+        this.form.controls['address'].setValue(provider['address']);
+        this.form.controls['searchContract'].setValue(provider['operationEntity']['search']);
+        this.form.controls['bookContract'].setValue(provider['operationEntity']['book']);
+        this.form.controls['cancelContract'].setValue(provider['operationEntity']['cancelBook']);
+        this.form.controls['dataType'].setValue(provider['dataType']);
+        this.form.controls['agreement'].setValue(provider['agreement']);
     }
 
     onSubmit(): void {

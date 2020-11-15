@@ -1,12 +1,12 @@
 <div class="breadcrumb-area">
-    <h1>Servicios de Transporte</h1>
+    <h1>Servicios de providere</h1>
 
     <ol class="breadcrumb">
         <li class="item"><a routerLink="/"><i class='bx bx-home-alt'></i></a></li>
 
         <li class="item">Dashboard</li>
 
-        <li class="item">Servicios de Transporte</li>
+        <li class="item">Listado de Proveedores</li>
     </ol>
 </div>
 
@@ -16,13 +16,13 @@
 
 <ng-template #content let-c="close" let-d="dismiss">
     <div class="modal-header">
-        <h4 class="modal-title" id="modal-basic-title">Eliminar Servicio de Transporte</h4>
+        <h4 class="modal-title" id="modal-basic-title">Eliminar Proveedor</h4>
         <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
     <div class="modal-body">
-        <p>¿Está seguro que desea eliminar el servicio de transporte seleccionado ?</p>
+        <p>¿Está seguro que desea eliminar el Proveedor seleccionado ?</p>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-outline-dark" (click)="c('Cross click')">Cancelar</button>
@@ -40,16 +40,17 @@
                     </div>
 
                     <ul class="list-wrapper" data-simplebar>
-                        <li class="todo-list-item" *ngFor="let transport of transports">
+                        <li class="todo-list-item" *ngFor="let provider of providers">
                             <div class="todo-item-title">
-                                <h3>{{transport['transportadora']}}</h3>
-                                <p>Representante: {{transport['nombreRepresentante']}}</p>
-                                <p>Teléfono: {{transport['telefono']}}</p>
+                                <h3>{{provider['provideradora']}}</h3>
+                                <p>Representante: {{provider['id']}} - {{provider['nit']}}</p>
+                                <p>Nombre: {{provider['name']}}</p>
+                                <p>Email: {{provider['email']}}</p>
                             </div>
 
                             <div class="todo-item-action">
-                                <a routerLink="/transport-edit/{{transport['id_transporte']}}" class="edit"><i class='bx bx-edit-alt'></i></a>
-                                <a routerLink="javascript:void(0)" (click)="open(content, transport['id_transporte'])" class="delete"><i class='bx bx-trash'></i></a>
+                                <a routerLink="/provider-edit/{{provider['id']}}" class="edit"><i class='bx bx-edit-alt'></i></a>
+                                <a href="javascript:void(0)" (click)="open(content, provider['id'])" class="delete"><i class='bx bx-trash'></i></a>
                             </div>
                         </li>
 

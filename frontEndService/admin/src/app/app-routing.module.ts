@@ -4,7 +4,7 @@ import { DashboardComponent } from './components/pages/dashboard/dashboard.compo
 import {UserComponent} from './components/pages/user/user.component';
 import {UserListComponent} from './components/pages/user-list/user-list.component';
 import {ProviderComponent} from './components/pages/provider/provider.component';
-import {TransportListComponent} from './components/pages/transport-list/transport-list.component';
+import {ProviderListComponent} from './components/pages/provider-list/provider-list.component';
 
 const routes: Routes = [
     {path: '', component: DashboardComponent},
@@ -12,9 +12,9 @@ const routes: Routes = [
     {path: 'user', component: UserComponent},
     {path: 'user-edit/:id', component: UserComponent},
     {path: 'user-list', component: UserListComponent},
-    {path: 'transport', component: ProviderComponent},
+    {path: 'provider', component: ProviderComponent},
     {path: 'provider-edit/:id', component: ProviderComponent},
-    {path: 'provider-list', component: TransportListComponent},
+    {path: 'provider-list', component: ProviderListComponent},
 ];
 
 @NgModule({
