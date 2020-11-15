@@ -6,7 +6,7 @@ import { environment } from "src/environments/environment";
 @Injectable({
     providedIn: 'root'
 })
-export class TransportService {
+export class ProviderService {
 
     private baseUrl = environment.APIEndPoint;
 
@@ -48,7 +48,7 @@ export class TransportService {
     upsertTransport(transport: TransportInterface, transportId?: number, images?: Array<string>) {
         return new Promise((resolve, reject) => {
             const transportSave = transport;
-            const path = (transportId) ? 'transport/update' : 'transport/create';
+            const path = (transportId) ? 'provider/update' : 'provider/create';
 
             const headers = {
                 'Content-Type': 'application/json'
