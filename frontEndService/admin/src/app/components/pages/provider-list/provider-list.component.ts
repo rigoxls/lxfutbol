@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ProviderService} from './/provider.service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-transport-list',
@@ -16,21 +17,26 @@ export class ProviderListComponent implements OnInit {
     public showMessage = false;
     public message = '';
     public errorMessage = false;
+    private filterType = 1;
 
     constructor(
         private providerService: ProviderService,
+        private route: ActivatedRoute,
         private modalService: NgbModal) {
         this.getProviders();
     }
 
     ngOnInit(): void {
+        this.filterType = parseInt(this.route.snapshot.params.type, 10);
     }
 
     async getProviders() {
-        this.providers = await this.providerService.getProviders();
-        /*this.providers.sort((a, b) => {
-            return (a['nombreActividad'].toLowerCase() > b['nombreActividad'].toLowerCase()) ? 1 : -1;
-        });*/
+        let providers = await this.providerService.getProviders();
+        providers = providers.filter(provider => provider.type === this.filterType);
+        providers = providers.sort((a, b) => {
+            return (a['name'].toLowerCase() > b['name'].toLowerCase()) ? 1 : -1;
+        });
+        this.providers = providers;
     }
 
     open(content, providerId) {

@@ -15,6 +15,7 @@ const routes: Routes = [
     {path: 'provider', component: ProviderComponent},
     {path: 'provider-edit/:id', component: ProviderComponent},
     {path: 'provider-list', component: ProviderListComponent},
+    {path: 'provider-list/:type', component: ProviderListComponent},
 ];
 
 @NgModule({
