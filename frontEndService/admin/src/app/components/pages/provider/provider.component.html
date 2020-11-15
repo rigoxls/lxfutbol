@@ -36,7 +36,7 @@
                     <label><i class='bx bx-face'></i> Nombre de Proveedor:</label>
                     <input formControlName="name" type="text" class="form-control"
                            placeholder="Nombre de proveedor">
-                    <div *ngIf="submitted && form.controls.proveedor.errors" class="error-form">
+                    <div *ngIf="submitted && form.controls.name.errors" class="error-form">
                         <div class="error-message" *ngIf="form.controls.name.errors.required">Campo requerido</div>
                         <div class="error-message" *ngIf="form.controls.name.errors.minlength">Campo debe tener mínimo 3 caracteres</div>
                     </div>
@@ -202,15 +202,15 @@
                     <ul class="facilities-list">
                         <li>
                             <label class="checkbox">
-                                <input type="radio" formControlName="state" name="state" value=1
-                                       [checked]="form.get('state').value == 1">
+                                <input type="radio" formControlName="status" name="status" value=1
+                                       [checked]="form.get('status').value == 1">
                                 <span>Activo</span>
                             </label>
                         </li>
                         <li>
                             <label class="checkbox">
-                                <input type="radio" formControlName="estado" name="estado" value=0
-                                       [checked]="form.get('state').value == 0">
+                                <input type="radio" formControlName="status" name="status" value=0
+                                       [checked]="form.get('status').value == 0">
                                 <span>Inactivo</span>
                             </label>
                         </li>
@@ -228,14 +228,14 @@
                     <ul class="facilities-list">
                         <li>
                             <label class="checkbox">
-                                <input type="radio" formControlName="dataType" name="estado" value=1
+                                <input type="radio" formControlName="dataType" name="dataType" value=1
                                        [checked]="form.get('dataType').value == 'json'">
                                 <span>JSON</span>
                             </label>
                         </li>
                         <li>
                             <label class="checkbox">
-                                <input type="radio" formControlName="estado" name="estado" value=0
+                                <input type="radio" formControlName="dataType" name="dataType" value=0
                                        [checked]="form.get('dataType').value == 'json'">
                                 <span>XML</span>
                             </label>
@@ -253,7 +253,7 @@
             <div class="col-lg-12 col-md-12">
                 <div class="form-group">
                     <label><i class='bx bx-purchase-tag'></i> Acuerdo:</label>
-                    <input formControlName="agreement" type="text" class="form-control" placeholder="">
+                    <input formControlName="agreement" type="number" class="form-control" placeholder="">
                     <div *ngIf="submitted && form.controls.agreement.errors" class="error-form">
                         <div class="error-message" *ngIf="form.controls.agreement.errors.required">Campo requerido</div>
                         <div class="error-message" *ngIf="form.controls.agreement.errors.minlength">Campo debe tener mínimo 3 caracteres</div>
@@ -266,7 +266,7 @@
     <div class="add-listing-box mb-30">
         <div class="row">
             <div class="col-lg-12 col-md-12">
-                <button type="submit" style="float: right">Guardar Servicio</button>
+                <button type="submit" style="float: right">Guardar Proveedor</button>
             </div>
         </div>
     </div>

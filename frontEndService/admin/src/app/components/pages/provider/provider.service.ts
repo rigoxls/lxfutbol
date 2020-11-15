@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {TransportInterface} from '../../interfaces/transport.interface';
-import { environment } from "src/environments/environment";
+import {ProviderInterface} from '../../interfaces/provider.interface';
+import {environment} from 'src/environments/environment';
 
 @Injectable({
     providedIn: 'root'
@@ -11,22 +11,6 @@ export class ProviderService {
     private baseUrl = environment.APIEndPoint;
 
     constructor(private http: HttpClient) {
-    }
-
-    getActivities(): Promise<any[]> {
-        return new Promise((resolve, reject) => {
-            const headers = {
-                'Content-Type': 'application/json'
-            };
-            this.http.get<any[]>(`${this.baseUrl}activity/list`,
-                {headers}).subscribe(result => {
-                    resolve(result);
-                },
-                error => {
-                    console.info(error);
-                    reject(error);
-                });
-        });
     }
 
     getTransportById(transportId?: number): Promise<any[]> {
@@ -45,10 +29,10 @@ export class ProviderService {
         });
     }
 
-    upsertTransport(transport: TransportInterface, transportId?: number, images?: Array<string>) {
+    upsertProvider(provider: ProviderInterface, providerId?: number) {
         return new Promise((resolve, reject) => {
-            const transportSave = transport;
-            const path = (transportId) ? 'provider/update' : 'provider/create';
+            const providerSave = provider;
+            const method = (providerId) ? 'put' : 'post';
 
             const headers = {
                 'Content-Type': 'application/json'
@@ -57,22 +41,26 @@ export class ProviderService {
             const logguedUser = JSON.parse(localStorage.getItem('logguedUser'));
 
             const formData = {
-                nombreRepresentante: transportSave.nombreRepresentante,
-                descripcion: transportSave.descripcion,
-                costoPersona: parseInt(String(transportSave.costoPersona), 10),
-                telefono: transportSave.telefono,
-                tipo: 'transporte',
-                transportadora: transportSave.transportadora,
-                userId: logguedUser.id_usuario,
-                idActividades: transportSave['actividades'].map( tr => parseInt(tr.id, 10) ),
-                images
+                nit: providerSave.nit,
+                name: providerSave.name,
+                representative: providerSave.representative,
+                phone: providerSave.phone + ', ' + providerSave.phone2,
+                email: providerSave.email,
+                address: providerSave.address,
+                type: providerSave.type,
+                search: providerSave.searchContract,
+                book: providerSave.bookContract,
+                cancelBook: providerSave.cancelContract,
+                state: providerSave.state,
+                dataType: providerSave.dataType,
+                agreement: providerSave.agreement
             };
 
-            if (transportId) {
-                formData['idTransporte'] = transportId;
+            if (providerId) {
+                formData['id'] = providerId;
             }
 
-            return this.http.post<any>(`${this.baseUrl}${path}`, formData, {headers}).subscribe(response => {
+            return this.http[`${method}`]<any>(`${this.baseUrl}/provider`, formData, {headers}).subscribe(response => {
                     resolve({status: 201});
                 },
                 error => {
