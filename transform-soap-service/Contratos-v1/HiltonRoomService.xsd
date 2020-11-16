@@ -1,0 +1,46 @@
+<schema attributeFormDefault="unqualified"
+	elementFormDefault="qualified"
+	targetNamespace="http://xmlns.oracle.com/HiltonRoomService"
+	xmlns="http://www.w3.org/2001/XMLSchema"
+        xmlns:tns="http://xmlns.oracle.com/HiltonRoomService">
+	<element name="HiltonRoomServiceProcessRequest">
+		<complexType>
+			<sequence>
+				<element name="City" type="string"/>
+                                <element name="Country" type="string"/>
+    <element name="Check-In" type="date"/>
+    <element name="Check-Out" type="date"/>
+    <element name="Rooms" type="integer"/>
+    <element name="Type" type="string"/>
+   </sequence>
+		</complexType>
+	</element>
+	<element name="HiltonRoomServiceProcessResponse">
+		<complexType>
+			<sequence>
+				<element name="result" type="tns:RoomList"/>
+			</sequence>
+		</complexType>
+	</element>
+ <complexType name="Hotel">
+  <sequence>
+   <element name="Name" type="string"/>
+   <element name="Address" type="string"/>
+   <element name="City" type="string"/>
+   <element name="Country" type="string"/>
+  </sequence>
+ </complexType>
+ <complexType name="Room">
+  <sequence>
+   <element name="Number" type="integer"/>
+   <element name="Hotel" type="tns:Hotel"/>
+   <element name="Price" type="float"/>
+   <element name="Type" type="string"/>
+  </sequence>
+ </complexType>
+ <complexType name="RoomList">
+  <sequence>
+   <element name="Rooms" type="tns:Room" minOccurs="0" maxOccurs="unbounded"/>
+  </sequence>
+ </complexType>
+</schema>

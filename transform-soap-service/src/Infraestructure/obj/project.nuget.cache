@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "Ttbf8Z+4ByPBIkLrZBlNctkhOwWMMOdbwx4uaQhUEfBlA7WE/tSfokWldxIYsl9PZSd/0VPLcEyEzaeNVvn3EA==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\rodri\\Macrom\\Pica final 2\\lxfutbol\\transform-soap-service\\src\\Infraestructure\\Infraestructure.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\rodri\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}

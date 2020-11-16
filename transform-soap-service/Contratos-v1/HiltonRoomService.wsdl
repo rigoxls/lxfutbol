@@ -1,0 +1,76 @@
+<definitions name="HiltonRoomService" targetNamespace="http://xmlns.oracle.com/HiltonRoomService" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:client="http://xmlns.oracle.com/HiltonRoomService" xmlns:plnk="http://schemas.xmlsoap.org/ws/2003/05/partner-link/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+   <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	TYPE DEFINITION - List of services participating in this BPEL process
+	The default output of the BPEL designer uses strings as input and 
+	output to the BPEL Process. But you can define or import any XML 
+	Schema type and use them as part of the message types.
+	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+   <types>
+      <schema xmlns="http://www.w3.org/2001/XMLSchema">
+         <import namespace="http://xmlns.oracle.com/HiltonRoomService" schemaLocation="HiltonRoomService.xsd"/>
+      </schema>
+   </types>
+   <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	MESSAGE TYPE DEFINITION - Definition of the message types used as 
+	part of the port type defintions
+	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+   <message name="HiltonRoomServiceRequestMessage">
+      <part name="payload" element="client:HiltonRoomServiceProcessRequest"/>
+   </message>
+   <message name="HiltonRoomServiceResponseMessage">
+      <part name="payload" element="client:HiltonRoomServiceProcessResponse"/>
+   </message>
+   <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	PORT TYPE DEFINITION - A port type groups a set of operations into
+	a logical service unit.
+	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+   <!--portType implemented by the HiltonRoomService BPEL process-->
+   <portType name="HiltonRoomService">
+      <operation name="initiate">
+         <input message="client:HiltonRoomServiceRequestMessage"/>
+         <output message="client:HiltonRoomServiceResponseMessage"/>
+      </operation>
+   </portType>
+   <!--portType name="HiltonRoomService">
+		<operation name="initiate">
+			<input message="client:HiltonRoomServiceRequestMessage"/>
+		</operation>
+	</portType-->
+   <!--portType implemented by the requester of HiltonRoomService BPEL process
+	for asynchronous callback purposes-->
+   <!--portType name="HiltonRoomServiceCallback">
+		<operation name="onResult">
+			<input message="client:HiltonRoomServiceResponseMessage"/>
+		</operation>
+	</portType-->
+   <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	PARTNER LINK TYPE DEFINITION
+	the HiltonRoomService partnerLinkType binds the provider and
+	requester portType into an asynchronous conversation.
+	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+   <!--plnk:partnerLinkType name="HiltonRoomService">
+		<plnk:role name="HiltonRoomServiceProvider">
+			<plnk:portType name="client:HiltonRoomService"/>
+		</plnk:role>
+		<plnk:role name="HiltonRoomServiceRequester">
+			<plnk:portType name="client:HiltonRoomServiceCallback"/>
+		</plnk:role>
+	</plnk:partnerLinkType-->
+   <binding name="HiltonRoomServiceSoapHttp" type="client:HiltonRoomService">
+      <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+      <operation name="initiate">
+         <soap:operation soapAction="http://xmlns.oracle.com/HiltonRoomService/initiate"/>
+         <input>
+            <soap:body use="literal"/>
+         </input>
+         <output>
+            <soap:body use="literal"/>
+         </output>
+      </operation>
+   </binding>
+   <service name="HiltonRoomService">
+      <port name="HiltonRoomServiceSoapHttpPort" binding="client:HiltonRoomServiceSoapHttp">
+         <soap:address location="http://192.168.1.100:8888/TuresBalonProviders-HRS-context-root/HiltonRoomServiceSoapHttpPort"/>
+      </port>
+   </service>
+</definitions>

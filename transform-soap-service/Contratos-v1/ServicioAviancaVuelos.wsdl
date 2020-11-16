@@ -1,0 +1,111 @@
+<definitions
+     name="ServicioAviancaVuelos"
+     targetNamespace="http://servicios.avianca.com/"
+     xmlns="http://schemas.xmlsoap.org/wsdl/"
+     xmlns:tns="http://servicios.avianca.com/"
+     xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/"
+     xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/"
+     xmlns:tns0="http://servicios.avianca.com/types/"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+     xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+    >
+    <types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://servicios.avianca.com/types/"
+             elementFormDefault="qualified" xmlns:tns="http://servicios.avianca.com/types/"
+             xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:soap11-enc="http://schemas.xmlsoap.org/soap/encoding/">
+            <complexType name="Vuelo">
+                <sequence>
+                    <element name="fechaSalida" type="dateTime" nillable="true"/>
+                    <element name="fechaLlegada" type="dateTime" nillable="true"/>
+                    <element name="ciudadOrigen" type="string" nillable="true"/>
+                    <element name="vuelo" type="string" nillable="true"/>
+                    <element name="clase" type="string" nillable="true"/>
+                    <element name="ciudadDestino" type="string" nillable="true"/>
+                    <element name="precio" type="long" nillable="true"/>
+                </sequence>
+            </complexType>
+            <element name="consultarVueloElement">
+                <complexType>
+                    <sequence>
+                        <element name="ciudadOrigen" type="string" nillable="true"/>
+                        <element name="ciudadDestino" type="string" nillable="true"/>
+                        <element name="fechaSalida" type="dateTime" nillable="true"/>
+                        <element name="clase" type="string" nillable="true"/>
+                    </sequence>
+                </complexType>
+            </element>
+            <element name="consultarVueloResponseElement">
+                <complexType>
+                    <sequence>
+                        <element name="result" type="tns:Vuelo" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+                    </sequence>
+                </complexType>
+            </element>
+            <element name="reservarVueloElement">
+                <complexType>
+                    <sequence>
+                        <element name="vuelo" type="tns:Vuelo" nillable="true"/>
+                        <element name="nombrePasajero" type="string" nillable="true"/>
+                        <element name="numeroIdentidadPasajero" type="int" nillable="true"/>
+                    </sequence>
+                </complexType>
+            </element>
+            <element name="reservarVueloResponseElement">
+                <complexType>
+                    <sequence>
+                        <element name="result" type="boolean"/>
+                    </sequence>
+                </complexType>
+            </element>
+        </schema>
+    </types>
+    <message name="ServicioAviancaVuelos_consultarVuelo">
+        <part name="parameters" element="tns0:consultarVueloElement"/>
+    </message>
+    <message name="ServicioAviancaVuelos_consultarVueloResponse">
+        <part name="parameters" element="tns0:consultarVueloResponseElement"/>
+    </message>
+    <message name="ServicioAviancaVuelos_reservarVuelo">
+        <part name="parameters" element="tns0:reservarVueloElement"/>
+    </message>
+    <message name="ServicioAviancaVuelos_reservarVueloResponse">
+        <part name="parameters" element="tns0:reservarVueloResponseElement"/>
+    </message>
+    <portType name="ServicioAviancaVuelos">
+        <operation name="consultarVuelo">
+            <input message="tns:ServicioAviancaVuelos_consultarVuelo"/>
+            <output message="tns:ServicioAviancaVuelos_consultarVueloResponse"/>
+        </operation>
+        <operation name="reservarVuelo">
+            <input message="tns:ServicioAviancaVuelos_reservarVuelo"/>
+            <output message="tns:ServicioAviancaVuelos_reservarVueloResponse"/>
+        </operation>
+    </portType>
+    <binding name="ServicioAviancaVuelosSoapHttp" type="tns:ServicioAviancaVuelos">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <operation name="consultarVuelo">
+            <soap:operation soapAction="http://servicios.avianca.com//consultarVuelo"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="reservarVuelo">
+            <soap:operation soapAction="http://servicios.avianca.com//reservarVuelo"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+    </binding>
+    <service name="ServicioAviancaVuelos">
+        <port name="ServicioAviancaVuelosSoapHttpPort" binding="tns:ServicioAviancaVuelosSoapHttp">
+            <soap:address location="http://192.168.1.100:8888/TuresBalonProviders-Avianca-context-root/ServicioAviancaVuelosSoapHttpPort"/>
+        </port>
+    </service>
+</definitions>

@@ -1,0 +1,71 @@
+<definitions
+     name="HiltonBookingService"
+     targetNamespace="http://services.hilton.com/"
+     xmlns="http://schemas.xmlsoap.org/wsdl/"
+     xmlns:tns="http://services.hilton.com/"
+     xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/"
+     xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/"
+     xmlns:tns0="http://services.hilton.com/types/"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+     xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+    >
+    <types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://services.hilton.com/types/"
+             elementFormDefault="qualified" xmlns:tns="http://services.hilton.com/types/"
+             xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:soap11-enc="http://schemas.xmlsoap.org/soap/encoding/">
+            <complexType name="RoomReservation">
+                <sequence>
+                    <element name="guestName" type="string" nillable="true"/>
+                    <element name="roomNumber" type="int"/>
+                    <element name="checkout" type="dateTime" nillable="true"/>
+                    <element name="hotel" type="string" nillable="true"/>
+                    <element name="checkin" type="dateTime" nillable="true"/>
+                </sequence>
+            </complexType>
+            <element name="bookRoomElement">
+                <complexType>
+                    <sequence>
+                        <element name="r" type="tns:RoomReservation" nillable="true"/>
+                    </sequence>
+                </complexType>
+            </element>
+            <element name="bookRoomResponseElement">
+                <complexType>
+                    <sequence>
+                        <element name="result" type="int"/>
+                    </sequence>
+                </complexType>
+            </element>
+        </schema>
+    </types>
+    <message name="HiltonBookingService_bookRoom">
+        <part name="parameters" element="tns0:bookRoomElement"/>
+    </message>
+    <message name="HiltonBookingService_bookRoomResponse">
+        <part name="parameters" element="tns0:bookRoomResponseElement"/>
+    </message>
+    <portType name="HiltonBookingService">
+        <operation name="bookRoom">
+            <input message="tns:HiltonBookingService_bookRoom"/>
+            <output message="tns:HiltonBookingService_bookRoomResponse"/>
+        </operation>
+    </portType>
+    <binding name="HiltonBookingServiceSoapHttp" type="tns:HiltonBookingService">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <operation name="bookRoom">
+            <soap:operation soapAction="http://services.hilton.com//bookRoom"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+    </binding>
+    <service name="HiltonBookingService">
+        <port name="HiltonBookingServiceSoapHttpPort" binding="tns:HiltonBookingServiceSoapHttp">
+            <soap:address location="http://192.168.1.100:8888/TuresBalonProviders-HiltonBookingService-context-root/HiltonBookingServiceSoapHttpPort"/>
+        </port>
+    </service>
+</definitions>

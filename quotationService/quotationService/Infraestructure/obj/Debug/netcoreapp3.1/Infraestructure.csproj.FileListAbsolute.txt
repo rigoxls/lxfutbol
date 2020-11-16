@@ -1,0 +1,5 @@
+C:\Users\rodri\Macrom\Pica final 2\lxfutbol\quotationService\quotationService\Infraestructure\bin\Debug\netcoreapp3.1\Infraestructure.deps.json
+C:\Users\rodri\Macrom\Pica final 2\lxfutbol\quotationService\quotationService\Infraestructure\bin\Debug\netcoreapp3.1\Infraestructure.dll
+C:\Users\rodri\Macrom\Pica final 2\lxfutbol\quotationService\quotationService\Infraestructure\obj\Debug\netcoreapp3.1\Infraestructure.csprojAssemblyReference.cache
+C:\Users\rodri\Macrom\Pica final 2\lxfutbol\quotationService\quotationService\Infraestructure\obj\Debug\netcoreapp3.1\Infraestructure.AssemblyInfoInputs.cache
+C:\Users\rodri\Macrom\Pica final 2\lxfutbol\quotationService\quotationService\Infraestructure\obj\Debug\netcoreapp3.1\Infraestructure.AssemblyInfo.cs

@@ -1,0 +1,1171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project id="d21e5f9c-d002-478a-8db9-7d1f153a169b" created="3.4.0" activeEnvironment="Default environment" name="TouresBalon" resourceRoot="" updated="3.4.0 2020-09-16T12:11:44Z" encryptionMode="Not encrypted" xmlns:con="http://eviware.com/soapui/config">
+  <con:settings/>
+  <con:interface xsi:type="con:RestService" id="c534d5c3-8b92-4116-a7bf-da2968413542" wadlVersion="http://wadl.dev.java.net/2009/02" name="GetContract" type="rest" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <con:settings/>
+    <con:definitionCache type="TEXT" rootPart=""/>
+    <con:endpoints/>
+    <con:resource name="Contract" path="/contract" id="ef603c1d-0b56-4e04-a5ef-066a02c3a71a">
+      <con:settings/>
+      <con:parameters/>
+      <con:method name="Contract" id="a522fb5f-0c72-4cc2-886a-809615b3632d" method="GET">
+        <con:settings/>
+        <con:parameters>
+          <con:parameter>
+            <con:name>id</con:name>
+            <con:value>12</con:value>
+            <con:style>PLAIN</con:style>
+            <con:default>12</con:default>
+          </con:parameter>
+        </con:parameters>
+        <con:request name="Request 1" id="ff608ffe-69b2-4fef-bda7-9f1dbef0fd01" mediaType="application/json">
+          <con:settings>
+            <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+          </con:settings>
+          <con:endpoint>http//localhost:8088</con:endpoint>
+          <con:request/>
+          <con:credentials>
+            <con:selectedAuthProfile>No Authorization</con:selectedAuthProfile>
+            <con:authType>No Authorization</con:authType>
+          </con:credentials>
+          <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+          <con:parameters>
+            <con:entry key="id" value="12"/>
+          </con:parameters>
+          <con:parameterOrder>
+            <con:entry>id</con:entry>
+          </con:parameterOrder>
+        </con:request>
+      </con:method>
+    </con:resource>
+  </con:interface>
+  <con:interface xsi:type="con:WsdlInterface" id="0860b260-691d-4df6-bf58-32890bd73f5a" wsaVersion="NONE" name="AAFlightsServiceSoapHttp" type="wsdl" bindingName="{http://services.aa.com/}AAFlightsServiceSoapHttp" soapVersion="1_1" anonymous="optional" definition="file:/C:/Users/rodri/OneDrive/Escritorio/Universidad/PICA/Contratos-v1/Contratos-v1/AAFlightsService.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <con:settings/>
+    <con:definitionCache type="TEXT" rootPart="file:\C:\Users\rodri\OneDrive\Escritorio\Universidad\PICA\Contratos-v1\Contratos-v1\AAFlightsService.wsdl">
+      <con:part>
+        <con:url>file:\C:\Users\rodri\OneDrive\Escritorio\Universidad\PICA\Contratos-v1\Contratos-v1\AAFlightsService.wsdl</con:url>
+        <con:content><![CDATA[<definitions name="AAFlightsService" targetNamespace="http://services.aa.com/" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://services.aa.com/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns0="http://services.aa.com/types/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+  <types>
+    <schema targetNamespace="http://services.aa.com/types/" elementFormDefault="qualified" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://services.aa.com/types/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:soap11-enc="http://schemas.xmlsoap.org/soap/encoding/">
+      <complexType name="Flight">
+        <sequence>
+          <element name="cabin" type="string" nillable="true"/>
+          <element name="arrivingDate" type="dateTime" nillable="true"/>
+          <element name="price" type="double" nillable="true"/>
+          <element name="arrivingCity" type="string" nillable="true"/>
+          <element name="meals" type="string" nillable="true"/>
+          <element name="departinDate" type="dateTime" nillable="true"/>
+          <element name="departinCity" type="string" nillable="true"/>
+          <element name="number" type="int"/>
+        </sequence>
+      </complexType>
+      <complexType name="AAException">
+        <sequence>
+          <element name="error" type="string" nillable="true"/>
+        </sequence>
+      </complexType>
+      <element name="bookFligthElement">
+        <complexType>
+          <sequence>
+            <element name="f" type="tns:Flight" nillable="true"/>
+            <element name="passengerName" type="string" nillable="true"/>
+          </sequence>
+        </complexType>
+      </element>
+      <element name="bookFligthResponseElement">
+        <complexType>
+          <sequence>
+            <element name="result" type="boolean"/>
+          </sequence>
+        </complexType>
+      </element>
+      <element name="AAExceptionElement" type="tns:AAException"/>
+      <element name="searchFlightElement">
+        <complexType>
+          <sequence>
+            <element name="departinCity" type="string" nillable="true"/>
+            <element name="arrivingCity" type="string" nillable="true"/>
+            <element name="departinDate" type="dateTime" nillable="true"/>
+            <element name="cabin" type="string" nillable="true"/>
+            <element name="PromotionCode" type="string" nillable="true"/>
+          </sequence>
+        </complexType>
+      </element>
+      <element name="searchFlightResponseElement">
+        <complexType>
+          <sequence>
+            <element name="result" type="tns:Trip" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+          </sequence>
+        </complexType>
+      </element>
+      <complexType name="Trip">
+        <sequence>
+          <element name="flights" type="tns:Flight" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+        </sequence>
+      </complexType>
+    </schema>
+  </types>
+  <message name="AAFlightsService_bookFligth">
+    <part name="parameters" element="tns0:bookFligthElement"/>
+  </message>
+  <message name="AAFlightsService_bookFligthResponse">
+    <part name="parameters" element="tns0:bookFligthResponseElement"/>
+  </message>
+  <message name="AAException">
+    <part name="AAExceptionElement" element="tns0:AAExceptionElement"/>
+  </message>
+  <message name="AAFlightsService_searchFlight">
+    <part name="parameters" element="tns0:searchFlightElement"/>
+  </message>
+  <message name="AAFlightsService_searchFlightResponse">
+    <part name="parameters" element="tns0:searchFlightResponseElement"/>
+  </message>
+  <portType name="AAFlightsService">
+    <operation name="bookFligth">
+      <input message="tns:AAFlightsService_bookFligth"/>
+      <output message="tns:AAFlightsService_bookFligthResponse"/>
+      <fault name="AAException" message="tns:AAException"/>
+    </operation>
+    <operation name="searchFlight">
+      <input message="tns:AAFlightsService_searchFlight"/>
+      <output message="tns:AAFlightsService_searchFlightResponse"/>
+    </operation>
+  </portType>
+  <binding name="AAFlightsServiceSoapHttp" type="tns:AAFlightsService">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <operation name="bookFligth">
+      <soap:operation soapAction="http://services.aa.com//bookFligth"/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+      <fault name="AAException">
+        <soap:fault name="AAException" use="literal" encodingStyle=""/>
+      </fault>
+    </operation>
+    <operation name="searchFlight">
+      <soap:operation soapAction="http://services.aa.com//searchFlight"/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+  </binding>
+  <service name="AAFlightsService">
+    <port name="AAFlightsServiceSoapHttpPort" binding="tns:AAFlightsServiceSoapHttp">
+      <soap:address location="http://192.168.1.100:8888/TuresBalonProviders-AA-context-root/AAFlightsServiceSoapHttpPort"/>
+    </port>
+  </service>
+</definitions>]]></con:content>
+        <con:type>http://schemas.xmlsoap.org/wsdl/</con:type>
+      </con:part>
+    </con:definitionCache>
+    <con:endpoints>
+      <con:endpoint>http://192.168.1.100:8888/TuresBalonProviders-AA-context-root/AAFlightsServiceSoapHttpPort</con:endpoint>
+    </con:endpoints>
+    <con:operation id="c62d415c-d335-40f6-81b0-269085a9e94e" isOneWay="false" action="http://services.aa.com//bookFligth" name="bookFligth" bindingOperationName="bookFligth" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional">
+      <con:settings/>
+      <con:call id="af96f655-f48f-4ab8-bbaa-a9e4150ca82b" name="Request 1">
+        <con:settings>
+          <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+        </con:settings>
+        <con:encoding>UTF-8</con:encoding>
+        <con:endpoint>http://localhost:8082/bookFlight</con:endpoint>
+        <con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:typ="http://services.aa.com/types/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <typ:bookFligthElement>
+         <typ:f>
+            <typ:cabin>8A</typ:cabin>
+            <typ:arrivingDate>2020-10-22T00:00:00.000-05:00</typ:arrivingDate>
+            <typ:price>500000</typ:price>
+            <typ:arrivingCity>Cartagena</typ:arrivingCity>
+            <typ:meals>2</typ:meals>
+            <typ:departinDate>2020-10-21T00:00:00.000-05:00</typ:departinDate>
+            <typ:departinCity>Bogotá</typ:departinCity>
+            <typ:number>2</typ:number>
+         </typ:f>
+         <typ:passengerName>Rodrigo Bastidas</typ:passengerName>
+      </typ:bookFligthElement>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request>
+        <con:credentials>
+          <con:selectedAuthProfile>No Authorization</con:selectedAuthProfile>
+          <con:authType>No Authorization</con:authType>
+        </con:credentials>
+        <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+        <con:wsaConfig mustUnderstand="NONE" version="200508" action="http://services.aa.com//bookFligth"/>
+        <con:wsrmConfig version="1.2"/>
+      </con:call>
+    </con:operation>
+    <con:operation id="cad9b8c8-5446-40b7-8875-61e41680826d" isOneWay="false" action="http://services.aa.com//searchFlight" name="searchFlight" bindingOperationName="searchFlight" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional">
+      <con:settings/>
+      <con:call id="0fd20a86-5e2c-4d70-9be7-08002ea6f2a6" name="Request 1">
+        <con:settings>
+          <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+        </con:settings>
+        <con:encoding>UTF-8</con:encoding>
+        <con:endpoint>http://localhost:8082/searchFlight</con:endpoint>
+        <con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:typ="http://services.aa.com/types/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <typ:searchFlightElement>
+         <typ:departinCity>Bogotá</typ:departinCity>
+         <typ:arrivingCity>Cartagena</typ:arrivingCity>
+         <typ:departinDate>2020-10-19T00:00:00.000-05:00</typ:departinDate>
+         <typ:cabin>8E</typ:cabin>
+         <typ:PromotionCode xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+      </typ:searchFlightElement>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request>
+        <con:credentials>
+          <con:selectedAuthProfile>No Authorization</con:selectedAuthProfile>
+          <con:authType>No Authorization</con:authType>
+        </con:credentials>
+        <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+        <con:wsaConfig mustUnderstand="NONE" version="200508" action="http://services.aa.com//searchFlight"/>
+        <con:wsrmConfig version="1.2"/>
+      </con:call>
+    </con:operation>
+  </con:interface>
+  <con:interface xsi:type="con:WsdlInterface" id="ce7d65e5-875b-4772-9f72-8e1e47aaa645" wsaVersion="NONE" name="HiltonBookingServiceSoapHttp" type="wsdl" bindingName="{http://services.hilton.com/}HiltonBookingServiceSoapHttp" soapVersion="1_1" anonymous="optional" definition="file:/C:/Users/rodri/OneDrive/Escritorio/Universidad/PICA/Contratos-v1/Contratos-v1/HiltonBookingService.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <con:settings/>
+    <con:definitionCache type="TEXT" rootPart="file:\C:\Users\rodri\OneDrive\Escritorio\Universidad\PICA\Contratos-v1\Contratos-v1\HiltonBookingService.wsdl">
+      <con:part>
+        <con:url>file:\C:\Users\rodri\OneDrive\Escritorio\Universidad\PICA\Contratos-v1\Contratos-v1\HiltonBookingService.wsdl</con:url>
+        <con:content><![CDATA[<definitions name="HiltonBookingService" targetNamespace="http://services.hilton.com/" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://services.hilton.com/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns0="http://services.hilton.com/types/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+  <types>
+    <schema targetNamespace="http://services.hilton.com/types/" elementFormDefault="qualified" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://services.hilton.com/types/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:soap11-enc="http://schemas.xmlsoap.org/soap/encoding/">
+      <complexType name="RoomReservation">
+        <sequence>
+          <element name="guestName" type="string" nillable="true"/>
+          <element name="roomNumber" type="int"/>
+          <element name="checkout" type="dateTime" nillable="true"/>
+          <element name="hotel" type="string" nillable="true"/>
+          <element name="checkin" type="dateTime" nillable="true"/>
+        </sequence>
+      </complexType>
+      <element name="bookRoomElement">
+        <complexType>
+          <sequence>
+            <element name="r" type="tns:RoomReservation" nillable="true"/>
+          </sequence>
+        </complexType>
+      </element>
+      <element name="bookRoomResponseElement">
+        <complexType>
+          <sequence>
+            <element name="result" type="int"/>
+          </sequence>
+        </complexType>
+      </element>
+    </schema>
+  </types>
+  <message name="HiltonBookingService_bookRoom">
+    <part name="parameters" element="tns0:bookRoomElement"/>
+  </message>
+  <message name="HiltonBookingService_bookRoomResponse">
+    <part name="parameters" element="tns0:bookRoomResponseElement"/>
+  </message>
+  <portType name="HiltonBookingService">
+    <operation name="bookRoom">
+      <input message="tns:HiltonBookingService_bookRoom"/>
+      <output message="tns:HiltonBookingService_bookRoomResponse"/>
+    </operation>
+  </portType>
+  <binding name="HiltonBookingServiceSoapHttp" type="tns:HiltonBookingService">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <operation name="bookRoom">
+      <soap:operation soapAction="http://services.hilton.com//bookRoom"/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+  </binding>
+  <service name="HiltonBookingService">
+    <port name="HiltonBookingServiceSoapHttpPort" binding="tns:HiltonBookingServiceSoapHttp">
+      <soap:address location="http://192.168.1.100:8888/TuresBalonProviders-HiltonBookingService-context-root/HiltonBookingServiceSoapHttpPort"/>
+    </port>
+  </service>
+</definitions>]]></con:content>
+        <con:type>http://schemas.xmlsoap.org/wsdl/</con:type>
+      </con:part>
+    </con:definitionCache>
+    <con:endpoints>
+      <con:endpoint>http://192.168.1.100:8888/TuresBalonProviders-HiltonBookingService-context-root/HiltonBookingServiceSoapHttpPort</con:endpoint>
+    </con:endpoints>
+    <con:operation id="31d954eb-becf-4972-bf00-7197dc946aa7" isOneWay="false" action="http://services.hilton.com//bookRoom" name="bookRoom" bindingOperationName="bookRoom" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional">
+      <con:settings/>
+      <con:call id="8bcedab8-bae4-4339-a860-2230ae05124b" name="Request 1">
+        <con:settings/>
+        <con:encoding>UTF-8</con:encoding>
+        <con:endpoint>http://192.168.1.100:8888/TuresBalonProviders-HiltonBookingService-context-root/HiltonBookingServiceSoapHttpPort</con:endpoint>
+        <con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:typ="http://services.hilton.com/types/">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <typ:bookRoomElement>\r
+         <typ:r>\r
+            <typ:guestName>?</typ:guestName>\r
+            <typ:roomNumber>?</typ:roomNumber>\r
+            <typ:checkout>?</typ:checkout>\r
+            <typ:hotel>?</typ:hotel>\r
+            <typ:checkin>?</typ:checkin>\r
+         </typ:r>\r
+      </typ:bookRoomElement>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request>
+        <con:credentials>
+          <con:selectedAuthProfile>No Authorization</con:selectedAuthProfile>
+          <con:authType>No Authorization</con:authType>
+        </con:credentials>
+        <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+        <con:wsaConfig mustUnderstand="NONE" version="200508" action="http://services.hilton.com//bookRoom"/>
+        <con:wsrmConfig version="1.2"/>
+      </con:call>
+    </con:operation>
+  </con:interface>
+  <con:interface xsi:type="con:WsdlInterface" id="70f7b23e-693b-4763-902c-23981f7bd3ab" wsaVersion="NONE" name="ServicioAviancaVuelosSoapHttp" type="wsdl" bindingName="{http://servicios.avianca.com/}ServicioAviancaVuelosSoapHttp" soapVersion="1_1" anonymous="optional" definition="file:/C:/Users/rodri/OneDrive/Escritorio/Universidad/PICA/Contratos-v1/Contratos-v1/ServicioAviancaVuelos.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <con:settings/>
+    <con:definitionCache type="TEXT" rootPart="file:\C:\Users\rodri\OneDrive\Escritorio\Universidad\PICA\Contratos-v1\Contratos-v1\ServicioAviancaVuelos.wsdl">
+      <con:part>
+        <con:url>file:\C:\Users\rodri\OneDrive\Escritorio\Universidad\PICA\Contratos-v1\Contratos-v1\ServicioAviancaVuelos.wsdl</con:url>
+        <con:content><![CDATA[<definitions name="ServicioAviancaVuelos" targetNamespace="http://servicios.avianca.com/" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://servicios.avianca.com/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns0="http://servicios.avianca.com/types/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+  <types>
+    <schema targetNamespace="http://servicios.avianca.com/types/" elementFormDefault="qualified" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://servicios.avianca.com/types/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:soap11-enc="http://schemas.xmlsoap.org/soap/encoding/">
+      <complexType name="Vuelo">
+        <sequence>
+          <element name="fechaSalida" type="dateTime" nillable="true"/>
+          <element name="fechaLlegada" type="dateTime" nillable="true"/>
+          <element name="ciudadOrigen" type="string" nillable="true"/>
+          <element name="vuelo" type="string" nillable="true"/>
+          <element name="clase" type="string" nillable="true"/>
+          <element name="ciudadDestino" type="string" nillable="true"/>
+          <element name="precio" type="long" nillable="true"/>
+        </sequence>
+      </complexType>
+      <element name="consultarVueloElement">
+        <complexType>
+          <sequence>
+            <element name="ciudadOrigen" type="string" nillable="true"/>
+            <element name="ciudadDestino" type="string" nillable="true"/>
+            <element name="fechaSalida" type="dateTime" nillable="true"/>
+            <element name="clase" type="string" nillable="true"/>
+          </sequence>
+        </complexType>
+      </element>
+      <element name="consultarVueloResponseElement">
+        <complexType>
+          <sequence>
+            <element name="result" type="tns:Vuelo" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+          </sequence>
+        </complexType>
+      </element>
+      <element name="reservarVueloElement">
+        <complexType>
+          <sequence>
+            <element name="vuelo" type="tns:Vuelo" nillable="true"/>
+            <element name="nombrePasajero" type="string" nillable="true"/>
+            <element name="numeroIdentidadPasajero" type="int" nillable="true"/>
+          </sequence>
+        </complexType>
+      </element>
+      <element name="reservarVueloResponseElement">
+        <complexType>
+          <sequence>
+            <element name="result" type="boolean"/>
+          </sequence>
+        </complexType>
+      </element>
+    </schema>
+  </types>
+  <message name="ServicioAviancaVuelos_consultarVuelo">
+    <part name="parameters" element="tns0:consultarVueloElement"/>
+  </message>
+  <message name="ServicioAviancaVuelos_consultarVueloResponse">
+    <part name="parameters" element="tns0:consultarVueloResponseElement"/>
+  </message>
+  <message name="ServicioAviancaVuelos_reservarVuelo">
+    <part name="parameters" element="tns0:reservarVueloElement"/>
+  </message>
+  <message name="ServicioAviancaVuelos_reservarVueloResponse">
+    <part name="parameters" element="tns0:reservarVueloResponseElement"/>
+  </message>
+  <portType name="ServicioAviancaVuelos">
+    <operation name="consultarVuelo">
+      <input message="tns:ServicioAviancaVuelos_consultarVuelo"/>
+      <output message="tns:ServicioAviancaVuelos_consultarVueloResponse"/>
+    </operation>
+    <operation name="reservarVuelo">
+      <input message="tns:ServicioAviancaVuelos_reservarVuelo"/>
+      <output message="tns:ServicioAviancaVuelos_reservarVueloResponse"/>
+    </operation>
+  </portType>
+  <binding name="ServicioAviancaVuelosSoapHttp" type="tns:ServicioAviancaVuelos">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <operation name="consultarVuelo">
+      <soap:operation soapAction="http://servicios.avianca.com//consultarVuelo"/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    <operation name="reservarVuelo">
+      <soap:operation soapAction="http://servicios.avianca.com//reservarVuelo"/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+  </binding>
+  <service name="ServicioAviancaVuelos">
+    <port name="ServicioAviancaVuelosSoapHttpPort" binding="tns:ServicioAviancaVuelosSoapHttp">
+      <soap:address location="http://192.168.1.100:8888/TuresBalonProviders-Avianca-context-root/ServicioAviancaVuelosSoapHttpPort"/>
+    </port>
+  </service>
+</definitions>]]></con:content>
+        <con:type>http://schemas.xmlsoap.org/wsdl/</con:type>
+      </con:part>
+    </con:definitionCache>
+    <con:endpoints>
+      <con:endpoint>http://192.168.1.100:8888/TuresBalonProviders-Avianca-context-root/ServicioAviancaVuelosSoapHttpPort</con:endpoint>
+    </con:endpoints>
+    <con:operation id="6134325b-68ab-40bf-b415-d5c233bf1673" isOneWay="false" action="http://servicios.avianca.com//consultarVuelo" name="consultarVuelo" bindingOperationName="consultarVuelo" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional">
+      <con:settings/>
+      <con:call id="22f69423-4964-48df-a023-45732cfd53c4" name="Request 1">
+        <con:settings>
+          <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+        </con:settings>
+        <con:encoding>UTF-8</con:encoding>
+        <con:endpoint>http://192.168.1.100:8888/TuresBalonProviders-Avianca-context-root/ServicioAviancaVuelosSoapHttpPort</con:endpoint>
+        <con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:typ="http://servicios.avianca.com/types/">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <typ:consultarVueloElement>\r
+         <typ:ciudadOrigen>?</typ:ciudadOrigen>\r
+         <typ:ciudadDestino>?</typ:ciudadDestino>\r
+         <typ:fechaSalida>?</typ:fechaSalida>\r
+         <typ:clase>?</typ:clase>\r
+      </typ:consultarVueloElement>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request>
+        <con:credentials>
+          <con:selectedAuthProfile>No Authorization</con:selectedAuthProfile>
+          <con:authType>No Authorization</con:authType>
+        </con:credentials>
+        <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+        <con:wsaConfig mustUnderstand="NONE" version="200508" action="http://servicios.avianca.com//consultarVuelo"/>
+        <con:wsrmConfig version="1.2"/>
+      </con:call>
+    </con:operation>
+    <con:operation id="a68459e2-403b-4bef-bc7b-e1c76e11bad3" isOneWay="false" action="http://servicios.avianca.com//reservarVuelo" name="reservarVuelo" bindingOperationName="reservarVuelo" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional">
+      <con:settings/>
+      <con:call id="6aaff0bf-281d-4888-ad60-fbb1aaf4c784" name="Request 1">
+        <con:settings/>
+        <con:encoding>UTF-8</con:encoding>
+        <con:endpoint>http://192.168.1.100:8888/TuresBalonProviders-Avianca-context-root/ServicioAviancaVuelosSoapHttpPort</con:endpoint>
+        <con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:typ="http://servicios.avianca.com/types/">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <typ:reservarVueloElement>\r
+         <typ:vuelo>\r
+            <typ:fechaSalida>?</typ:fechaSalida>\r
+            <typ:fechaLlegada>?</typ:fechaLlegada>\r
+            <typ:ciudadOrigen>?</typ:ciudadOrigen>\r
+            <typ:vuelo>?</typ:vuelo>\r
+            <typ:clase>?</typ:clase>\r
+            <typ:ciudadDestino>?</typ:ciudadDestino>\r
+            <typ:precio>?</typ:precio>\r
+         </typ:vuelo>\r
+         <typ:nombrePasajero>?</typ:nombrePasajero>\r
+         <typ:numeroIdentidadPasajero>?</typ:numeroIdentidadPasajero>\r
+      </typ:reservarVueloElement>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request>
+        <con:credentials>
+          <con:selectedAuthProfile>No Authorization</con:selectedAuthProfile>
+          <con:authType>No Authorization</con:authType>
+        </con:credentials>
+        <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+        <con:wsaConfig mustUnderstand="NONE" version="200508" action="http://servicios.avianca.com//reservarVuelo"/>
+        <con:wsrmConfig version="1.2"/>
+      </con:call>
+    </con:operation>
+  </con:interface>
+  <con:interface xsi:type="con:WsdlInterface" id="876db040-be77-45fe-a8e7-12073f52315d" wsaVersion="NONE" name="HiltonRoomServiceSoapHttp" type="wsdl" bindingName="{http://xmlns.oracle.com/HiltonRoomService}HiltonRoomServiceSoapHttp" soapVersion="1_1" anonymous="optional" definition="file:/C:/Users/rodri/OneDrive/Escritorio/Universidad/PICA/Contratos-v1/Contratos-v1/HiltonRoomService.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <con:settings/>
+    <con:definitionCache type="TEXT" rootPart="file:\C:\Users\rodri\OneDrive\Escritorio\Universidad\PICA\Contratos-v1\Contratos-v1\HiltonRoomService.wsdl">
+      <con:part>
+        <con:url>file:\C:\Users\rodri\OneDrive\Escritorio\Universidad\PICA\Contratos-v1\Contratos-v1\HiltonRoomService.wsdl</con:url>
+        <con:content><![CDATA[<definitions name="HiltonRoomService" targetNamespace="http://xmlns.oracle.com/HiltonRoomService" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:client="http://xmlns.oracle.com/HiltonRoomService" xmlns:plnk="http://schemas.xmlsoap.org/ws/2003/05/partner-link/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+  <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	TYPE DEFINITION - List of services participating in this BPEL process
+	The default output of the BPEL designer uses strings as input and 
+	output to the BPEL Process. But you can define or import any XML 
+	Schema type and use them as part of the message types.
+	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+  <types>
+    <schema xmlns="http://www.w3.org/2001/XMLSchema">
+      <import namespace="http://xmlns.oracle.com/HiltonRoomService" schemaLocation="HiltonRoomService.xsd"/>
+    </schema>
+  </types>
+  <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	MESSAGE TYPE DEFINITION - Definition of the message types used as 
+	part of the port type defintions
+	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+  <message name="HiltonRoomServiceRequestMessage">
+    <part name="payload" element="client:HiltonRoomServiceProcessRequest"/>
+  </message>
+  <message name="HiltonRoomServiceResponseMessage">
+    <part name="payload" element="client:HiltonRoomServiceProcessResponse"/>
+  </message>
+  <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	PORT TYPE DEFINITION - A port type groups a set of operations into
+	a logical service unit.
+	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+  <!--portType implemented by the HiltonRoomService BPEL process-->
+  <portType name="HiltonRoomService">
+    <operation name="initiate">
+      <input message="client:HiltonRoomServiceRequestMessage"/>
+      <output message="client:HiltonRoomServiceResponseMessage"/>
+    </operation>
+  </portType>
+  <!--portType name="HiltonRoomService">
+		<operation name="initiate">
+			<input message="client:HiltonRoomServiceRequestMessage"/>
+		</operation>
+	</portType-->
+  <!--portType implemented by the requester of HiltonRoomService BPEL process
+	for asynchronous callback purposes-->
+  <!--portType name="HiltonRoomServiceCallback">
+		<operation name="onResult">
+			<input message="client:HiltonRoomServiceResponseMessage"/>
+		</operation>
+	</portType-->
+  <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	PARTNER LINK TYPE DEFINITION
+	the HiltonRoomService partnerLinkType binds the provider and
+	requester portType into an asynchronous conversation.
+	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+  <!--plnk:partnerLinkType name="HiltonRoomService">
+		<plnk:role name="HiltonRoomServiceProvider">
+			<plnk:portType name="client:HiltonRoomService"/>
+		</plnk:role>
+		<plnk:role name="HiltonRoomServiceRequester">
+			<plnk:portType name="client:HiltonRoomServiceCallback"/>
+		</plnk:role>
+	</plnk:partnerLinkType-->
+  <binding name="HiltonRoomServiceSoapHttp" type="client:HiltonRoomService">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <operation name="initiate">
+      <soap:operation soapAction="http://xmlns.oracle.com/HiltonRoomService/initiate"/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+  </binding>
+  <service name="HiltonRoomService">
+    <port name="HiltonRoomServiceSoapHttpPort" binding="client:HiltonRoomServiceSoapHttp">
+      <soap:address location="http://192.168.1.100:8888/TuresBalonProviders-HRS-context-root/HiltonRoomServiceSoapHttpPort"/>
+    </port>
+  </service>
+</definitions>]]></con:content>
+        <con:type>http://schemas.xmlsoap.org/wsdl/</con:type>
+      </con:part>
+      <con:part>
+        <con:url>file:\C:\Users\rodri\OneDrive\Escritorio\Universidad\PICA\Contratos-v1\Contratos-v1\HiltonRoomService.xsd</con:url>
+        <con:content><![CDATA[<schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://xmlns.oracle.com/HiltonRoomService" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://xmlns.oracle.com/HiltonRoomService">
+  <element name="HiltonRoomServiceProcessRequest">
+    <complexType>
+      <sequence>
+        <element name="City" type="string"/>
+        <element name="Country" type="string"/>
+        <element name="Check-In" type="date"/>
+        <element name="Check-Out" type="date"/>
+        <element name="Rooms" type="integer"/>
+        <element name="Type" type="string"/>
+      </sequence>
+    </complexType>
+  </element>
+  <element name="HiltonRoomServiceProcessResponse">
+    <complexType>
+      <sequence>
+        <element name="result" type="tns:RoomList"/>
+      </sequence>
+    </complexType>
+  </element>
+  <complexType name="Hotel">
+    <sequence>
+      <element name="Name" type="string"/>
+      <element name="Address" type="string"/>
+      <element name="City" type="string"/>
+      <element name="Country" type="string"/>
+    </sequence>
+  </complexType>
+  <complexType name="Room">
+    <sequence>
+      <element name="Number" type="integer"/>
+      <element name="Hotel" type="tns:Hotel"/>
+      <element name="Price" type="float"/>
+      <element name="Type" type="string"/>
+    </sequence>
+  </complexType>
+  <complexType name="RoomList">
+    <sequence>
+      <element name="Rooms" type="tns:Room" minOccurs="0" maxOccurs="unbounded"/>
+    </sequence>
+  </complexType>
+</schema>]]></con:content>
+        <con:type>http://www.w3.org/2001/XMLSchema</con:type>
+      </con:part>
+    </con:definitionCache>
+    <con:endpoints>
+      <con:endpoint>http://192.168.1.100:8888/TuresBalonProviders-HRS-context-root/HiltonRoomServiceSoapHttpPort</con:endpoint>
+    </con:endpoints>
+    <con:operation id="d175cca5-2cdd-43cd-9b02-547a4d7ed01e" isOneWay="false" action="http://xmlns.oracle.com/HiltonRoomService/initiate" name="initiate" bindingOperationName="initiate" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional">
+      <con:settings/>
+      <con:call id="4f523862-a7cc-47ff-9925-70c3761fa07e" name="Request 1">
+        <con:settings/>
+        <con:encoding>UTF-8</con:encoding>
+        <con:endpoint>http://192.168.1.100:8888/TuresBalonProviders-HRS-context-root/HiltonRoomServiceSoapHttpPort</con:endpoint>
+        <con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:hil="http://xmlns.oracle.com/HiltonRoomService">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <hil:HiltonRoomServiceProcessRequest>\r
+         <hil:City>?</hil:City>\r
+         <hil:Country>?</hil:Country>\r
+         <hil:Check-In>?</hil:Check-In>\r
+         <hil:Check-Out>?</hil:Check-Out>\r
+         <hil:Rooms>?</hil:Rooms>\r
+         <hil:Type>?</hil:Type>\r
+      </hil:HiltonRoomServiceProcessRequest>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request>
+        <con:credentials>
+          <con:selectedAuthProfile>No Authorization</con:selectedAuthProfile>
+          <con:authType>No Authorization</con:authType>
+        </con:credentials>
+        <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+        <con:wsaConfig mustUnderstand="NONE" version="200508" action="http://xmlns.oracle.com/HiltonRoomService/initiate"/>
+        <con:wsrmConfig version="1.2"/>
+      </con:call>
+    </con:operation>
+  </con:interface>
+  <con:testSuite id="1f1592f7-0799-41bd-8e47-1e04ac150bfa" name="TestSuite 1">
+    <con:settings/>
+    <con:runType>SEQUENTIAL</con:runType>
+    <con:testCase id="90dd3e40-0292-4b4d-b0ac-c42e53ea7f17" discardOkResults="false" failOnError="true" failTestCaseOnErrors="true" keepSession="false" name="TestCase 1" searchProperties="true" timeout="0">
+      <con:settings/>
+      <con:testStep type="request" id="23cdc6e6-748d-45c7-8b0f-87fe523b387e" name="bookFligth - Request 1">
+        <con:settings/>
+        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:interface>AAFlightsServiceSoapHttp</con:interface>
+          <con:operation>bookFligth</con:operation>
+          <con:request name="bookFligth - Request 1" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType="" id="ef32991a-d977-4c94-96d7-26fdfbfffbc6">
+            <con:settings>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+            </con:settings>
+            <con:encoding>UTF-8</con:encoding>
+            <con:endpoint>http://localhost:8082/bookFlight</con:endpoint>
+            <con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:typ="http://services.aa.com/types/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <typ:bookFligthElement>
+         <typ:f>
+            <typ:cabin>8A</typ:cabin>
+            <typ:arrivingDate>2020-10-22T00:00:00.000-05:00</typ:arrivingDate>
+            <typ:price>500000</typ:price>
+            <typ:arrivingCity>Cartagena</typ:arrivingCity>
+            <typ:meals>2</typ:meals>
+            <typ:departinDate>2020-10-21T00:00:00.000-05:00</typ:departinDate>
+            <typ:departinCity>Bogotá</typ:departinCity>
+            <typ:number>2</typ:number>
+         </typ:f>
+         <typ:passengerName>Rodrigo Bastidas</typ:passengerName>
+      </typ:bookFligthElement>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request>
+            <con:assertion type="SOAP Response" id="08395088-2851-4eee-aadf-6f439d4f7ce8" name="SOAP Response"/>
+            <con:credentials>
+              <con:selectedAuthProfile>No Authorization</con:selectedAuthProfile>
+              <con:authType>No Authorization</con:authType>
+            </con:credentials>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:wsaConfig mustUnderstand="NONE" version="200508" action="http://services.aa.com//bookFligth"/>
+            <con:wsrmConfig version="1.2"/>
+          </con:request>
+        </con:config>
+      </con:testStep>
+      <con:properties/>
+      <con:reportParameters/>
+    </con:testCase>
+    <con:testCase id="055ab1d5-b9c3-48e0-844d-f49db47e898e" discardOkResults="false" failOnError="true" failTestCaseOnErrors="true" keepSession="false" name="TestCase 2" searchProperties="true" timeout="0">
+      <con:settings/>
+      <con:testStep type="request" id="c0f18cf9-39b7-4e1e-9a79-8cfedfa86185" name="SOAP Request">
+        <con:settings/>
+        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:interface>AAFlightsServiceSoapHttp</con:interface>
+          <con:operation>searchFlight</con:operation>
+          <con:request name="SOAP Request" id="1223de3f-84fd-4484-adfe-fdc8ab646be3">
+            <con:settings>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+            </con:settings>
+            <con:encoding>UTF-8</con:encoding>
+            <con:endpoint>http://localhost:8099/searchFlight</con:endpoint>
+            <con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:typ="http://services.aa.com/types/">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <typ:searchFlightElement>\r
+         <typ:departinCity>?</typ:departinCity>\r
+         <typ:arrivingCity>?</typ:arrivingCity>\r
+         <typ:departinDate>?</typ:departinDate>\r
+         <typ:cabin>?</typ:cabin>\r
+         <typ:PromotionCode>?</typ:PromotionCode>\r
+      </typ:searchFlightElement>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request>
+            <con:assertion type="Valid HTTP Status Codes" id="88aaf2df-3e46-46d6-849e-c7c43c5f1518" name="Valid HTTP Status Codes">
+              <con:settings/>
+              <con:configuration>
+                <codes>200</codes>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="Response SLA Assertion" id="6dea6343-e215-4db6-99ef-f36d4d288c61" name="Response SLA">
+              <con:configuration>
+                <SLA>200</SLA>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="SOAP Fault Assertion" id="2288af20-f184-451b-b952-301fea59b54e" name="Not SOAP Fault"/>
+            <con:assertion type="Schema Compliance" id="9fc7d57e-6ee0-4eff-8f59-3114c206e6ba" name="Schema Compliance">
+              <con:configuration/>
+            </con:assertion>
+            <con:credentials>
+              <con:selectedAuthProfile>No Authorization</con:selectedAuthProfile>
+              <con:authType>No Authorization</con:authType>
+            </con:credentials>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:wsaConfig action="http://services.aa.com//searchFlight" mustUnderstand="NONE" version="200508"/>
+            <con:wsrmConfig version="1.2"/>
+          </con:request>
+        </con:config>
+      </con:testStep>
+      <con:properties/>
+      <con:reportParameters/>
+    </con:testCase>
+    <con:properties/>
+    <con:reportParameters/>
+  </con:testSuite>
+  <con:mockService id="b1ab1831-549e-4105-88de-014e3138748d" port="8082" path="/" host="localhost" name="BookFlight">
+    <con:settings>
+      <con:setting id="com.eviware.soapui.impl.wsdl.mock.WsdlMockService@require-soap-action">false</con:setting>
+    </con:settings>
+    <con:properties/>
+    <con:constraints>
+      <con:congestion>0</con:congestion>
+      <con:inputBandwidth>-1</con:inputBandwidth>
+      <con:outputBandwidth>-1</con:outputBandwidth>
+      <con:maxThreadPoolCapacity>20</con:maxThreadPoolCapacity>
+      <con:coreThreadPoolCapacity>5</con:coreThreadPoolCapacity>
+      <con:virtError>
+        <con:start>0</con:start>
+        <con:endless>true</con:endless>
+      </con:virtError>
+    </con:constraints>
+    <con:dataSources/>
+    <con:headerValidator type="NONE"/>
+    <con:mockOperation name="bookFligth" id="b1716d44-6af4-4a59-842e-af7f91f96192" interface="AAFlightsServiceSoapHttp" operation="bookFligth">
+      <con:settings/>
+      <con:defaultResponse>Response 1</con:defaultResponse>
+      <con:dispatchStyle>SEQUENCE</con:dispatchStyle>
+      <con:dispatchConfig/>
+      <con:dispatchXPath/>
+      <con:routeScript/>
+      <con:response name="Response 1" id="77e4e077-3773-4323-90ee-df366acabe17" httpResponseStatus="200" encoding="UTF-8" compressedBodyContent="aced00057372002f636f6d2e657669776172652e736f617075692e696d706c2e737570706f72742e436f6d7072657373656456616c7565000b8b02c748eeab0200025a000a636f6d707265737365645b0004646174617400025b4278700070" dataSource="">
+        <con:settings/>
+        <con:responseContent><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:typ="http://services.aa.com/types/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <typ:bookFligthResponseElement>
+         <typ:result> Ok
+          </typ:result>
+      </typ:bookFligthResponseElement>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:responseContent>
+        <con:wsaConfig mustUnderstand="NONE" version="200508" action="http://services.aa.com//bookFligth"/>
+      </con:response>
+    </con:mockOperation>
+  </con:mockService>
+  <con:mockService id="345d6f94-0dfb-4323-a1d0-2fe58a1ef008" port="8082" path="/" host="localhost" name="BookHotel">
+    <con:settings>
+      <con:setting id="com.eviware.soapui.impl.wsdl.mock.WsdlMockService@require-soap-action">false</con:setting>
+    </con:settings>
+    <con:properties/>
+    <con:constraints>
+      <con:congestion>0</con:congestion>
+      <con:inputBandwidth>-1</con:inputBandwidth>
+      <con:outputBandwidth>-1</con:outputBandwidth>
+      <con:maxThreadPoolCapacity>20</con:maxThreadPoolCapacity>
+      <con:coreThreadPoolCapacity>5</con:coreThreadPoolCapacity>
+      <con:virtError>
+        <con:start>0</con:start>
+        <con:endless>true</con:endless>
+      </con:virtError>
+    </con:constraints>
+    <con:dataSources/>
+    <con:headerValidator type="NONE"/>
+    <con:mockOperation name="bookRoom" id="8a27e0f4-794c-4582-a3ce-a2cb27d2b355" interface="HiltonBookingServiceSoapHttp" operation="bookRoom">
+      <con:settings/>
+      <con:defaultResponse>Response 1</con:defaultResponse>
+      <con:dispatchStyle>SEQUENCE</con:dispatchStyle>
+      <con:dispatchConfig/>
+      <con:dispatchXPath/>
+      <con:routeScript/>
+      <con:response name="Response 1" id="280d2283-49ff-4ffe-84bc-f9e08653bd07" httpResponseStatus="200" encoding="UTF-8" compressedBodyContent="aced00057372002f636f6d2e657669776172652e736f617075692e696d706c2e737570706f72742e436f6d7072657373656456616c7565000b8b02c748eeab0200025a000a636f6d707265737365645b0004646174617400025b4278700070" dataSource="">
+        <con:settings/>
+        <con:responseContent><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:typ="http://services.hilton.com/types/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <typ:bookRoomResponseElement>
+         <typ:result>1</typ:result>
+      </typ:bookRoomResponseElement>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:responseContent>
+        <con:wsaConfig mustUnderstand="NONE" version="200508" action="http://services.hilton.com//bookRoom"/>
+      </con:response>
+    </con:mockOperation>
+  </con:mockService>
+  <con:mockService id="dd3be106-2d17-4f2c-bd59-2ed5b47587ab" port="8083" path="/" host="localhost" name="consultar">
+    <con:settings>
+      <con:setting id="com.eviware.soapui.impl.wsdl.mock.WsdlMockService@require-soap-action">false</con:setting>
+    </con:settings>
+    <con:properties/>
+    <con:constraints>
+      <con:congestion>0</con:congestion>
+      <con:inputBandwidth>-1</con:inputBandwidth>
+      <con:outputBandwidth>-1</con:outputBandwidth>
+      <con:maxThreadPoolCapacity>20</con:maxThreadPoolCapacity>
+      <con:coreThreadPoolCapacity>5</con:coreThreadPoolCapacity>
+      <con:virtError>
+        <con:start>0</con:start>
+        <con:endless>true</con:endless>
+      </con:virtError>
+    </con:constraints>
+    <con:dataSources/>
+    <con:headerValidator type="NONE"/>
+    <con:mockOperation name="consultarVuelo" id="807db626-5a44-48d3-b89f-f62f159b2258" interface="ServicioAviancaVuelosSoapHttp" operation="consultarVuelo">
+      <con:settings/>
+      <con:defaultResponse>Response 1</con:defaultResponse>
+      <con:dispatchStyle>SEQUENCE</con:dispatchStyle>
+      <con:dispatchConfig/>
+      <con:dispatchXPath/>
+      <con:routeScript/>
+      <con:response name="Response 1" id="37eaea3a-fe38-4721-8d3f-4cc2e8b42236" httpResponseStatus="200" encoding="UTF-8" compressedBodyContent="aced00057372002f636f6d2e657669776172652e736f617075692e696d706c2e737570706f72742e436f6d7072657373656456616c7565000b8b02c748eeab0200025a000a636f6d707265737365645b0004646174617400025b4278700070" dataSource="">
+        <con:settings/>
+        <con:responseContent><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:typ="http://servicios.avianca.com/types/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <typ:consultarVueloResponseElement>
+         <!--Zero or more repetitions:-->
+         <typ:result>
+            <typ:fechaSalida>?</typ:fechaSalida>
+            <typ:fechaLlegada>?</typ:fechaLlegada>
+            <typ:ciudadOrigen>?</typ:ciudadOrigen>
+            <typ:vuelo>?</typ:vuelo>
+            <typ:clase>?</typ:clase>
+            <typ:ciudadDestino>?</typ:ciudadDestino>
+            <typ:precio>?</typ:precio>
+         </typ:result>
+      </typ:consultarVueloResponseElement>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:responseContent>
+        <con:wsaConfig mustUnderstand="NONE" version="200508" action="http://servicios.avianca.com//consultarVuelo"/>
+      </con:response>
+    </con:mockOperation>
+  </con:mockService>
+  <con:mockService id="6c1fbca3-d74a-41ff-8963-c89af9836bd7" port="8082" path="/" host="localhost" name="RoomService">
+    <con:settings>
+      <con:setting id="com.eviware.soapui.impl.wsdl.mock.WsdlMockService@require-soap-action">false</con:setting>
+    </con:settings>
+    <con:properties/>
+    <con:constraints>
+      <con:congestion>0</con:congestion>
+      <con:inputBandwidth>-1</con:inputBandwidth>
+      <con:outputBandwidth>-1</con:outputBandwidth>
+      <con:maxThreadPoolCapacity>20</con:maxThreadPoolCapacity>
+      <con:coreThreadPoolCapacity>5</con:coreThreadPoolCapacity>
+      <con:virtError>
+        <con:start>0</con:start>
+        <con:endless>true</con:endless>
+      </con:virtError>
+    </con:constraints>
+    <con:dataSources/>
+    <con:headerValidator type="NONE"/>
+    <con:mockOperation name="initiate" id="6a7d4f1a-09dc-460a-93be-05ba2c5f3e43" interface="HiltonRoomServiceSoapHttp" operation="initiate">
+      <con:settings/>
+      <con:defaultResponse>Response 1</con:defaultResponse>
+      <con:dispatchStyle>SEQUENCE</con:dispatchStyle>
+      <con:dispatchConfig/>
+      <con:dispatchXPath/>
+      <con:routeScript/>
+      <con:response name="Response 1" id="00fd5629-e7ed-49d1-8305-9c606e25fca2" httpResponseStatus="200" encoding="UTF-8" dataSource="">
+        <con:settings/>
+        <con:responseContent><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:hil="http://xmlns.oracle.com/HiltonRoomService">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <hil:HiltonRoomServiceProcessResponse>
+         <hil:result>
+            <!--Zero or more repetitions:-->
+            <hil:Rooms>
+               <hil:Number>?</hil:Number>
+               <hil:Hotel>
+                  <hil:Name>?</hil:Name>
+                  <hil:Address>?</hil:Address>
+                  <hil:City>?</hil:City>
+                  <hil:Country>?</hil:Country>
+               </hil:Hotel>
+               <hil:Price>?</hil:Price>
+               <hil:Type>?</hil:Type>
+            </hil:Rooms>
+         </hil:result>
+      </hil:HiltonRoomServiceProcessResponse>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:responseContent>
+        <con:wsaConfig mustUnderstand="NONE" version="200508" action="http://xmlns.oracle.com/HiltonRoomService/initiate"/>
+      </con:response>
+    </con:mockOperation>
+  </con:mockService>
+  <con:mockService id="34c0f447-7d15-40e2-baa7-b8d74db54ce6" port="8082" path="/" host="localhost" name="reservar">
+    <con:settings>
+      <con:setting id="com.eviware.soapui.impl.wsdl.mock.WsdlMockService@require-soap-action">false</con:setting>
+    </con:settings>
+    <con:properties/>
+    <con:constraints>
+      <con:congestion>0</con:congestion>
+      <con:inputBandwidth>-1</con:inputBandwidth>
+      <con:outputBandwidth>-1</con:outputBandwidth>
+      <con:maxThreadPoolCapacity>20</con:maxThreadPoolCapacity>
+      <con:coreThreadPoolCapacity>5</con:coreThreadPoolCapacity>
+      <con:virtError>
+        <con:start>0</con:start>
+        <con:endless>true</con:endless>
+      </con:virtError>
+    </con:constraints>
+    <con:dataSources/>
+    <con:headerValidator type="NONE"/>
+    <con:mockOperation name="reservarVuelo" id="e911112e-1570-4732-b1ff-57b96b69a01d" interface="ServicioAviancaVuelosSoapHttp" operation="reservarVuelo">
+      <con:settings/>
+      <con:defaultResponse>Response 1</con:defaultResponse>
+      <con:dispatchStyle>SCRIPT</con:dispatchStyle>
+      <con:dispatchConfig/>
+      <con:dispatchXPath/>
+      <con:routeScript/>
+      <con:response name="Response 1" id="12baa3bb-ef98-46a2-b2af-a24f3631d1d4" httpResponseStatus="200" encoding="UTF-8" dataSource="">
+        <con:settings/>
+        <con:responseContent><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:typ="http://servicios.avianca.com/types/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <typ:reservarVueloResponseElement>
+         <typ:result>?</typ:result>
+      </typ:reservarVueloResponseElement>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:responseContent>
+        <con:wsaConfig mustUnderstand="NONE" version="200508" action="http://servicios.avianca.com//reservarVuelo"/>
+      </con:response>
+    </con:mockOperation>
+  </con:mockService>
+  <con:mockService id="36bc4ea1-2d84-4eca-9c82-ee9c9997a7df" port="8099" path="/" host="localhost" name="searchFlight">
+    <con:settings>
+      <con:setting id="com.eviware.soapui.impl.wsdl.mock.WsdlMockService@require-soap-action">false</con:setting>
+    </con:settings>
+    <con:properties/>
+    <con:constraints>
+      <con:congestion>0</con:congestion>
+      <con:inputBandwidth>-1</con:inputBandwidth>
+      <con:outputBandwidth>-1</con:outputBandwidth>
+      <con:maxThreadPoolCapacity>20</con:maxThreadPoolCapacity>
+      <con:coreThreadPoolCapacity>5</con:coreThreadPoolCapacity>
+      <con:virtError>
+        <con:start>0</con:start>
+        <con:endless>true</con:endless>
+      </con:virtError>
+    </con:constraints>
+    <con:dataSources/>
+    <con:headerValidator type="NONE"/>
+    <con:mockOperation name="searchFlight" id="d28aad13-af8d-423d-b3ce-0859ebaed4d0" interface="AAFlightsServiceSoapHttp" operation="searchFlight">
+      <con:settings/>
+      <con:defaultResponse>Response 1</con:defaultResponse>
+      <con:dispatchStyle>SEQUENCE</con:dispatchStyle>
+      <con:dispatchConfig/>
+      <con:dispatchXPath/>
+      <con:routeScript/>
+      <con:response name="Response 1" id="d315c808-d247-4975-b476-1f0083bf2418" httpResponseStatus="200" encoding="UTF-8" compressedBodyContent="aced00057372002f636f6d2e657669776172652e736f617075692e696d706c2e737570706f72742e436f6d7072657373656456616c7565000b8b02c748eeab0200025a000a636f6d707265737365645b0004646174617400025b4278700070" dataSource="">
+        <con:settings/>
+        <con:responseContent><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:typ="http://services.aa.com/types/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <typ:searchFlightResponseElement>
+         <!--Zero or more repetitions:-->
+         <typ:result>
+            <!--Zero or more repetitions:-->
+            <typ:flights>
+               <typ:cabin>8E</typ:cabin>
+               <typ:arrivingDate>2019-01-29T14:45:32.345Z</typ:arrivingDate>
+               <typ:price>12000</typ:price>
+               <typ:arrivingCity>CRT</typ:arrivingCity>
+               <typ:meals>0</typ:meals>
+               <typ:departinDate>2019-01-29T14:45:32.345Z</typ:departinDate>
+               <typ:departinCity>BOG</typ:departinCity>
+               <typ:number>1425</typ:number>
+            </typ:flights>
+         </typ:result>
+      </typ:searchFlightResponseElement>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:responseContent>
+        <con:wsaConfig mustUnderstand="NONE" version="200508" action="http://services.aa.com//searchFlight"/>
+      </con:response>
+    </con:mockOperation>
+  </con:mockService>
+  <con:restMockService id="f4d2cc15-b8c8-4f0c-b9eb-77fbb24d0b63" port="8088" path="/" host="localhost" name="GetContract" routeModeEnabled="false" routeUnmatchedOperation="false" addUnmatchedOperation="false">
+    <con:settings/>
+    <con:properties/>
+    <con:constraints>
+      <con:congestion>0</con:congestion>
+      <con:inputBandwidth>-1</con:inputBandwidth>
+      <con:outputBandwidth>-1</con:outputBandwidth>
+      <con:maxThreadPoolCapacity>20</con:maxThreadPoolCapacity>
+      <con:coreThreadPoolCapacity>5</con:coreThreadPoolCapacity>
+      <con:virtError>
+        <con:start>0</con:start>
+        <con:endless>true</con:endless>
+      </con:virtError>
+    </con:constraints>
+    <con:headerValidator type="NONE"/>
+    <con:restMockAction name="/contract" method="GET" resourcePath="/contract" id="2787f8cb-9275-41c2-81a6-677414f424c4">
+      <con:settings/>
+      <con:defaultResponse>Response 1</con:defaultResponse>
+      <con:dispatchStyle>SCRIPT</con:dispatchStyle>
+      <con:dispatchConfig/>
+      <con:dispatchXPath/>
+      <con:parameterDispatcherRuleContainer/>
+      <con:routeScript/>
+      <con:response name="Response 1" id="7fa77e6a-a3ab-4c62-99a8-73a318f7fa6e" httpResponseStatus="200" mediaType="application/json" compressedBodyContent="aced00057372002f636f6d2e657669776172652e736f617075692e696d706c2e737570706f72742e436f6d7072657373656456616c7565000b8b02c748eeab0200025a000a636f6d707265737365645b0004646174617400025b4278700070" dataSource="">
+        <con:settings/>
+        <con:responseContent>{
+	"basicInfo": {
+		"id": "1235KFD",
+		"providerName": "Avianca",
+		type=xml
+	}
+	"operations": {
+		"search": {
+			"endpoint": "http://192.168.1.100:8888/TuresBalonProviders-AA-context-root/AAFlightsServiceSoapHttpPort",
+			"parameters": [
+				{
+					"departingCity": "Bogotá",
+					"arrivingCity": "Cartagena",
+					"departingDate": "2020-10-19T00:00.000"
+				}
+			],
+			"mapping": {
+				properties: {
+					name = "/name";
+					pricexPerson = "/properties/values/price"
+					departure = "/properties/values/departure"				
+				}
+			}
+		},
+		"book": {
+			"endpoint": "http://...",
+			"parameters": [
+				{
+					"name": "...",
+					"type": "...",
+					"isNull": boolean
+				}
+			],
+			"mapping": {
+				properties: {
+					name = "/name";
+					pricexPerson = "/properties/values/price"
+					departure = "/properties/values/departure"				
+				}
+			}			
+		},	
+		"cancelBook": {
+			"endpoint": "http://...",
+			"parameters": [
+				{
+					"name": "...",
+					"type": "...",
+					"isNull": boolean
+				}
+			],
+			"mapping": {
+				properties: {
+					name = "/name";
+					pricexPerson = "/properties/values/price"
+					departure = "/properties/values/departure"				
+				}
+			}			
+		}	
+	}	
+}</con:responseContent>
+      </con:response>
+    </con:restMockAction>
+  </con:restMockService>
+  <con:savedRecentRuns>1</con:savedRecentRuns>
+  <con:properties/>
+  <con:wssContainer/>
+  <con:databaseConnectionContainer/>
+  <con:jmsConnectionContainer/>
+  <con:oAuth2ProfileContainer/>
+  <con:oAuth1ProfileContainer/>
+  <con:reporting>
+    <con:xmlTemplates/>
+    <con:parameters/>
+  </con:reporting>
+  <con:eventHandlers type="RequestFilter.filterRequest" name="RequestFilter.filterRequest">
+    <con:script>// Sample event script to add custom HTTP header to all outgoing REST, SOAP and HTTP(S) calls
+// This code is often used for adding custom authentication to ReadyAPI functional tests
+
+// If hardcoding the token, uncomment and change line 5
+// token = '4567'
+
+// If your token is parameterized in Project level custom property, uncomment line 8
+// token = request.parent.testCase.testSuite.project.getProperty('auth_token').getValue()
+
+// To modify all outgoing calls, remove comments from lines 11 to 16
+// headers = request.requestHeaders
+// if (headers.containsKey('auth_token2') == false) {
+//   headers.put('auth_token2', token)
+//   request.requestHeaders = headers
+// }</con:script>
+  </con:eventHandlers>
+  <con:eventHandlers type="TestRunListener.afterStep" name="TestRunListener.afterStep">
+    <con:script>// Save all test step results into files
+// Change the directory path in line 5 to a location where you want to store details
+// then uncomment lines 5 to 10
+
+// filePath = 'C:\\tempOutputDirectory\\'
+// fos = new java.io.FileOutputStream(filePath + testStepResult.testStep.label + '.txt', true)
+// pw = new java.io.PrintWriter(fos)
+// testStepResult.writeTo(pw)
+// pw.close()
+// fos.close()</con:script>
+  </con:eventHandlers>
+  <con:authRepository/>
+  <con:tags/>
+</con:soapui-project>

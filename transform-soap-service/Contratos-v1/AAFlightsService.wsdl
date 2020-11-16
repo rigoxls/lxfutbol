@@ -1,0 +1,129 @@
+<definitions
+     name="AAFlightsService"
+     targetNamespace="http://services.aa.com/"
+     xmlns="http://schemas.xmlsoap.org/wsdl/"
+     xmlns:tns="http://services.aa.com/"
+     xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/"
+     xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/"
+     xmlns:tns0="http://services.aa.com/types/"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+     xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+    >
+    <types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://services.aa.com/types/"
+             elementFormDefault="qualified" xmlns:tns="http://services.aa.com/types/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:soap11-enc="http://schemas.xmlsoap.org/soap/encoding/">
+            <complexType name="Flight">
+                <sequence>
+                    <element name="cabin" type="string" nillable="true"/>
+                    <element name="arrivingDate" type="dateTime" nillable="true"/>
+                    <element name="price" type="double" nillable="true"/>
+                    <element name="arrivingCity" type="string" nillable="true"/>
+                    <element name="meals" type="string" nillable="true"/>
+                    <element name="departinDate" type="dateTime" nillable="true"/>
+                    <element name="departinCity" type="string" nillable="true"/>
+                    <element name="number" type="int"/>
+                </sequence>
+            </complexType>
+            <complexType name="AAException">
+                <sequence>
+                    <element name="error" type="string" nillable="true"/>
+                </sequence>
+            </complexType>
+            <element name="bookFligthElement">
+                <complexType>
+                    <sequence>
+                        <element name="f" type="tns:Flight" nillable="true"/>
+                        <element name="passengerName" type="string" nillable="true"/>
+                    </sequence>
+                </complexType>
+            </element>
+            <element name="bookFligthResponseElement">
+                <complexType>
+                    <sequence>
+                        <element name="result" type="boolean"/>
+                    </sequence>
+                </complexType>
+            </element>
+            <element name="AAExceptionElement" type="tns:AAException"/>
+            <element name="searchFlightElement">
+                <complexType>
+                    <sequence>
+                        <element name="departinCity" type="string" nillable="true"/>
+                        <element name="arrivingCity" type="string" nillable="true"/>
+                        <element name="departinDate" type="dateTime" nillable="true"/>
+                        <element name="cabin" type="string" nillable="true"/>
+                        <element name="PromotionCode" type="string" nillable="true"/>
+                    </sequence>
+                </complexType>
+            </element>
+            <element name="searchFlightResponseElement">
+                <complexType>
+                    <sequence>
+                        <element name="result" type="tns:Trip" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+                    </sequence>
+                </complexType>
+            </element>
+            <complexType name="Trip">
+                <sequence>
+                    <element name="flights" type="tns:Flight" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+                </sequence>
+            </complexType>
+        </schema>
+    </types>
+    <message name="AAFlightsService_bookFligth">
+        <part name="parameters" element="tns0:bookFligthElement"/>
+    </message>
+    <message name="AAFlightsService_bookFligthResponse">
+        <part name="parameters" element="tns0:bookFligthResponseElement"/>
+    </message>
+    <message name="AAException">
+        <part name="AAExceptionElement" element="tns0:AAExceptionElement"/>
+    </message>
+    <message name="AAFlightsService_searchFlight">
+        <part name="parameters" element="tns0:searchFlightElement"/>
+    </message>
+    <message name="AAFlightsService_searchFlightResponse">
+        <part name="parameters" element="tns0:searchFlightResponseElement"/>
+    </message>
+    <portType name="AAFlightsService">
+        <operation name="bookFligth">
+            <input message="tns:AAFlightsService_bookFligth"/>
+            <output message="tns:AAFlightsService_bookFligthResponse"/>
+            <fault name="AAException" message="tns:AAException"/>
+        </operation>
+        <operation name="searchFlight">
+            <input message="tns:AAFlightsService_searchFlight"/>
+            <output message="tns:AAFlightsService_searchFlightResponse"/>
+        </operation>
+    </portType>
+    <binding name="AAFlightsServiceSoapHttp" type="tns:AAFlightsService">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <operation name="bookFligth">
+            <soap:operation soapAction="http://services.aa.com//bookFligth"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+            <fault name="AAException">
+                <soap:fault name="AAException" use="literal" encodingStyle=""/>
+            </fault>
+        </operation>
+        <operation name="searchFlight">
+            <soap:operation soapAction="http://services.aa.com//searchFlight"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+    </binding>
+    <service name="AAFlightsService">
+        <port name="AAFlightsServiceSoapHttpPort" binding="tns:AAFlightsServiceSoapHttp">
+            <soap:address location="http://192.168.1.100:8888/TuresBalonProviders-AA-context-root/AAFlightsServiceSoapHttpPort"/>
+        </port>
+    </service>
+</definitions>
