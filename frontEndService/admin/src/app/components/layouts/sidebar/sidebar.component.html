@@ -34,70 +34,39 @@
                 Menu Administrativo
             </li>
 
-            <li class="nav-item" *ngIf="role===3">
+            <!--<li class="nav-item" *ngIf="role===2">-->
+            <li class="nav-item">
                 <a href="#" class="collapsed-nav-link nav-link" aria-expanded="false">
                     <span class="icon"><i class='bx bx-menu'></i></span>
-                    <span class="menu-title">Actividades</span>
+                    <span class="menu-title">Proveedor</span>
                 </a>
 
                 <ul class="sidemenu-nav-second-level">
                     <li class="nav-item">
-                        <a href="/activity" class="nav-link">
+                        <a href="/provider" class="nav-link">
                             <span class="icon"><i class='bx bx-right-arrow-alt'></i></span>
-                            <span class="menu-title">Crear Actividad</span>
+                            <span class="menu-title">Crear Proveedor</span>
                         </a>
                     </li>
 
                     <li class="nav-item">
-                        <a href="/activity-list" class="nav-link">
+                        <a href="/provider-list/1" class="nav-link">
                             <span class="icon"><i class='bx bx-right-arrow-alt'></i></span>
-                            <span class="menu-title">Listar Actividades</span>
-                        </a>
-                    </li>
-                </ul>
-            </li>
-
-            <li class="nav-item" *ngIf="role===2">
-                <a href="#" class="collapsed-nav-link nav-link" aria-expanded="false">
-                    <span class="icon"><i class='bx bx-menu'></i></span>
-                    <span class="menu-title">Transporte</span>
-                </a>
-
-                <ul class="sidemenu-nav-second-level">
-                    <li class="nav-item">
-                        <a href="/transport" class="nav-link">
-                            <span class="icon"><i class='bx bx-right-arrow-alt'></i></span>
-                            <span class="menu-title">Crear Transporte</span>
+                            <span class="menu-title">Proveedores Transporte</span>
                         </a>
                     </li>
 
                     <li class="nav-item">
-                        <a href="/transport-list" class="nav-link">
+                        <a href="/provider-list/2" class="nav-link">
                             <span class="icon"><i class='bx bx-right-arrow-alt'></i></span>
-                            <span class="menu-title">Listar Transporte</span>
-                        </a>
-                    </li>
-                </ul>
-            </li>
-
-            <li class="nav-item" *ngIf="role===2">
-                <a href="#" class="collapsed-nav-link nav-link" aria-expanded="false">
-                    <span class="icon"><i class='bx bx-menu'></i></span>
-                    <span class="menu-title">Hospedaje</span>
-                </a>
-
-                <ul class="sidemenu-nav-second-level">
-                    <li class="nav-item">
-                        <a href="/lodging" class="nav-link">
-                            <span class="icon"><i class='bx bx-right-arrow-alt'></i></span>
-                            <span class="menu-title">Crear Hospedaje</span>
+                            <span class="menu-title">Proveedores Hotelería</span>
                         </a>
                     </li>
 
                     <li class="nav-item">
-                        <a href="/lodging-list" class="nav-link">
+                        <a href="/provider-list/3" class="nav-link">
                             <span class="icon"><i class='bx bx-right-arrow-alt'></i></span>
-                            <span class="menu-title">Listar Hospedaje</span>
+                            <span class="menu-title">Proveedores Espectáculo</span>
                         </a>
                     </li>
                 </ul>

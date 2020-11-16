@@ -1,0 +1,273 @@
+<div class="breadcrumb-area">
+    <h1>Agregar Proveedor</h1>
+
+    <ol class="breadcrumb">
+        <li class="item"><a routerLink="/"><i class='bx bx-home-alt'></i></a></li>
+
+        <li class="item">Dashboard</li>
+
+        <li class="item">Agregar Proveedor</li>
+    </ol>
+</div>
+
+<div class="alert hidden" [ngClass]="{'hidden': !showMessage, 'alert-danger': errorMessage, 'alert-success': !errorMessage}">
+    {{ message }}
+</div>
+
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="add-listing-box mb-30">
+        <h3>Información Básica</h3>
+        <div class="row">
+
+            <div class="col-lg-12 col-md-12">
+                <div class="form-group">
+                    <label><i class='bx bx-card'></i> Nit:</label>
+                    <input formControlName="nit" type="text" class="form-control"
+                           placeholder="Nit de proveedor">
+                    <div *ngIf="submitted && form.controls.nit.errors" class="error-form">
+                        <div class="error-message" *ngIf="form.controls.nit.errors.required">Campo requerido</div>
+                        <div class="error-message" *ngIf="form.controls.nit.errors.minlength">Campo debe tener mínimo 3 caracteres</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-12 col-md-12">
+                <div class="form-group">
+                    <label><i class='bx bx-face'></i> Nombre de Proveedor:</label>
+                    <input formControlName="name" type="text" class="form-control"
+                           placeholder="Nombre de proveedor">
+                    <div *ngIf="submitted && form.controls.name.errors" class="error-form">
+                        <div class="error-message" *ngIf="form.controls.name.errors.required">Campo requerido</div>
+                        <div class="error-message" *ngIf="form.controls.name.errors.minlength">Campo debe tener mínimo 3 caracteres</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-12 col-md-12">
+                <div class="form-group">
+                    <label><i class='bx bx-face'></i> Nombre de Representante:</label>
+                    <input formControlName="representative" type="text" class="form-control"
+                           placeholder="Nombre de Representante">
+                    <div *ngIf="submitted && form.controls.representative.errors" class="error-form">
+                        <div class="error-message" *ngIf="form.controls.representative.errors.required">Campo requerido</div>
+                        <div class="error-message" *ngIf="form.controls.representative.errors.minlength">Campo debe tener mínimo 3 caracteres</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6 col-md-6">
+                <div class="form-group">
+                    <label><i class='bx bx-phone'></i> Teléfono:</label>
+                    <input formControlName="phone" type="text" class="form-control"
+                           placeholder="Teléfono">
+                    <div *ngIf="submitted && form.controls.phone.errors" class="error-form">
+                        <div class="error-message" *ngIf="form.controls.phone.errors.required">Campo requerido</div>
+                        <div class="error-message" *ngIf="form.controls.phone.errors.minlength">Campo debe tener mínimo 3 caracteres</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6 col-md-6">
+                <div class="form-group">
+                    <label><i class='bx bx-phone'></i> Telefono 2:</label>
+                    <input formControlName="phone2" type="text" class="form-control"
+                           placeholder="">
+                    <div *ngIf="submitted && form.controls.phone2.errors" class="error-form">
+                        <div class="error-message" *ngIf="form.controls.phone2.errors.required">Campo requerido</div>
+                        <div class="error-message" *ngIf="form.controls.phone2.errors.minlength">Campo debe tener mínimo 3 caracteres</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6 col-md-6">
+                <div class="form-group">
+                    <label><i class='bx bx-mail-send'></i> Email:</label>
+                    <input formControlName="email" type="text" class="form-control"
+                           placeholder="">
+                    <div *ngIf="submitted && form.controls.email.errors" class="error-form">
+                        <div class="error-message" *ngIf="form.controls.email.errors.required">Campo requerido</div>
+                        <div class="error-message" *ngIf="form.controls.email.errors.minlength">Campo debe tener mínimo 3 caracteres</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6 col-md-6">
+                <div class="form-group">
+                    <label><i class='bx bx-location-plus'></i> Dirección:</label>
+                    <input formControlName="address" type="text" class="form-control"
+                           placeholder="">
+                    <div *ngIf="submitted && form.controls.address.errors" class="error-form">
+                        <div class="error-message" *ngIf="form.controls.address.errors.required">Campo requerido</div>
+                        <div class="error-message" *ngIf="form.controls.address.errors.minlength">Campo debe tener mínimo 3 caracteres</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="add-listing-box mb-30">
+        <h3>Tipo de Proveedor</h3>
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+                <div class="form-group">
+                    <ul class="facilities-list">
+                        <li>
+                            <label class="checkbox">
+                                <input type="radio" formControlName="type" name="type" value=1
+                                       [checked]="form.get('type').value == 1">
+                                <span>Transporte</span>
+                            </label>
+                        </li>
+                        <li>
+                            <label class="checkbox">
+                                <input type="radio" formControlName="type" name="type" value=2
+                                       [checked]="form.get('type').value == 2">
+                                <span>Hotelería</span>
+                            </label>
+                        </li>
+
+                        <li>
+                            <label class="checkbox">
+                                <input type="radio" formControlName="type" name="type" value=3
+                                       [checked]="form.get('type').value == 3">
+                                <span>Espectáculo</span>
+                            </label>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="add-listing-box mb-30">
+        <h3>Contrato de Búsqueda</h3>
+
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+                <div class="form-group">
+                    <label><i class='bx bx-text'></i> </label>
+                    <textarea formControlName="searchContract" cols="30" rows="7" class="form-control"
+                              placeholder=""></textarea>
+                    <div *ngIf="submitted && form.controls.searchContract.errors" class="error-form">
+                        <div class="error-message" *ngIf="form.controls.searchContract.errors.required">Campo requerido</div>
+                        <div class="error-message" *ngIf="form.controls.searchContract.errors.minlength">Campo debe tener mínimo 10 caracteres</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="add-listing-box mb-30">
+        <h3>Contrato de Reserva</h3>
+
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+                <div class="form-group">
+                    <label><i class='bx bx-text'></i> </label>
+                    <textarea formControlName="bookContract" cols="30" rows="7" class="form-control"
+                              placeholder=""></textarea>
+                    <div *ngIf="submitted && form.controls.bookContract.errors" class="error-form">
+                        <div class="error-message" *ngIf="form.controls.bookContract.errors.required">Campo requerido</div>
+                        <div class="error-message" *ngIf="form.controls.bookContract.errors.minlength">Campo debe tener mínimo 10 caracteres</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="add-listing-box mb-30">
+        <h3>Contrato de Cancelación</h3>
+
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+                <div class="form-group">
+                    <label><i class='bx bx-text'></i> </label>
+                    <textarea formControlName="cancelContract" cols="30" rows="7" class="form-control"
+                              placeholder=""></textarea>
+                    <div *ngIf="submitted && form.controls.cancelContract.errors" class="error-form">
+                        <div class="error-message" *ngIf="form.controls.cancelContract.errors.required">Campo requerido</div>
+                        <div class="error-message" *ngIf="form.controls.cancelContract.errors.minlength">Campo debe tener mínimo 10 caracteres</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="add-listing-box mb-30">
+        <h3>Estado</h3>
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+                <div class="form-group">
+                    <ul class="facilities-list">
+                        <li>
+                            <label class="checkbox">
+                                <input type="radio" formControlName="status" name="status" value=1
+                                       [checked]="form.get('status').value == 1">
+                                <span>Activo</span>
+                            </label>
+                        </li>
+                        <li>
+                            <label class="checkbox">
+                                <input type="radio" formControlName="status" name="status" value=0
+                                       [checked]="form.get('status').value == 0">
+                                <span>Inactivo</span>
+                            </label>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="add-listing-box mb-30">
+        <h3>Tipo de datos</h3>
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+                <div class="form-group">
+                    <ul class="facilities-list">
+                        <li>
+                            <label class="checkbox">
+                                <input type="radio" formControlName="dataType" name="dataType" value=1
+                                       [checked]="form.get('dataType').value == 'json'">
+                                <span>JSON</span>
+                            </label>
+                        </li>
+                        <li>
+                            <label class="checkbox">
+                                <input type="radio" formControlName="dataType" name="dataType" value=0
+                                       [checked]="form.get('dataType').value == 'json'">
+                                <span>XML</span>
+                            </label>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="add-listing-box mb-30">
+        <h3>Acuerdo comercial</h3>
+
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+                <div class="form-group">
+                    <label><i class='bx bx-purchase-tag'></i> Acuerdo:</label>
+                    <input formControlName="agreement" type="number" class="form-control" placeholder="">
+                    <div *ngIf="submitted && form.controls.agreement.errors" class="error-form">
+                        <div class="error-message" *ngIf="form.controls.agreement.errors.required">Campo requerido</div>
+                        <div class="error-message" *ngIf="form.controls.agreement.errors.minlength">Campo debe tener mínimo 3 caracteres</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="add-listing-box mb-30">
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+                <button type="submit" style="float: right">Guardar Proveedor</button>
+            </div>
+        </div>
+    </div>
+</form>

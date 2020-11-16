@@ -8,16 +8,12 @@ import {HeaderComponent} from './components/layouts/header/header.component';
 import {SidebarComponent} from './components/layouts/sidebar/sidebar.component';
 import {DashboardComponent} from './components/pages/dashboard/dashboard.component';
 import {WebAnalyticsComponent} from './components/charts/web-analytics/web-analytics.component';
-import {AddActivityComponent} from './components/pages/activity/add-activity.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
-import { ListActivityComponent } from './components/pages/activity-list/list-activity.component';
 import { UserComponent } from './components/pages/user/user.component';
 import { UserListComponent } from './components/pages/user-list/user-list.component';
-import { TransportComponent } from './components/pages/transport/transport.component';
-import { TransportListComponent } from './components/pages/transport-list/transport-list.component';
-import { LodgingComponent } from './components/pages/lodging/lodging/lodging.component';
-import { LodgingListComponent } from './components/pages/lodging-list/lodging-list.component';
+import { ProviderComponent } from './components/pages/provider/provider.component';
+import { ProviderListComponent } from './components/pages/provider-list/provider-list.component';
 
 @NgModule({
     declarations: [
@@ -27,14 +23,10 @@ import { LodgingListComponent } from './components/pages/lodging-list/lodging-li
         SidebarComponent,
         DashboardComponent,
         WebAnalyticsComponent,
-        AddActivityComponent,
-        ListActivityComponent,
         UserComponent,
         UserListComponent,
-        TransportComponent,
-        TransportListComponent,
-        LodgingComponent,
-        LodgingListComponent
+        ProviderComponent,
+        ProviderListComponent,
     ],
     imports: [
         BrowserModule,

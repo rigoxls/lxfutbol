@@ -32,7 +32,8 @@ export class AppComponent implements OnInit {
         this.recallJsFuntions();
         this.appServiceService.getSession().then( result => {
         }).catch( error => {
-            window.location.href = this.loginUrl;
+            //TODO
+            //window.location.href = this.loginUrl;
         });
     }
 

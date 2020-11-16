@@ -13,6 +13,7 @@ import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,6 +29,7 @@ import com.lxfutbol.provider.repository.ProviderEntity;
 import com.lxfutbol.provider.service.ProviderService;
 import com.lxfutbol.provider.service.RedisService;
 
+@CrossOrigin(origins="*")
 @RestController
 public class ProviderController {
 
@@ -108,7 +110,7 @@ public class ProviderController {
 		return provider;
 	}	
 
-	@DeleteMapping("/user/{providerId}")
+	@DeleteMapping("/provider/{providerId}")
 	public ResponseEntity<Void> deleteUser(@PathVariable long providerId) {
 		providerService.deleteProvider(providerId);
 		return ResponseEntity.noContent().build();

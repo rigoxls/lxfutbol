@@ -13,7 +13,7 @@ export class HeaderOneComponent implements OnInit {
 
     places: Place[];
     categorias: String[];
-    public usuarioAtenticado:Usuario;
+    usuarioAtenticado:Usuario;
    
     constructor(
         private headerService: HeaderService) {
