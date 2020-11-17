@@ -3,3 +3,15 @@ C:\Users\rodri\Macrom\Pica final 2\lxfutbol\quotationService\quotationService\In
 C:\Users\rodri\Macrom\Pica final 2\lxfutbol\quotationService\quotationService\Infraestructure\obj\Debug\netcoreapp3.1\Infraestructure.csprojAssemblyReference.cache
 C:\Users\rodri\Macrom\Pica final 2\lxfutbol\quotationService\quotationService\Infraestructure\obj\Debug\netcoreapp3.1\Infraestructure.AssemblyInfoInputs.cache
 C:\Users\rodri\Macrom\Pica final 2\lxfutbol\quotationService\quotationService\Infraestructure\obj\Debug\netcoreapp3.1\Infraestructure.AssemblyInfo.cs
+C:\Users\rodri\Macrom\Pica final 2\lxfutbol\quotationService\src\Infraestructure\bin\Debug\netcoreapp3.1\Infraestructure.deps.json
+C:\Users\rodri\Macrom\Pica final 2\lxfutbol\quotationService\src\Infraestructure\bin\Debug\netcoreapp3.1\Infraestructure.runtimeconfig.json
+C:\Users\rodri\Macrom\Pica final 2\lxfutbol\quotationService\src\Infraestructure\bin\Debug\netcoreapp3.1\Infraestructure.runtimeconfig.dev.json
+C:\Users\rodri\Macrom\Pica final 2\lxfutbol\quotationService\src\Infraestructure\bin\Debug\netcoreapp3.1\Infraestructure.dll
+C:\Users\rodri\Macrom\Pica final 2\lxfutbol\quotationService\src\Infraestructure\bin\Debug\netcoreapp3.1\Infraestructure.pdb
+C:\Users\rodri\Macrom\Pica final 2\lxfutbol\quotationService\src\Infraestructure\obj\Debug\netcoreapp3.1\Infraestructure.AssemblyInfoInputs.cache
+C:\Users\rodri\Macrom\Pica final 2\lxfutbol\quotationService\src\Infraestructure\obj\Debug\netcoreapp3.1\Infraestructure.AssemblyInfo.cs
+C:\Users\rodri\Macrom\Pica final 2\lxfutbol\quotationService\src\Infraestructure\obj\Debug\netcoreapp3.1\Infraestructure.csproj.CoreCompileInputs.cache
+C:\Users\rodri\Macrom\Pica final 2\lxfutbol\quotationService\src\Infraestructure\obj\Debug\netcoreapp3.1\Infraestructure.dll
+C:\Users\rodri\Macrom\Pica final 2\lxfutbol\quotationService\src\Infraestructure\obj\Debug\netcoreapp3.1\Infraestructure.pdb
+C:\Users\rodri\Macrom\Pica final 2\lxfutbol\quotationService\src\Infraestructure\obj\Debug\netcoreapp3.1\Infraestructure.genruntimeconfig.cache
+C:\Users\rodri\Macrom\Pica final 2\lxfutbol\quotationService\src\Infraestructure\obj\Debug\netcoreapp3.1\Infraestructure.csprojAssemblyReference.cache

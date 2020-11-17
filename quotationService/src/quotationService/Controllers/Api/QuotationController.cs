@@ -1,30 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Infraestructure;
+﻿using System.Collections.Generic;
+using Infraestructure.Data;
 using Microsoft.AspNetCore.Mvc;
+
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace quotationService.Controllers.Api
 {
-    [Route("api/[controller]")]
     [ApiController]
+    [Route("api/[controller]")]
     public class QuotationController : ControllerBase
     {
-        private readonly QuotationDbContext _context;
+        private readonly QuotationContext _context;
 
-        public QuotationController(QuotationDbContext context)
+        public QuotationController(QuotationContext context)
         {
             _context = context;
         }
-        // GET: api/<QuotationController>
-        [HttpGet]
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
+
 
         // GET api/<QuotationController>/5
         [HttpGet("{id}")]
@@ -33,19 +26,15 @@ namespace quotationService.Controllers.Api
             return "value";
         }
 
-        // POST api/<QuotationController>
+        //POST api/<QuotationController>
         [HttpPost]
-        public IActionResult CreateQuotation([FromBody] QuotationDto quotation)
+        public IActionResult Task<CreateQuotation>([FromBody] Quotation quotation)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-           // _context.Quotation.Add(quotation);
-
-
-            return  ;
-
+            return (IActionResult)_context.Quotation.Add(quotation);
         }
 
 

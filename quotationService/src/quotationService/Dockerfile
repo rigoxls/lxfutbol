@@ -1,20 +1,16 @@
 #See https://aka.ms/containerfastmode to understand how Visual Studio uses this Dockerfile to build your images for faster debugging.
 
-FROM mcr.microsoft.com/dotnet/core/aspnet:3.1-buster-slim AS base
+FROM mcr.microsoft.com/dotnet/core/sdk:3.1 AS build
 WORKDIR /app
 
-FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
-WORKDIR /src
-COPY ["quotationService/quotationService.csproj", "quotationService/"]
-RUN dotnet restore "quotationService/quotationService.csproj"
 COPY . .
-WORKDIR "/src/quotationService"
-RUN dotnet build "quotationService.csproj" -c Release -o /app/build
+COPY src/quotationService/*.csproj ./quotationService/
+COPY src/Infraestructure/*.csproj ./Infraestructure/
 
-FROM build AS publish
-RUN dotnet publish "quotationService.csproj" -c Release -o /app/publish
+WORKDIR "quotationService"
+RUN dotnet publish -c Release -o out
 
-FROM base AS final
+FROM mcr.microsoft.com/dotnet/core/sdk:3.1 AS runtime
 WORKDIR /app
-COPY --from=publish /app/publish .
+COPY --from=publish /app/publish/out ./ 
 ENTRYPOINT ["dotnet", "quotationService.dll"]
