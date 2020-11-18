@@ -44,8 +44,7 @@ namespace quotationService
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews();
-
+            services.AddControllers();
             services.AddDbContext<QuotationContext>(options =>
              options.UseMySQL(Configuration.GetConnectionString("DefaultConnection")));
 
@@ -59,11 +58,6 @@ namespace quotationService
             {
                 app.UseDeveloperExceptionPage();
             }
-            else
-            {
-                app.UseExceptionHandler("/Home/Error");
-            }
-            app.UseStaticFiles();
 
             app.UseRouting();
 
