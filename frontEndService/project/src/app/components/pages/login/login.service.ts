@@ -14,7 +14,7 @@ export class LoginService {
     constructor(private http: HttpClient) {
     }
 
-    public getAtutenticar(email?: string, password?: string){
+    public login(email?: string, password?: string){
         let params = new HttpParams().set('email', email).set('passWord', password)
         const headers = {
             "Content-Type": "application/json",
