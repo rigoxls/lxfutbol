@@ -11,7 +11,7 @@
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,
-      "launchUrl": "api/QuotationController",
+      "launchUrl": "api/Quotations",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
@@ -19,6 +19,7 @@
     "quotationService": {
       "commandName": "Project",
       "launchBrowser": true,
+      "launchUrl": "api/Quotations",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
