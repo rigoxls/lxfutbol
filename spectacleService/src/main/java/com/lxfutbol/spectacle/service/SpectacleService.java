@@ -24,7 +24,6 @@ public class SpectacleService {
 	
 	private final Logger LOG = LoggerFactory.getLogger(SpectacleService.class);
 	private JSONArray result;
-	private final Integer TIME = 8;
 	private final String TYPE_SOAP = "xml";
 
 	@KafkaListener(topics = "integrator-spectacle", groupId = "integrator-spectacle-group")
@@ -73,7 +72,7 @@ public class SpectacleService {
 			JSONObject param = new JSONObject().put("params", params);
 			String responseService = "";
 			if (typeService.equals(TYPE_SOAP)) {
-				//responseService =proxyServiceSoap.transformSpectacle(Integer.valueOf(idProvider), param.toString());
+				responseService =proxyServiceSoap.transformSpectacle(Integer.valueOf(idProvider), param.toString());
 			} else {
 				responseService  = proxyServiceRest.transformSpectacle(Integer.valueOf(idProvider), param.toString());
 			}	
@@ -99,7 +98,7 @@ public class SpectacleService {
 			JSONObject jsonObjectMessage = new JSONObject(response);
 			JSONObject params = jsonObjectMessage.getJSONObject("spectacle");
 
-			this.saveLodge(params);
+			this.saveSpectacle(params);
 			result = params;
 
 		} catch (Exception ex) {
@@ -108,7 +107,7 @@ public class SpectacleService {
 		return result;
 	}
 
-	private SpectacleEntity saveLodge(JSONObject params) {
+	private SpectacleEntity saveSpectacle(JSONObject params) {
 
 		LOG.info("Entra a save Espectacle: ");
 		SpectacleEntity espectacle = new SpectacleEntity();
@@ -117,8 +116,8 @@ public class SpectacleService {
 			String date = (String) params.get("date");
 			BigDecimal price = new BigDecimal((Integer) params.get("price"));
 			String type = (String) params.get("type");
-			String country = (String) params.get("city");
-			String city = (String) params.get("country");
+			String city = (String) params.get("city");
+			String country = (String) params.get("country");
 			String description = (String) params.get("description");
 
 			espectacle.setIdProvider(Long.valueOf(idProvider));;
