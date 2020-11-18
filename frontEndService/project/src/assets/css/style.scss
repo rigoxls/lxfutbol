@@ -491,7 +491,7 @@ Header Area CSS
             font-weight: 700;
             position: relative;
             color: $white-color;
-            
+
             &::before {
                 content: '';
                 position: absolute;
@@ -593,7 +593,7 @@ Header Area CSS
         padding: {
             left: 0;
             right: 0;
-        };      
+        };
         .navbar-brand {
             font-size: inherit;
             line-height: 1;
@@ -709,11 +709,11 @@ Header Area CSS
                             opacity: 0;
                             visibility: hidden;
                             transform: scaleY(0);
-                            
+
                             li {
                                 a {
                                     color: $optional-color;
-                                    
+
                                     &:hover, &:focus, &.active {
                                         color: $main-color;
                                     }
@@ -724,11 +724,11 @@ Header Area CSS
                                     opacity: 0;
                                     visibility: hidden;
                                     transform: scaleY(0);
-        
+
                                     li {
                                         a {
                                             color: $optional-color;
-        
+
                                             &:hover, &:focus, &.active {
                                                 color: $main-color;
                                             }
@@ -739,11 +739,11 @@ Header Area CSS
                                             opacity: 0;
                                             visibility: hidden;
                                             transform: scaleY(0);
-                
+
                                             li {
                                                 a {
                                                     color: $optional-color;
-                
+
                                                     &:hover, &:focus, &.active {
                                                         color: $main-color;
                                                     }
@@ -754,11 +754,11 @@ Header Area CSS
                                                     opacity: 0;
                                                     visibility: hidden;
                                                     transform: scaleY(0);
-                        
+
                                                     li {
                                                         a {
                                                             color: $optional-color;
-                
+
                                                             &:hover, &:focus, &.active {
                                                                 color: $main-color;
                                                             }
@@ -769,11 +769,11 @@ Header Area CSS
                                                             opacity: 0;
                                                             visibility: hidden;
                                                             transform: scaleY(0);
-                                
+
                                                             li {
                                                                 a {
                                                                     color: $optional-color;
-                
+
                                                                     &:hover, &:focus, &.active {
                                                                         color: $main-color;
                                                                     }
@@ -784,11 +784,11 @@ Header Area CSS
                                                                     opacity: 0;
                                                                     visibility: hidden;
                                                                     transform: scaleY(0);
-                                        
+
                                                                     li {
                                                                         a {
                                                                             color: $optional-color;
-                
+
                                                                             &:hover, &:focus, &.active {
                                                                                 color: $main-color;
                                                                             }
@@ -973,7 +973,7 @@ Header Area CSS
                 .search-btn-box {
                     position: relative;
                     top: 5px;
-                    
+
                     .search-btn {
                         font-size: 25px;
                         cursor: pointer;
@@ -1062,7 +1062,7 @@ Header Area CSS
     &.navbar-style-two {
         .louise-nav {
             border-bottom: none;
-        
+
             .navbar {
                 .navbar-nav {
                     margin: {
@@ -1072,7 +1072,7 @@ Header Area CSS
                     .nav-item {
                         a {
                             color: $black-color;
-                            
+
                             &:hover, &:focus, &.active {
                                 color: $main-color;
                             }
@@ -1085,9 +1085,9 @@ Header Area CSS
                         .dropdown-menu {
                             li {
                                 a {
-                                    
+
                                     color: $optional-color;
-                                    
+
                                     &:hover, &:focus, &.active {
                                         color: $main-color;
                                     }
@@ -1096,7 +1096,7 @@ Header Area CSS
                                     li {
                                         a {
                                             color: $optional-color;
-                                            
+
                                             &:hover, &:focus, &.active {
                                                 color: $main-color;
                                             }
@@ -1105,7 +1105,7 @@ Header Area CSS
                                             li {
                                                 a {
                                                     color: $optional-color;
-                
+
                                                     &:hover, &:focus, &.active {
                                                         color: $main-color;
                                                     }
@@ -1114,7 +1114,7 @@ Header Area CSS
                                                     li {
                                                         a {
                                                             color: $optional-color;
-                        
+
                                                             &:hover, &:focus, &.active {
                                                                 color: $main-color;
                                                             }
@@ -1123,7 +1123,7 @@ Header Area CSS
                                                             li {
                                                                 a {
                                                                     color: $optional-color;
-                        
+
                                                                     &:hover, &:focus, &.active {
                                                                         color: $main-color;
                                                                     }
@@ -1132,7 +1132,7 @@ Header Area CSS
                                                                     li {
                                                                         a {
                                                                             color: $optional-color;
-                        
+
                                                                             &:hover, &:focus, &.active {
                                                                                 color: $main-color;
                                                                             }
@@ -1141,7 +1141,7 @@ Header Area CSS
                                                                             li {
                                                                                 a {
                                                                                     color: $optional-color;
-                        
+
                                                                                     &:hover, &:focus, &.active {
                                                                                         color: $main-color;
                                                                                     }
@@ -1196,7 +1196,7 @@ Header Area CSS
                                     li {
                                         a {
                                             color: $optional-color;
-                                            
+
                                             &:hover, &.active {
                                                 color: $main-color;
                                             }
@@ -1232,7 +1232,7 @@ Header Area CSS
                             border-color: $main-color;
                             background-color: transparent;
                             color: $main-color;
-                            
+
                             &:hover {
                                 background-color: $main-color;
                                 border-color: $main-color;
@@ -1255,7 +1255,7 @@ Header Area CSS
 
     .louise-responsive-nav {
         display: block;
-        
+
         .louise-responsive-menu {
             position: relative;
 
@@ -1416,7 +1416,7 @@ Header Area CSS
                         .search-btn-box {
                             position: relative;
                             top: 5px;
-                            
+
                             .search-btn {
                                 font-size: 25px;
                                 cursor: pointer;
@@ -1430,12 +1430,12 @@ Header Area CSS
                             position: relative;
                             margin-right: 5px;
                             line-height: 1;
-        
+
                             a {
                                 display: inline-block;
                                 position: relative;
                                 color: $white-color;
-        
+
                                 span {
                                     position: absolute;
                                     right: -4px;
@@ -1492,13 +1492,13 @@ Header Area CSS
         }
         &.navbar-style-two {
             border-bottom: none;
-            
+
             .louise-responsive-nav {
                 .mean-container {
                     a {
                         &.meanmenu-reveal {
                             color: $black-color;
-        
+
                             span {
                                 background: $black-color;
                             }
@@ -1654,7 +1654,7 @@ Search Overlay CSS
         &.search-overlay {
             opacity: 1;
             visibility: visible;
-    
+
             .search-overlay-layer {
                 transform: translateX(0);
             }
@@ -1954,7 +1954,7 @@ Main Banner Area CSS
 }
 .banner-wrapper-content {
     max-width: 650px;
-    
+
     h1 {
         margin-bottom: 20px;
         font: {
@@ -2587,7 +2587,7 @@ Listing Area CSS
             color: $white-color;
             background-color: red;
             width: 115px;
-                
+
             &::before {
             border-bottom-color: red;
             }
@@ -2607,7 +2607,7 @@ Listing Area CSS
 
             .author {
                 margin-bottom: 13px;
-    
+
                 img {
                     display: inline-block !important;
                     border-radius: 50%;
@@ -2660,7 +2660,7 @@ Listing Area CSS
                 right: 0;
                 bottom: 0;
                 text-align: right;
-    
+
                 i {
                     color: #ffc107;
                 }
@@ -3279,7 +3279,7 @@ Listing Area CSS
 .tab {
     .tabs-item {
         display: none;
-        
+
         &:first-child {
             display: block;
         }
@@ -3679,7 +3679,7 @@ Listing Details Area CSS
     }
     #map {
         height: auto;
-        
+
         iframe {
             width: 100%;
             height: 400px;
@@ -3723,12 +3723,12 @@ Listing Details Area CSS
     }
     .listing-opening-hours {
         margin-bottom: 35px;
-    
+
         ul {
             padding-left: 0;
             margin-bottom: 0;
             list-style-type: none;
-    
+
             li {
                 border-bottom: 1px dashed #eeeeee;
                 color: $optional-color;
@@ -3737,7 +3737,7 @@ Listing Details Area CSS
                 padding: {
                     top: 10px;
                     bottom: 10px;
-                };   
+                };
                 font: {
                     size: 14.5px;
                     weight: 600;
@@ -3747,7 +3747,7 @@ Listing Details Area CSS
                     width: 170px;
                     text-align: left;
                     float: left;
-    
+
                     i {
                         color: $main-color;
                         position: relative;
@@ -3837,8 +3837,8 @@ Listing Details Area CSS
                 max-width: 120px;
                 min-width: 120px;
                 text-align: center;
-                position: relative;    
-    
+                position: relative;
+
                 span {
                     position: absolute;
                     top: 0;
@@ -3850,7 +3850,7 @@ Listing Details Area CSS
                     line-height: 49px;
                     transition: $transition;
                     font-size: 22px;
-    
+
                     &.minus-btn {
                         left: 0;
                     }
@@ -4621,7 +4621,7 @@ Process Area CSS
     .lines {
         .line {
             background: rgba(2, 128, 194, 0.05);
-    
+
             &::after {
                 background: linear-gradient(to bottom, rgba(2, 128, 194, 0) 0%, $main-color 75%, $main-color 100%);
             }
@@ -5089,7 +5089,7 @@ Products Details Area CSS
             margin-right: 10px;
             text-align: center;
             display: inline-block;
-            position: relative;    
+            position: relative;
 
             span {
                 position: absolute;
@@ -5236,7 +5236,7 @@ Products Details Area CSS
             margin-bottom: 15px;
             border-radius: 0;
             border: none;
-    
+
             &:last-child {
                 margin-bottom: 0;
             }
@@ -5245,7 +5245,7 @@ Products Details Area CSS
                 padding: 0;
                 border-bottom: none;
                 background-color: $white-color;
-    
+
                 a {
                     padding: 14px 35px 12px 15px;
                     color: $black-color;
@@ -5400,7 +5400,7 @@ Products Details Area CSS
                 }
                 .review-comments {
                     margin-top: 35px;
-                    
+
                     .review-item {
                         margin-top: 30px;
                         position: relative;
@@ -5970,7 +5970,7 @@ Listing Widget Sidebar CSS
             overflow: hidden;
             position: relative;
             text-align: center;
-        
+
             .category {
                 position: absolute;
                 left: 0;
@@ -6116,7 +6116,7 @@ Modal CSS
                             opacity: 0;
                             visibility: hidden;
                             transition: $transition;
-        
+
                             &:hover {
                                 color: red;
                             }
@@ -6182,7 +6182,7 @@ Blog Area CSS
         overflow: hidden;
         position: relative;
         border-radius: 5px 5px 0 0;
-        
+
         a {
             display: block;
             border-radius: 5px 5px 0 0;
@@ -6291,7 +6291,7 @@ Blog Details Area CSS
         &.owl-theme {
             .owl-nav {
                 margin-top: 0;
-    
+
                 [class*=owl-] {
                     color: #87a1c1;
                     font-size: 18px;
@@ -6345,7 +6345,7 @@ Blog Details Area CSS
                 padding-left: 0;
                 margin-bottom: 0;
                 list-style-type: none;
-    
+
                 li {
                     margin-right: 25px;
                     position: relative;
@@ -6466,7 +6466,7 @@ Blog Details Area CSS
             flex: 0 0 50%;
             max-width: 50%;
             color: $optional-color;
-            
+
             span {
                 display: inline-block;
                 color: $black-color;
@@ -6487,7 +6487,7 @@ Blog Details Area CSS
         .article-share {
             flex: 0 0 50%;
             max-width: 50%;
-            
+
             .social {
                 padding-left: 0;
                 list-style-type: none;
@@ -6517,7 +6517,7 @@ Blog Details Area CSS
                         text-align: center;
                         font-size: 17px;
                         margin-left: 5px;
-        
+
                         &:hover, &:focus {
                             color: $main-color;
                             background-color: transparent;
@@ -7460,7 +7460,7 @@ Widget Sidebar CSS
     .widget_search {
         form {
             position: relative;
-            
+
             .screen-reader-text {
                 display: none;
             }
@@ -7515,7 +7515,7 @@ Widget Sidebar CSS
     .widget_louise_posts_thumb {
         position: relative;
         overflow: hidden;
-        
+
         .item {
             overflow: hidden;
             margin-bottom: 15px;
@@ -7937,7 +7937,7 @@ Coming Soon Area CSS
                     color: #A1A1A1;
                     transition: $transition;
                 }
-                &:focus {                    
+                &:focus {
                     &::placeholder {
                         color: transparent;
                     }
@@ -8063,8 +8063,8 @@ Cart Area CSS
                             min-width: 130px;
                             text-align: center;
                             display: inline-block;
-                            position: relative;    
-                
+                            position: relative;
+
                             span {
                                 position: absolute;
                                 top: 0;
@@ -8076,7 +8076,7 @@ Cart Area CSS
                                 line-height: 50px;
                                 transition: $transition;
                                 font-size: 22px;
-                
+
                                 &.minus-btn {
                                     left: 0;
                                 }
@@ -8140,7 +8140,7 @@ Cart Area CSS
         padding-left: 0;
         margin: 0 0 25px;
         list-style-type: none;
-        
+
         li {
             border: 1px solid #eaedff;
             padding: 10px 15px;
@@ -8336,7 +8336,7 @@ Checkout Area CSS
     .order-table {
         table {
             margin-bottom: 0;
-    
+
             thead {
                 tr {
                     th {
@@ -8391,7 +8391,7 @@ Checkout Area CSS
         box-shadow: 0 2px 28px 0 rgba(0, 0, 0, 0.06);
         margin-top: 30px;
         padding: 30px;
-        
+
         .payment-method {
             p {
                 [type="radio"] {
@@ -8620,7 +8620,7 @@ Login Area CSS
 }
 .login-content {
     height: 100vh;
-    
+
     .login-form {
         text-align: center;
         max-width: 500px;
@@ -8630,7 +8630,7 @@ Login Area CSS
         };
         .logo {
             margin-bottom: 25px;
-            
+
             a {
                 display: inline-block;
             }
@@ -8742,7 +8742,7 @@ Login Area CSS
                     &.facebook {
                         border-color: #3b5998;
                         color: #3b5998;
-                        
+
                         &:hover {
                             background-color: #3b5998;
                             color: $white-color;
@@ -8753,7 +8753,7 @@ Login Area CSS
                         margin-top: 15px;
                         border-color: #1da1f2;
                         color: #1da1f2;
-                        
+
                         &:hover {
                             background-color: #1da1f2;
                             color: $white-color;
@@ -8789,7 +8789,7 @@ Register Area CSS
 }
 .register-content {
     height: 100vh;
-    
+
     .register-form {
         text-align: center;
         max-width: 500px;
@@ -8799,7 +8799,7 @@ Register Area CSS
         };
         .logo {
             margin-bottom: 25px;
-            
+
             a {
                 display: inline-block;
             }
@@ -8989,7 +8989,7 @@ Contact Area CSS
                 display: inline-block;
                 font-weight: 600;
                 position: relative;
-                
+
                 &:hover {
                     &::before {
                         width: 100%;
@@ -9018,7 +9018,7 @@ Contact Area CSS
 
         li {
             margin-bottom: 10px;
-            
+
             &:last-child {
                 margin-bottom: 0;
             }
@@ -9160,7 +9160,7 @@ Footer Area CSS
                     color: #c7cad4;
                     font-weight: 600;
                     position: relative;
-                    
+
                     &:hover {
                         color: $main-color;
 
@@ -9231,13 +9231,13 @@ Footer Area CSS
             li {
                 margin-bottom: 12px;
                 color: #c7cad4;
-    
+
                 a {
                     display: inline-block;
                     color: #c7cad4;
                     font-weight: 600;
                     position: relative;
-                    
+
                     &:hover {
                         color: $main-color;
 
@@ -9269,13 +9269,13 @@ Footer Area CSS
             li {
                 margin-bottom: 12px;
                 color: #c7cad4;
-    
+
                 a {
                     display: inline-block;
                     color: #c7cad4;
                     font-weight: 600;
                     position: relative;
-                    
+
                     &:hover {
                         color: $main-color;
 
@@ -9542,4 +9542,21 @@ Go Top CSS
         transition: $transition;
         transform: translateY(-5px);
     }
+}
+h2.title {
+    margin-bottom: 0;
+    color: #ffffff !important;
+    font: {
+        size: 36px;
+        weight: 700;
+    };
+}
+
+h2 a {
+     color: #ffffff !important;
+     text-decoration: none;
+}
+
+h2 a:hover {
+    text-decoration: none;
 }

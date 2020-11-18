@@ -1,7 +1,7 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
 import {HomeService} from './home.service';
-import {Activity} from '../../interfaces/activity.interface';
+import {Activity} from '../../interfaces/spectacle.interface';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {CONFIG} from '../../../../assets/config';
@@ -13,8 +13,8 @@ import {CONFIG} from '../../../../assets/config';
 })
 export class HomeOneComponent implements OnInit {
     model: NgbDateStruct;
-    activities: Activity[];
-    bkActivities: Activity[];
+    spectacles: Activity[];
+    bkSpectacle: Activity[];
 
     @ViewChild('actividades') actividades: ElementRef;
 
@@ -31,34 +31,36 @@ export class HomeOneComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.getActivities();
+        this.getSpectacle();
     }
 
-    private async getActivities(): Promise<Activity[]> {
-        this.activities = await this.homeService.getActivities();
-        this.bkActivities = this.activities;
-        return this.activities;
+    private async getSpectacle(): Promise<Activity[]> {
+        this.spectacles = await this.homeService.getSpectacle();
+        this.bkSpectacle = this.spectacles;
+        return this.spectacles;
     }
 
-    private async getActivitiesByParam(param?: string): Promise<Activity[]> {
-        const filterActivities = await this.homeService.getActivities(param);
-        const filteredAct = filterActivities.map(el => el[0]);
-        this.activities = this.activities.filter(act => {
+    private async getSpectacleByParam(param?: string): Promise<Activity[]> {
+        const filterSpectacle = await this.homeService.getSpectacle(param);
+        const filteredAct = filterSpectacle.map(el => el[0]);
+        /*
+        this.spectacles = this.spectacles.filter(act => {
             if (filteredAct.includes(act.idActividad)) {
                 return true;
             }
             return false;
         });
-        return this.activities;
+         */
+        return this.spectacles;
     }
 
     onSubmit(): void {
         if (!this.form.value.searchActivity) {
-            this.getActivities();
+            this.getSpectacle();
         } else {
-            this.activities = this.bkActivities;
+            this.spectacles = this.bkSpectacle;
             localStorage.setItem('fechaViaje', JSON.stringify(this.form.value.searchCalendar));
-            this.getActivitiesByParam(this.form.value.searchActivity);
+            this.getSpectacleByParam(this.form.value.searchActivity);
         }
         this.actividades.nativeElement.scrollIntoView();
     }

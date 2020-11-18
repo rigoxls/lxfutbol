@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Activity } from '../../interfaces/activity.interface';
+import { Activity } from '../../interfaces/spectacle.interface';
 import { HomeService } from '../home-one/home.service';
 
 @Component({
@@ -20,7 +20,7 @@ export class BlogOneComponent implements OnInit {
   }
 
   private async getActivities(): Promise<Activity[]> {
-    this.activities = await this.homeService.getActivities();   
+    this.activities = await this.homeService.getActivities();
     this.activities = this.activities.filter(ac => ac.categoria === this.categoriaNombre);
     return this.activities;
 

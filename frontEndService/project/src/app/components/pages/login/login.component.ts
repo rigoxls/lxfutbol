@@ -47,7 +47,7 @@ export class LoginComponent {
         }
     }
 
-    getUsusario() {
+    getUsusario() {/*
         this.loginService.login(this.form.value.email, this.form.value.password).subscribe(
             result => {
                 this.user = result;
@@ -67,7 +67,7 @@ export class LoginComponent {
                 window.location.href = CONFIG.adminPath;
             }
         }, 1000);
-        return this.user;
+        return this.user;*/
     }
 
     showErrorDatos() {
