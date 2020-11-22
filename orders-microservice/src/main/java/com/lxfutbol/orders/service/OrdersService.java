@@ -43,7 +43,11 @@ public class OrdersService implements IOrdersService{
 		orderCreate.setLastNameUser(order.getLastNameUser());
 		orderCreate.setNameUser(order.getNameUser());
 		orderCreate.setNumDocumentUser(order.getNumDocumentUser());
-		orderCreate.setValue(order.getValue());
+		orderCreate.setTotalValue(order.getTotalValue());
+		orderCreate.setEmail(order.getEmail());
+		orderCreate.setAddress(order.getAddress());
+		orderCreate.setPaidStatus(order.getPaidStatus());
+		
 		orderDb.save(orderCreate);
 		itemDb.saveAll(items);
 
@@ -62,7 +66,10 @@ public class OrdersService implements IOrdersService{
 			order.setNameUser(orderE.getNameUser());
 			order.setNoOrder(orderE.getNoOrder());
 			order.setNumDocumentUser(orderE.getNumDocumentUser());
-			order.setValue(orderE.getValue());
+			order.setTotalValue(orderE.getTotalValue());
+			order.setEmail(orderE.getEmail());
+			order.setAddress(orderE.getAddress());
+			order.setPaidStatus(orderE.getPaidStatus());
 			listItems = new ArrayList<>();
 			for (ItemsEntity item : orderE.getItems()) {
 				items = new ItemDto();

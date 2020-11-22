@@ -28,14 +28,14 @@ public class Orders {
 	private IOrdersService orderService;
 	
 	@PostMapping("/createOrder")
-	public ResponseEntity<Object> createOrders(@RequestBody OrderDto orderDto)  {
+	public ResponseEntity<Boolean> createOrders(@RequestBody OrderDto orderDto)  {
 		try {
 			orderService.createOrder(orderDto);
 		} catch (Exception ex) {
 			LOG.info("Error creando la order");
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(Boolean.FALSE, HttpStatus.NOT_FOUND);
 		}
-		return new ResponseEntity<>(HttpStatus.OK);
+		return new ResponseEntity<>(Boolean.TRUE, HttpStatus.OK);
 		
 	}
 	

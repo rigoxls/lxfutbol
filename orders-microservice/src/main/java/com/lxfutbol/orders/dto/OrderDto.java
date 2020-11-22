@@ -10,7 +10,11 @@ public class OrderDto {
 	private String lastNameUser;
 	private String numDocumentUser;
 	private List<ItemDto> items;
-	private BigDecimal value;
+	private BigDecimal totalValue;
+	private String email;
+	private String address;
+	private String paidStatus;
+
 	
 	public Integer getNoOrder() {
 		return noOrder;
@@ -42,11 +46,29 @@ public class OrderDto {
 	public void setItems(List<ItemDto> items) {
 		this.items = items;
 	}
-	public BigDecimal getValue() {
-		return value;
-	}
-	public void setValue(BigDecimal value) {
-		this.value = value;
-	}
 	
+	public BigDecimal getTotalValue() {
+		return totalValue;
+	}
+	public void setTotalValue(BigDecimal totalValue) {
+		this.totalValue = totalValue;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public String getAddress() {
+		return address;
+	}
+	public void setAddress(String address) {
+		this.address = address;
+	}
+	public String getPaidStatus() {
+		return paidStatus;
+	}
+	public void setPaidStatus(String paidStatus) {
+		this.paidStatus = paidStatus;
+	}
 }

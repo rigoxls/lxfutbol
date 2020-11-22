@@ -22,7 +22,10 @@ public class OrderEntity {
 	private String numDocumentUser;
 	@OneToMany(targetEntity=ItemsEntity.class, mappedBy="orderEntity")
 	private List<ItemsEntity> items;
-	private BigDecimal value;
+	private BigDecimal totalValue;
+	private String email;
+	private String address;
+	private String paidStatus;
 	
 	
 	public Integer getNoOrder() {
@@ -56,11 +59,28 @@ public class OrderEntity {
 	public void setItems(List<ItemsEntity> items) {
 		this.items = items;
 	}
-	public BigDecimal getValue() {
-		return value;
+	public BigDecimal getTotalValue() {
+		return totalValue;
 	}
-	public void setValue(BigDecimal value) {
-		this.value = value;
+	public void setTotalValue(BigDecimal totalValue) {
+		this.totalValue = totalValue;
 	}
-	
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public String getAddress() {
+		return address;
+	}
+	public void setAddress(String address) {
+		this.address = address;
+	}
+	public String getPaidStatus() {
+		return paidStatus;
+	}
+	public void setPaidStatus(String paidStatus) {
+		this.paidStatus = paidStatus;
+	}
 }
