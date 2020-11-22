@@ -38,10 +38,10 @@ public class UserService {
 			Object[] user = (Object[]) q.getSingleResult();
 			
 			
-			usuarioRes.setId(Integer.valueOf(user[0].toString()));
-			usuarioRes.setLastName(user[1].toString());
+			usuarioRes.setId(Integer.valueOf(user[2].toString()));
+			usuarioRes.setLastName(user[3].toString());
 			usuarioRes.setEmail(email);
-			usuarioRes.setIdUser(user[3].toString());
+			usuarioRes.setIdUser(user[1].toString());
 			usuarioRes.setName(user[4].toString());
 			usuarioRes.setPassword(passWord);
 			usuarioRes.setPhone(user[6].toString());
