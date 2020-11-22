@@ -8,7 +8,7 @@ import { environment } from "src/environments/environment";
 })
 export class LoginService {
 
-    private url = environment.APIEndPoint+'getAutenticacion';
+    private url = environment.APIEndPoint+'/user/login';
 
     constructor(private http: HttpClient) {
     }
