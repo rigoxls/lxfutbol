@@ -30,10 +30,10 @@ export class HomeOneComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.getSpectacle();
+        this.getSpectacles();
     }
 
-    private async getSpectacle(): Promise<Spectactle[]> {
+    private async getSpectacles(): Promise<Spectactle[]> {
         this.spectacles = await this.homeService.getSpectacle();
         this.bkSpectacle = this.spectacles;
         return this.spectacles;
@@ -55,7 +55,7 @@ export class HomeOneComponent implements OnInit {
 
     onSubmit(): void {
         if (!this.form.value.searchSpectactle) {
-            this.getSpectacle();
+            this.getSpectacles();
         } else {
             this.spectacles = this.bkSpectacle;
             localStorage.setItem('fechaViaje', JSON.stringify(this.form.value.searchCalendar));
