@@ -427,8 +427,7 @@ namespace AAFlightService
         {
             if ((endpointConfiguration == EndpointConfiguration.AAFlightsServiceSoapHttpPort))
             {
-                return new System.ServiceModel.EndpointAddress("http://192.168.1.100:8888/TuresBalonProviders-AA-context-root/AAFlightsServiceSoa" +
-                        "pHttpPort");
+                return new System.ServiceModel.EndpointAddress("http://localhost:8099/SearchFlight");
             }
             throw new System.InvalidOperationException(string.Format("Could not find endpoint with name \'{0}\'.", endpointConfiguration));
         }

@@ -8,6 +8,8 @@ namespace ApplicationCore.Interfaces
     {
         public string Listener(int idProvider, Transport Message, string Type);
         
-        public Task<searchFlightResponse> AASearhFlight(searchFlightRequest Message);
+        public Task<TransportSearchResponse> AASearhFlight(Transport Message, int idProvider);
+
+
     }
 }

@@ -362,8 +362,7 @@ namespace AviancaServices
         {
             if ((endpointConfiguration == EndpointConfiguration.ServicioAviancaVuelosSoapHttpPort))
             {
-                return new System.ServiceModel.EndpointAddress("http://192.168.1.100:8888/TuresBalonProviders-Avianca-context-root/ServicioAvianc" +
-                        "aVuelosSoapHttpPort");
+                return new System.ServiceModel.EndpointAddress("http://localhost:8083/consultarVuelo");
             }
             throw new System.InvalidOperationException(string.Format("Could not find endpoint with name \'{0}\'.", endpointConfiguration));
         }

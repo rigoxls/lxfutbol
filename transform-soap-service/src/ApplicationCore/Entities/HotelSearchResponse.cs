@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ApplicationCore.Entities
 {
-    class Flight
+    class HotelSearchResponse
     {
     }
 }

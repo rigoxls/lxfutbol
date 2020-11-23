@@ -4,7 +4,8 @@ using System.Text;
 
 namespace ApplicationCore.Entities
 {
-    class Trip
+    public class TransportBookResponse
     {
+        public bool Result { get; set; }
     }
 }
