@@ -23,16 +23,17 @@ export class HomeService {
             const params = {
                 data: {
                     operation: 'search',
-                    city: 'Cartagena',
-                    country: 'Colombia',
-                    type: 'futbol ',
-                    date: '2020-12-15',
-                    dateEnd: '2020-12-15'
+                    city: '',
+                    country: '',
+                    type: ' ',
+                    date: '',
+                    dateEnd: ''
                 }
             };
 
             this.http.post<Spectactle[]>(url, params,
                 {headers}).subscribe(result => {
+                    let idGen = 0;
                     const response = [];
                     // @ts-ignore
                     result = result.sort((a, b) => {
@@ -41,10 +42,13 @@ export class HomeService {
 
                     result.forEach(prov => {
                         for (const p of prov['providerEspectacle']) {
+                            idGen = idGen + 1 ;
+                            p['id'] = idGen;
                             response.push(p);
                         }
                     });
 
+                    localStorage.setItem('spectacles', JSON.stringify(response));
                     resolve(response);
                 },
                 error => {

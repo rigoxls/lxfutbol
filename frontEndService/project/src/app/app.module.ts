@@ -25,7 +25,6 @@ import { ListingTwoComponent } from './components/pages/listing-two/listing-two.
 import { ListingThreeComponent } from './components/pages/listing-three/listing-three.component';
 import { ListingFourComponent } from './components/pages/listing-four/listing-four.component';
 import { ListingFiveComponent } from './components/pages/listing-five/listing-five.component';
-import { ListingDetailsComponent } from './components/pages/listing-details/listing-details.component';
 import { ProductListComponent } from './components/pages/product-list/product-list.component';
 import { ProductsDetailsComponent } from './components/pages/products-details/products-details.component';
 import { CartComponent } from './components/pages/cart/cart.component';
@@ -45,7 +44,6 @@ import { LoginComponent } from './components/pages/login/login.component';
 import { RegisterComponent } from './components/pages/register/register.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ProviderModalComponent } from './components/pages/listing-details/provider-modal/provider-modal.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ToastContainerComponent } from './components/pages/Toast/toast-container/toast-container.component';
 
@@ -75,7 +73,6 @@ import { ToastContainerComponent } from './components/pages/Toast/toast-containe
     ListingThreeComponent,
     ListingFourComponent,
     ListingFiveComponent,
-    ListingDetailsComponent,
     ProductListComponent,
     ProductsDetailsComponent,
     CartComponent,
@@ -93,7 +90,6 @@ import { ToastContainerComponent } from './components/pages/Toast/toast-containe
     ComingSoonComponent,
     LoginComponent,
     RegisterComponent,
-    ProviderModalComponent,
     ToastContainerComponent
   ],
     imports: [

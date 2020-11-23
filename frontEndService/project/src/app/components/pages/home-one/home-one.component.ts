@@ -1,7 +1,7 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
 import {HomeService} from './home.service';
-import {Activity} from '../../interfaces/spectacle.interface';
+import {Spectactle} from '../../interfaces/spectacle.interface';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {CONFIG} from '../../../../assets/config';
@@ -13,16 +13,15 @@ import {CONFIG} from '../../../../assets/config';
 })
 export class HomeOneComponent implements OnInit {
     model: NgbDateStruct;
-    spectacles: Activity[];
-    bkSpectacle: Activity[];
+    spectacles: Spectactle[];
+    bkSpectacle: Spectactle[];
 
     @ViewChild('actividades') actividades: ElementRef;
 
     places = JSON.parse(localStorage.getItem('places'));
-    imagePath = CONFIG.imagePath;
 
     form = new FormGroup({
-        searchActivity: new FormControl('', Validators.minLength(2)),
+        searchSpectactle: new FormControl('', Validators.minLength(2)),
         searchPlace: new FormControl('Lugares'),
         searchCalendar: new FormControl(''),
     });
@@ -34,13 +33,13 @@ export class HomeOneComponent implements OnInit {
         this.getSpectacle();
     }
 
-    private async getSpectacle(): Promise<Activity[]> {
+    private async getSpectacle(): Promise<Spectactle[]> {
         this.spectacles = await this.homeService.getSpectacle();
         this.bkSpectacle = this.spectacles;
         return this.spectacles;
     }
 
-    private async getSpectacleByParam(param?: string): Promise<Activity[]> {
+    private async getSpectacleByParam(param?: string): Promise<Spectactle[]> {
         const filterSpectacle = await this.homeService.getSpectacle(param);
         const filteredAct = filterSpectacle.map(el => el[0]);
         /*
@@ -55,12 +54,12 @@ export class HomeOneComponent implements OnInit {
     }
 
     onSubmit(): void {
-        if (!this.form.value.searchActivity) {
+        if (!this.form.value.searchSpectactle) {
             this.getSpectacle();
         } else {
             this.spectacles = this.bkSpectacle;
             localStorage.setItem('fechaViaje', JSON.stringify(this.form.value.searchCalendar));
-            this.getSpectacleByParam(this.form.value.searchActivity);
+            this.getSpectacleByParam(this.form.value.searchSpectactle);
         }
         this.actividades.nativeElement.scrollIntoView();
     }

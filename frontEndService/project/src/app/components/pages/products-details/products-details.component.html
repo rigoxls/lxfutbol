@@ -3,7 +3,7 @@
 <div class="page-title-area page-title-bg4">
     <div class="container">
         <div class="page-title-content">
-            <h2>Ham Salad</h2>
+            <h2>{{spectacle.description}}</h2>
         </div>
     </div>
 </div>
@@ -45,32 +45,17 @@
 
             <div class="col-lg-7 col-md-12">
                 <div class="products-details-desc">
-                    <h3>Ham Salad</h3>
+                    <h3>{{spectacle.description}}</h3>
 
                     <div class="price">
-                        <span class="new-price">$20.00</span>
-                        <span class="old-price">$25.00</span>
-                    </div>
-
-                    <div class="products-review">
-                        <div class="rating">
-                            <i class='bx bx-star'></i>
-                            <i class='bx bx-star'></i>
-                            <i class='bx bx-star'></i>
-                            <i class='bx bx-star'></i>
-                            <i class='bx bx-star'></i>
-                        </div>
-                        <a routerLink="/" class="rating-count">3 reviews</a>
+                        <span class="new-price">{{spectacle.price | currency}}</span>
                     </div>
 
                     <ul class="products-info">
-                        <li><span>Availability:</span> <a routerLink="/products-details">In stock (7 items)</a></li>
-                        <li><span>Products Type:</span> <a routerLink="/products-details">Salad</a></li>
+                        <li><span>Disponibilidad: </span> <a routerLink="/products-details" style="color: #18891d">Disponible</a></li>
+                        <li><span>Fecha: </span> <a routerLink="/products-details">{{spectacle.date}}</a></li>
                     </ul>
 
-                    <div class="products-info-btn">
-                        <a routerLink="/contact"><i class='bx bx-envelope'></i> Ask about this products</a>
-                    </div>
 
                     <div class="products-add-to-cart">
                         <div class="input-counter">
@@ -79,39 +64,27 @@
                             <span class="plus-btn"><i class='bx bx-plus'></i></span>
                         </div>
 
-                        <button type="submit" class="default-btn">Add to Cart</button>
+                        <button type="submit" class="default-btn">Persona(s)</button>
                     </div>
 
-                    <div class="buy-checkbox-btn">
-                        <div class="item">
-                            <input class="inp-cbx" id="cbx" type="checkbox">
-                            <label class="cbx" for="cbx">
-                                <span>
-                                    <svg width="12px" height="10px" viewbox="0 0 12 10">
-                                        <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
-                                    </svg>
-                                </span>
-                                <span>I agree with the terms and conditions</span>
-                            </label>
-                        </div>
-
-                        <div class="item">
-                            <a routerLink="/products-details" class="default-btn">Buy it now!</a>
-                        </div>
-                    </div>
-                    
                     <div class="products-details-accordion" id="accordionEx" role="tablist" aria-multiselectable="true">
                         <div class="card">
                             <div class="card-header" role="tab" id="headingOne">
-                                <a data-toggle="collapse" data-parent="#accordionEx" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">Description <i class='bx bx-chevron-down'></i></a>
+                                <a data-toggle="collapse" data-parent="#accordionEx" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                    Términos y Condiciones
+                                    <i class='bx bx-chevron-down'></i></a>
                             </div>
                             <div id="collapseOne" class="collapse show" role="tabpanel" data-parent="#accordionEx">
                                 <div class="card-body">
-                                    <p>Design inspiration lorem ipsum dolor sit amet, consectetuer adipiscing elit. Morbi commodo, ipsum sed pharetra gravida, orci magna rhoncus neque, id pulvinar odio lorem non turpis. Nullam sit amet enim.</p>
+                                    <p>
+                                        Toure Balón se reserva el derecho de informar sobre cualquier cambio en el evento que pueda surgir por
+                                        parte del proveedor autorizado, por consiguiente cualquier cambio previo al evento debe ser gestionado
+                                        directamente con el proveedor através de nuestros canales de comunicación interna.
+                                    </p>
                                 </div>
                             </div>
                         </div>
-                        <div class="card">
+                        <!--<div class="card">
                             <div class="card-header" role="tab" id="headingTwo">
                                 <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">Additional information <i class='bx bx-chevron-down'></i></a>
                             </div>
@@ -145,201 +118,28 @@
                                     </div>
                                 </div>
                             </div>
+                        </div>-->
+
+                    </div>
+
+                    <div class="buy-checkbox-btn">
+                        <div class="item">
+                            <input class="inp-cbx" id="cbx" type="checkbox">
+                            <label class="cbx" for="cbx">
+                                <span>
+                                    <svg width="12px" height="10px" viewbox="0 0 12 10">
+                                        <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                                    </svg>
+                                </span>
+                                <span>Estoy de acuerdo con los términos y condiciones</span>
+                            </label>
                         </div>
-                        <div class="card">
-                            <div class="card-header" role="tab" id="headingThree">
-                                <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">Reviews <i class='bx bx-chevron-down'></i></a>
-                            </div>
-                            <div id="collapseThree" class="collapse" role="tabpanel" data-parent="#accordionEx">
-                                <div class="card-body">
-                                    <div class="products-review-form">
-                                        <h3>Customer Reviews</h3>
-    
-                                        <div class="review-title">
-                                            <div class="rating">
-                                                <i class='bx bxs-star'></i>
-                                                <i class='bx bxs-star'></i>
-                                                <i class='bx bxs-star'></i>
-                                                <i class='bx bxs-star'></i>
-                                                <i class='bx bx-star'></i>
-                                            </div>
-                                            <p>Based on 3 reviews</p>
-                                            <a routerLink="/products-details" class="default-btn">Write a Review</a>
-                                        </div>
-    
-                                        <div class="review-comments">
-                                            <div class="review-item">
-                                                <div class="rating">
-                                                    <i class='bx bxs-star'></i>
-                                                    <i class='bx bxs-star'></i>
-                                                    <i class='bx bxs-star'></i>
-                                                    <i class='bx bxs-star'></i>
-                                                    <i class='bx bx-star'></i>
-                                                </div>
-                                                <h3>Good</h3>
-                                                <span><strong>Admin</strong> on <strong>Sep 21, 2019</strong></span>
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.</p>
-                                            </div>
-    
-                                            <div class="review-item">
-                                                <div class="rating">
-                                                    <i class='bx bxs-star'></i>
-                                                    <i class='bx bxs-star'></i>
-                                                    <i class='bx bxs-star'></i>
-                                                    <i class='bx bxs-star'></i>
-                                                    <i class='bx bx-star'></i>
-                                                </div>
-                                                <h3>Good</h3>
-                                                <span><strong>Admin</strong> on <strong>Sep 21, 2019</strong></span>
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.</p>
-                                            </div>
-    
-                                            <div class="review-item">
-                                                <div class="rating">
-                                                    <i class='bx bxs-star'></i>
-                                                    <i class='bx bxs-star'></i>
-                                                    <i class='bx bxs-star'></i>
-                                                    <i class='bx bxs-star'></i>
-                                                    <i class='bx bx-star'></i>
-                                                </div>
-                                                <h3>Good</h3>
-                                                <span><strong>Admin</strong> on <strong>Sep 21, 2019</strong></span>
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.</p>
-                                            </div>
-                                        </div>
-    
-                                        <div class="review-form">
-                                            <h3>Write a Review</h3>
-    
-                                            <form>
-                                                <div class="row">
-                                                    <div class="col-lg-6 col-md-6">
-                                                        <div class="form-group">
-                                                            <input type="text" id="name" name="name" placeholder="Enter your name" class="form-control">
-                                                        </div>
-                                                    </div>
-    
-                                                    <div class="col-lg-6 col-md-6">
-                                                        <div class="form-group">
-                                                            <input type="email" id="email" name="email" placeholder="Enter your email" class="form-control">
-                                                        </div>
-                                                    </div>
-    
-                                                    <div class="col-lg-12 col-md-12">
-                                                        <div class="form-group">
-                                                            <input type="text" id="review-title" name="review-title" placeholder="Enter your review a title" class="form-control">
-                                                        </div>
-                                                    </div>
-    
-                                                    <div class="col-lg-12 col-md-12">
-                                                        <div class="form-group">
-                                                            <textarea name="review-body" id="review-body" cols="30" rows="6" placeholder="Write your comments here" class="form-control"></textarea>
-                                                        </div>
-                                                    </div>
-    
-                                                    <div class="col-lg-12 col-md-12">
-                                                        <button type="submit" class="default-btn">Submit Review</button>
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+
+                        <div class="item">
+                            <a routerLink="/products-details" class="default-btn">Elige y continúa</a>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
-    <div class="related-products">
-        <div class="container">
-            <div class="section-title">
-                <span class="sub-title">Our Shop</span>
-                <h2>Related Products</h2>
-            </div>
-
-            <div class="row">
-                <div class="col-lg-4 col-md-6 col-sm-6">
-                    <div class="single-products-box">
-                        <div class="products-image">
-                            <a routerLink="/products-details">
-                                <img src="assets/img/products/img2.jpg" class="main-image" alt="image">
-                                <img src="assets/img/products/img-hover2.jpg" class="hover-image" alt="image">
-                            </a>
-    
-                            <div class="sale-tag">Sale!</div>
-                        </div>
-    
-                        <div class="products-content">
-                            <h3><a routerLink="/products-details">Fresh Cappuccino</a></h3>
-                            <div class="price">
-                                <span class="new-price">$25</span>
-                            </div>
-                            <div class="star-rating">
-                                <i class='bx bxs-star'></i>
-                                <i class='bx bxs-star'></i>
-                                <i class='bx bxs-star'></i>
-                                <i class='bx bxs-star'></i>
-                                <i class='bx bxs-star'></i>
-                            </div>
-                            <a routerLink="/cart" class="add-to-cart">Add to Cart</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6 col-sm-6">
-                    <div class="single-products-box">
-                        <div class="products-image">
-                            <a routerLink="/products-details">
-                                <img src="assets/img/products/img3.jpg" class="main-image" alt="image">
-                                <img src="assets/img/products/img-hover3.jpg" class="hover-image" alt="image">
-                            </a>
-                        </div>
-    
-                        <div class="products-content">
-                            <h3><a routerLink="/products-details">Honey Cake</a></h3>
-                            <div class="price">
-                                <span class="old-price">$15</span>
-                                <span class="new-price">$11</span>
-                            </div>
-                            <div class="star-rating">
-                                <i class='bx bxs-star'></i>
-                                <i class='bx bxs-star'></i>
-                                <i class='bx bxs-star'></i>
-                                <i class='bx bxs-star'></i>
-                                <i class='bx bxs-star'></i>
-                            </div>
-                            <a routerLink="/cart" class="add-to-cart">Add to Cart</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6 col-sm-6">
-                    <div class="single-products-box">
-                        <div class="products-image">
-                            <a routerLink="/products-details">
-                                <img src="assets/img/products/img4.jpg" class="main-image" alt="image">
-                                <img src="assets/img/products/img-hover4.jpg" class="hover-image" alt="image">
-                            </a>
-                        </div>
-    
-                        <div class="products-content">
-                            <h3><a routerLink="/products-details">Delicious Dish</a></h3>
-                            <div class="price">
-                                <span class="new-price">$50</span>
-                            </div>
-                            <div class="star-rating">
-                                <i class='bx bxs-star'></i>
-                                <i class='bx bxs-star'></i>
-                                <i class='bx bxs-star'></i>
-                                <i class='bx bxs-star'></i>
-                                <i class='bx bxs-star'></i>
-                            </div>
-                            <a routerLink="/cart" class="add-to-cart">Add to Cart</a>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
