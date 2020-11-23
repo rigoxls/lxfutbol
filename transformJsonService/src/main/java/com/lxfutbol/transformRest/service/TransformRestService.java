@@ -69,8 +69,7 @@ public class TransformRestService {
 	}
 	
 	public ArrayList<JSONObject> distpach(JSONObject template, String stringParams) throws JSONException {
-		JSONObject mappedParams = new JSONObject();
-		
+				
 	    HttpHeaders headers = new HttpHeaders();
 	    headers.setContentType(MediaType.APPLICATION_JSON);
 		
@@ -91,6 +90,7 @@ public class TransformRestService {
 		    JSONObject mapping = (JSONObject) template.get("mapping");
 		    JSONObject mappingProp = (JSONObject) mapping.get("properties");
 		    	    
+		    JSONObject mappedParams = new JSONObject();
 		    JSONArray params = mappingProp.names();
 		    
 		    for (int i = 0; i < params.length(); i++) {

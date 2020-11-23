@@ -1,4 +1,4 @@
-export interface Activity {
+export interface Spectactle {
     date: string;
     type: string;
     price: string;
