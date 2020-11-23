@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, NgForm } from '@angular/forms';
-import { Activity } from '../../interfaces/spectacle.interface';
+import { Spectactle } from '../../interfaces/spectacle.interface';
 import { HomeService } from '../home-one/home.service';
 
 @Component({
@@ -10,8 +10,8 @@ import { HomeService } from '../home-one/home.service';
 })
 export class ListingFiveComponent implements OnInit {
 
-  activities: Activity[];
-  place: String;
+  activities: Spectactle[];
+  place: string;
 
   constructor(private homeService: HomeService) {
   }
@@ -21,9 +21,12 @@ export class ListingFiveComponent implements OnInit {
     this.getActivities();
   }
 
-  private async getActivities(): Promise<Activity[]> {
+  private async getActivities(): Promise<Spectactle[]> {
+      /* RIGO
     this.activities = await this.homeService.getActivities();
     this.activities = this.activities.filter(ac => ac.nombreDepartamento === this.place);
+    */
+
     return this.activities;
 
   }
