@@ -12,34 +12,23 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-5 col-md-12">
-                <div class="products-details-image">
-                    <ul class="products-details-image-slides">
-                        <li><img src="assets/img/products/img1.jpg" alt="image"></li>
-                        <li><img src="assets/img/products/img2.jpg" alt="image"></li>
-                        <li><img src="assets/img/products/img3.jpg" alt="image"></li>
-                        <li><img src="assets/img/products/img4.jpg" alt="image"></li>
-                        <li><img src="assets/img/products/img5.jpg" alt="image"></li>
-                        <li><img src="assets/img/products/img6.jpg" alt="image"></li>
-                        <li><img src="assets/img/products/img7.jpg" alt="image"></li>
-                        <li><img src="assets/img/products/img8.jpg" alt="image"></li>
-                        <li><img src="assets/img/products/img9.jpg" alt="image"></li>
-                        <li><img src="assets/img/products/img-hover1.jpg" alt="image"></li>
-                    </ul>
 
-                    <div class="slick-thumbs">
-                        <ul>
-                            <li><img src="assets/img/products/img1.jpg" alt="image"></li>
-                            <li><img src="assets/img/products/img2.jpg" alt="image"></li>
-                            <li><img src="assets/img/products/img3.jpg" alt="image"></li>
-                            <li><img src="assets/img/products/img4.jpg" alt="image"></li>
-                            <li><img src="assets/img/products/img5.jpg" alt="image"></li>
-                            <li><img src="assets/img/products/img6.jpg" alt="image"></li>
-                            <li><img src="assets/img/products/img7.jpg" alt="image"></li>
-                            <li><img src="assets/img/products/img8.jpg" alt="image"></li>
-                            <li><img src="assets/img/products/img9.jpg" alt="image"></li>
-                            <li><img src="assets/img/products/img-hover1.jpg" alt="image"></li>
-                        </ul>
-                    </div>
+                <img src="/assets/img/estadio_1.jpg" width="420" *ngIf="zone === 1">
+                <img src="/assets/img/estadio_2.jpg" width="420" *ngIf="zone === 2">
+                <img src="/assets/img/estadio_3.jpg" width="420" *ngIf="zone === 3">
+                <img src="/assets/img/estadio_4.jpg" width="420" *ngIf="zone === 4">
+
+                <div class="plane">
+                    <ol class="cabin fuselage">
+                        <li class="row row--1">
+                            <ol class="seats" type="A" *ngFor="let seat of seats">
+                                <li class="seat" *ngFor="let nSeat of seat[0]">
+                                    <input type="checkbox" id="{{nSeat}}" (click)="countSeats(nSeat)" />
+                                    <label for="{{nSeat}}">{{nSeat}}</label>
+                                </li>
+                            </ol>
+                        </li>
+                    </ol>
                 </div>
             </div>
 
@@ -60,12 +49,42 @@
                     <div class="products-add-to-cart">
                         <div class="input-counter">
                             <span class="minus-btn"><i class='bx bx-minus'></i></span>
-                            <input type="text" value="1">
+                            <input #nPersons type="text" value="1">
                             <span class="plus-btn"><i class='bx bx-plus'></i></span>
                         </div>
 
                         <button type="submit" class="default-btn">Persona(s)</button>
                     </div>
+                    <hr>
+                     <div class="sector-section">
+                         <h5>Sector de tribuna</h5>
+                         <div class="form-check">
+                             <input class="form-check-input" type="radio" name="zones" id="zone1" value="1" checked (click)="changeZone(1)">
+                             <label class="form-check-label" for="zone1">
+                                 Zona Oriente
+                             </label>
+                         </div>
+                         <div class="form-check">
+                             <input class="form-check-input" type="radio" name="zones" id="zone2" value="2" (click)="changeZone(2)">
+                             <label class="form-check-label" for="zone2">
+                                 Zona Norte
+                             </label>
+                         </div>
+
+                         <div class="form-check">
+                             <input class="form-check-input" type="radio" name="zones" id="zone3" value="3" (click)="changeZone(3)">
+                             <label class="form-check-label" for="zone3">
+                                 Zona Occidente
+                             </label>
+                         </div>
+
+                         <div class="form-check">
+                             <input class="form-check-input" type="radio" name="zones" id="zone4" value="4" (click)="changeZone(4)">
+                             <label class="form-check-label" for="zone4">
+                                 Zona Sur
+                             </label>
+                         </div>
+                     </div>
 
                     <div class="products-details-accordion" id="accordionEx" role="tablist" aria-multiselectable="true">
                         <div class="card">
@@ -136,7 +155,7 @@
                         </div>
 
                         <div class="item">
-                            <a routerLink="/products-details" class="default-btn">Elige y continúa</a>
+                            <a routerLink="/products-details" class="default-btn" (click)="selectAndContinue()">Elige y continúa</a>
                         </div>
                     </div>
 
@@ -144,4 +163,9 @@
             </div>
         </div>
     </div>
+
+
+
+
+
 </section>

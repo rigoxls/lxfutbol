@@ -26,7 +26,7 @@ import { ListingThreeComponent } from './components/pages/listing-three/listing-
 import { ListingFourComponent } from './components/pages/listing-four/listing-four.component';
 import { ListingFiveComponent } from './components/pages/listing-five/listing-five.component';
 import { ProductListComponent } from './components/pages/product-list/product-list.component';
-import { ProductsDetailsComponent } from './components/pages/products-details/products-details.component';
+import { SpectacleDetailsComponent } from './components/pages/spectacle-details/spectacle-details.component';
 import { CartComponent } from './components/pages/cart/cart.component';
 import { CheckoutComponent } from './components/pages/checkout/checkout.component';
 import { BlogOneComponent } from './components/pages/blog-one/blog-one.component';
@@ -74,7 +74,7 @@ import { ToastContainerComponent } from './components/pages/Toast/toast-containe
     ListingFourComponent,
     ListingFiveComponent,
     ProductListComponent,
-    ProductsDetailsComponent,
+    SpectacleDetailsComponent,
     CartComponent,
     CheckoutComponent,
     BlogOneComponent,

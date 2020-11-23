@@ -16,7 +16,7 @@
 
 	// Header Sticky
 	$(window).on('scroll',function() {
-		if ($(this).scrollTop() > 150){  
+		if ($(this).scrollTop() > 150){
 			$('.navbar-area').addClass("is-sticky");
 		}
 		else{
@@ -52,7 +52,7 @@
 			"<i class='flaticon-right'></i>"
 		],
 	});
-	
+
 	// Brand Slides
 	$('.partner-slides').owlCarousel({
 		loop: true,
@@ -112,7 +112,7 @@
 	(function ($) {
 		$('.tab ul.tabs').addClass('active').find('> li:eq(0)').addClass('current');
 		$('.tab ul.tabs li a').on('click', function (g) {
-			let tab = $(this).closest('.tab'), 
+			let tab = $(this).closest('.tab'),
 			index = $(this).closest('li').index();
 			tab.find('ul.tabs > li').removeClass('current');
 			$(this).closest('li').addClass('current');
@@ -251,7 +251,7 @@
 	});
 
 	// Products Details Image Slides
-	$('.products-details-image-slides').slick({
+	$('.spectacle-details-image-slides').slick({
 		dots: true,
 		speed: 500,
 		fade: false,
@@ -286,14 +286,14 @@
 		}
 	});
 
-	// Count Time 
+	// Count Time
 	function makeTimer() {
-		var endTime = new Date("September 20, 2020 17:00:00 PDT");			
+		var endTime = new Date("September 20, 2020 17:00:00 PDT");
 		var endTime = (Date.parse(endTime)) / 1000;
 		var now = new Date();
 		var now = (Date.parse(now) / 1000);
 		var timeLeft = endTime - now;
-		var days = Math.floor(timeLeft / 86400); 
+		var days = Math.floor(timeLeft / 86400);
 		var hours = Math.floor((timeLeft - (days * 86400)) / 3600);
 		var minutes = Math.floor((timeLeft - (days * 86400) - (hours * 3600 )) / 60);
 		var seconds = Math.floor((timeLeft - (days * 86400) - (hours * 3600) - (minutes * 60)));
@@ -315,7 +315,7 @@
 		btnDown = spinner.find('.minus-btn'),
 		min = input.attr('min'),
 		max = input.attr('max');
-		
+
 		btnUp.on('click', function() {
 			var oldValue = parseFloat(input.val());
 			if (oldValue >= max) {
@@ -378,16 +378,16 @@
 			var scrolled = $(window).scrollTop();
 			if (scrolled > 600) $('.go-top').addClass('active');
 			if (scrolled < 600) $('.go-top').removeClass('active');
-		});  
+		});
 		// Click Event
 		$('.go-top').on('click', function() {
 			$("html, body").animate({ scrollTop: "0" },  500);
 		});
 	});
-    
+
     // WoW JS
 	$(window).on ('load', function (){
-        if ($(".wow").length) { 
+        if ($(".wow").length) {
             var wow = new WOW ({
                 boxClass:     'wow',      // Animated element css class (default is wow)
                 animateClass: 'animated', // Animation css class (default is animated)

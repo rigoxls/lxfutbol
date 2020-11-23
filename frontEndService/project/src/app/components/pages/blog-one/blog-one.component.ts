@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Activity } from '../../interfaces/spectacle.interface';
+import { Spectactle } from '../../interfaces/spectacle.interface';
 import { HomeService } from '../home-one/home.service';
 
 @Component({
@@ -9,7 +9,7 @@ import { HomeService } from '../home-one/home.service';
 })
 export class BlogOneComponent implements OnInit {
 
-  activities: Activity[];
+  activities: Spectactle[];
   categoriaNombre : String;
 
   constructor(private homeService: HomeService) { }
@@ -19,11 +19,12 @@ export class BlogOneComponent implements OnInit {
     this.getActivities();
   }
 
-  private async getActivities(): Promise<Activity[]> {
+  private async getActivities() {
+      /* RIGO
     this.activities = await this.homeService.getActivities();
     this.activities = this.activities.filter(ac => ac.categoria === this.categoriaNombre);
     return this.activities;
-
+*/
   }
 
 }
