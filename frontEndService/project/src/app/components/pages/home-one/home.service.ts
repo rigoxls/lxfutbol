@@ -25,7 +25,7 @@ export class HomeService {
                     operation: 'search',
                     city: 'Cartagena',
                     country: 'Colombia',
-                    type: 'futbol',
+                    type: 'futbol ',
                     date: '2020-12-15',
                     dateEnd: '2020-12-15'
                 }

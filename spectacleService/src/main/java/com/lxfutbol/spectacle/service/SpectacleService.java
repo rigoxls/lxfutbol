@@ -78,10 +78,12 @@ public class SpectacleService {
 				responseService  = proxyServiceRest.transformSpectacle(Integer.valueOf(idProvider), param.toString());
 			}	
 
-			JSONObject temp = processReplyMessage(responseService);
-			temp.put("agreement", Integer.valueOf(agreement));
-
+			JSONArray temp = processReplyMessage(responseService);
+			
 			JSONObject resultEspectacle = new JSONObject();
+			resultEspectacle.put("agreement", Integer.valueOf(agreement));
+			resultEspectacle.put("idProvider", Integer.valueOf(idProvider));
+			
 			resultEspectacle.put("providerEspectacle", temp);
 			result.put(resultEspectacle);
 
@@ -90,17 +92,21 @@ public class SpectacleService {
 		}
 	}
 
-	public JSONObject processReplyMessage(String response) {
+	public JSONArray processReplyMessage(String response) {
 
 		LOG.info("Entra a processReplyMessage: ");
 
-		JSONObject result = null;
+		JSONArray result = null;
 		try {
 			JSONObject jsonObjectMessage = new JSONObject(response);
-			JSONObject params = jsonObjectMessage.getJSONObject("spectacle");
-
-			this.saveLodge(params);
-			result = params;
+			JSONArray spectacleArray = jsonObjectMessage.getJSONArray("spectacle");
+			
+			for (int i = 0; i < spectacleArray.length(); i++) {
+				JSONObject params = spectacleArray.getJSONObject(i);
+				this.saveLodge(params);
+			}
+			
+			result = spectacleArray;
 
 		} catch (Exception ex) {
 			LOG.info("Error leyendo mensaje de respuesta : " + ex.getMessage());
