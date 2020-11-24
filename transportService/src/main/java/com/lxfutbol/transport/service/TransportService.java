@@ -112,10 +112,12 @@ public class TransportService {
 				responseService  = proxyServiceRest.transfor(Integer.valueOf(idProvider), param.toString());
 			}		
 
-			JSONObject temp = transportUtil.processReplyMessage(responseService);
-			temp.put("agreement", Integer.valueOf(agreement));
-
+			JSONArray temp = transportUtil.processReplyMessage(responseService);
+			
 			JSONObject resultTransport = new JSONObject();
+			resultTransport.put("agreement", Integer.valueOf(agreement));
+			resultTransport.put("idProvider", Integer.valueOf(idProvider));
+			
 			resultTransport.put("providerTransport", temp);
 			result.put(resultTransport);
 

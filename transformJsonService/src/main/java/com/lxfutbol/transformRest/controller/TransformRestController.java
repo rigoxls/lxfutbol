@@ -26,8 +26,7 @@ public class TransformRestController {
 	@PostMapping("/transform/{idProvider}")
 	public String transfor(@PathVariable int idProvider, @RequestBody String params) throws JSONException {		
 	
-		ArrayList<JSONObject> result = transformRestService.getProviderData(idProvider, params);
-	    
+		ArrayList<JSONObject> result = transformRestService.getProviderData(idProvider, params);	    
 	    JSONObject transportResult = new JSONObject();
 	    transportResult.put("transport", result);		
 		

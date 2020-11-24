@@ -34,19 +34,20 @@ public class TransportUtil {
 	
 	private final Integer TIME = 8;
 
-	public JSONObject processReplyMessage(String response) {
+	public JSONArray processReplyMessage(String response) {
 		
-		LOG.info("Entra a processReplyMessage: ");
-		
-		
-		JSONObject result = null;
+		LOG.info("Entra a processReplyMessage: ");				
+		JSONArray result = null;
 		try {
 			JSONObject jsonObjectMessage = new JSONObject(response);
-			JSONObject params = jsonObjectMessage.getJSONObject("transport");
+			JSONArray transportArray = jsonObjectMessage.getJSONArray("transport");
 
-			this.saveTransport(params);
-			result = params;
-
+			for (int i = 0; i < transportArray.length(); i++) {
+				JSONObject params = transportArray.getJSONObject(i);
+				this.saveTransport(params);
+			}
+			
+			result = transportArray;
 		} catch (Exception ex) {
 			LOG.info("Error leyendo mensaje de respuesta : " + ex.getMessage());
 		}
