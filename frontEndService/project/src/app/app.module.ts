@@ -21,7 +21,7 @@ import { ContactComponent } from './components/pages/contact/contact.component';
 import { CategoriesOneComponent } from './components/pages/categories-one/categories-one.component';
 import { CategoriesTwoComponent } from './components/pages/categories-two/categories-two.component';
 import { ListingOneComponent } from './components/pages/listing-one/listing-one.component';
-import { ListingTwoComponent } from './components/pages/listing-two/listing-two.component';
+import { LodgeDetailsComponent } from './components/pages/lodge-details/lodge-details.component';
 import { ListingThreeComponent } from './components/pages/listing-three/listing-three.component';
 import { ListingFourComponent } from './components/pages/listing-four/listing-four.component';
 import { ListingFiveComponent } from './components/pages/listing-five/listing-five.component';
@@ -69,7 +69,7 @@ import { ToastContainerComponent } from './components/pages/Toast/toast-containe
     CategoriesOneComponent,
     CategoriesTwoComponent,
     ListingOneComponent,
-    ListingTwoComponent,
+    LodgeDetailsComponent,
     ListingThreeComponent,
     ListingFourComponent,
     ListingFiveComponent,

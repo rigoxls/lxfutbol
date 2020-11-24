@@ -6,11 +6,11 @@ import {NgbDate, NgbCalendar, NgbDateParserFormatter} from '@ng-bootstrap/ng-boo
 
 
 @Component({
-    selector: 'app-listing-two',
-    templateUrl: './listing-two.component.html',
-    styleUrls: ['./listing-two.component.scss']
+    selector: 'app-lodge-details',
+    templateUrl: './lodge-details.component.html',
+    styleUrls: ['./lodge-details.component.scss']
 })
-export class ListingTwoComponent implements OnInit {
+export class LodgeDetailsComponent implements OnInit {
 
     @ViewChild('nPersons') nPersons: ElementRef;
 

@@ -10,7 +10,7 @@ import {CategoriesTwoComponent} from './components/pages/categories-two/categori
 import {ListingFiveComponent} from './components/pages/listing-five/listing-five.component';
 import {ListingFourComponent} from './components/pages/listing-four/listing-four.component';
 import {ListingThreeComponent} from './components/pages/listing-three/listing-three.component';
-import {ListingTwoComponent} from './components/pages/listing-two/listing-two.component';
+import {LodgeDetailsComponent} from './components/pages/lodge-details/lodge-details.component';
 import {ListingOneComponent} from './components/pages/listing-one/listing-one.component';
 import {ProductListComponent} from './components/pages/product-list/product-list.component';
 import {SpectacleDetailsComponent} from './components/pages/spectacle-details/spectacle-details.component';
@@ -38,7 +38,7 @@ const routes: Routes = [
     {path: 'categories-one', component: CategoriesOneComponent},
     {path: 'categories-two', component: CategoriesTwoComponent},
     {path: 'listing-one', component: ListingOneComponent},
-    {path: 'listing-two', component: ListingTwoComponent},
+    {path: 'lodge-details', component: LodgeDetailsComponent},
     {path: 'listing-three', component: ListingThreeComponent},
     {path: 'listing-four', component: ListingFourComponent},
     {path: 'listing-five', component: ListingFiveComponent},
