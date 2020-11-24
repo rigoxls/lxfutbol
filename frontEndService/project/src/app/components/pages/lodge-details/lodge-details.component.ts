@@ -1,8 +1,8 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Router} from '@angular/router';
 import {Lodge} from '../../interfaces/lodge.interface';
 import {LodgeService} from './lodge.service';
 import {NgbDate, NgbCalendar, NgbDateParserFormatter} from '@ng-bootstrap/ng-bootstrap';
-
 
 @Component({
     selector: 'app-lodge-details',
@@ -12,6 +12,7 @@ import {NgbDate, NgbCalendar, NgbDateParserFormatter} from '@ng-bootstrap/ng-boo
 export class LodgeDetailsComponent implements OnInit {
 
     @ViewChild('nPersons') nPersons: ElementRef;
+    @ViewChild('nRooms') nRooms: ElementRef;
 
     public hideDuplexFilter = false;
     public hideSingleFilter = false;
@@ -26,7 +27,8 @@ export class LodgeDetailsComponent implements OnInit {
     fromDate: NgbDate | null;
     toDate: NgbDate | null;
 
-    constructor(private lodgeService: LodgeService, private calendar: NgbCalendar, public formatter: NgbDateParserFormatter) {
+    constructor(private lodgeService: LodgeService, private calendar: NgbCalendar,
+                public formatter: NgbDateParserFormatter, private router: Router) {
         this.getLodges();
         setTimeout(() => {
             const lis = document.getElementsByClassName('option');
@@ -63,8 +65,13 @@ export class LodgeDetailsComponent implements OnInit {
         }
     }
 
-    public async getLodges(): Promise<Lodge[]> {
-        this.lodges = await this.lodgeService.getLodges();
+    public async getLodges(byDates = false): Promise<Lodge[]> {
+        if (byDates) {
+            this.lodges = await this.lodgeService.getLodges({fromDate: this.getDate(this.fromDate), toDate: this.getDate(this.toDate)});
+        } else {
+            this.lodges = await this.lodgeService.getLodges();
+        }
+
         this.bkLodges = this.lodges;
         return this.lodges;
     }
@@ -145,21 +152,28 @@ export class LodgeDetailsComponent implements OnInit {
     }
 
     selectAndContinue() {
-        const spectacleBook = {
-            id: this.lodges[0].number,
-            type: 'lodging',
-            persons: this.nPersons.nativeElement.value,
-            name: this.lodges[0].name,
-            price: this.lodges[0].price * this.nPersons.nativeElement.value,
-            dateInit: this.getDate(this.fromDate),
-            dateEnd: this.getDate(this.toDate)
-        };
+        if (this.lodges.length === 1) {
+            const spectacleBook = {
+                id: this.lodges[0].number,
+                type: 'lodging',
+                persons: this.nPersons.nativeElement.value,
+                nRooms: this.nRooms.nativeElement.value,
+                name: this.lodges[0].name,
+                price: this.lodges[0].price * this.nPersons.nativeElement.value,
+                dateInit: this.getDate(this.fromDate),
+                dateEnd: this.getDate(this.toDate),
+            };
 
-        localStorage.setItem('lodgeBook', JSON.stringify(spectacleBook));
+            localStorage.setItem('lodgeBook', JSON.stringify(spectacleBook));
+        } else {
+            localStorage.removeItem('lodgeBook');
+        }
+
+        this.router.navigate(['/transport-details']);
     }
 
     getDate(jsonDate) {
-        return `${jsonDate['day']}/${jsonDate['month']}/${jsonDate['year']}`;
+        return `${jsonDate['year']}-${jsonDate['month']}-${jsonDate['day']}`;
     }
 
 }

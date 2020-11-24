@@ -61,8 +61,15 @@ export class TransportDetailsComponent implements OnInit {
         }
     }
 
-    public async getTransports(): Promise<Transport[]> {
-        this.transports = await this.transportService.getTransports();
+    public async getTransports(byDates = false): Promise<Transport[]> {
+        if (byDates) {
+            this.transports = await this.transportService.getTransports(
+                {fromDate: this.getDate(this.fromDate), toDate: this.getDate(this.toDate)}
+            );
+        } else {
+            this.transports = await this.transportService.getTransports();
+        }
+
         this.bkTransports = this.transports;
         return this.transports;
     }
@@ -140,21 +147,69 @@ export class TransportDetailsComponent implements OnInit {
     }
 
     selectAndContinue() {
-        const spectacleBook = {
-            id: this.transports[0].id,
-            type: 'lodging',
-            persons: this.nPersons.nativeElement.value,
-            name: this.transports[0].name,
-            price: this.transports[0].price * this.nPersons.nativeElement.value,
-            dateInit: this.getDate(this.fromDate),
-            dateEnd: this.getDate(this.toDate)
-        };
-
-        localStorage.setItem('lodgeBook', JSON.stringify(spectacleBook));
+        if (this.transports.length === 1) {
+            const spectacleBook = {
+                id: this.transports[0].id,
+                type: 'lodging',
+                persons: this.nPersons.nativeElement.value,
+                name: this.transports[0].name,
+                price: this.transports[0].price * this.nPersons.nativeElement.value,
+                dateInit: this.getDate(this.fromDate),
+                dateEnd: this.getDate(this.toDate)
+            };
+            localStorage.setItem('transportBook', JSON.stringify(spectacleBook));
+            this.createOrder();
+        } else {
+            localStorage.removeItem('lodgeBook');
+        }
     }
 
     getDate(jsonDate) {
-        return `${jsonDate['day']}/${jsonDate['month']}/${jsonDate['year']}`;
+        return `${jsonDate['year']}-${jsonDate['month']}-${jsonDate['day']}`;
+    }
+
+    createOrder() {
+
+        const order = {
+            selectProviders: []
+        };
+
+        let spectacleBook = localStorage.getItem('spectacleBook');
+        if (spectacleBook) {
+            spectacleBook = JSON.parse(spectacleBook);
+            order.selectProviders.push({
+                type: 1,
+                numPeople: spectacleBook['persons'],
+                name: spectacleBook['name'],
+                price: spectacleBook['price']
+            });
+        }
+        let lodgeBook = localStorage.getItem('lodgeBook');
+        if (lodgeBook) {
+            lodgeBook = JSON.parse(lodgeBook);
+            order.selectProviders.push({
+                type: 1,
+                numPeople: lodgeBook['persons'],
+                name: lodgeBook['name'],
+                price: lodgeBook['price'],
+                startDate: lodgeBook['dateInit'],
+                endDate: lodgeBook['dateEnd']
+            });
+        }
+        let transportBook = localStorage.getItem('transportBook');
+        if (transportBook) {
+            transportBook = JSON.parse(transportBook);
+            order.selectProviders.push({
+                type: 1,
+                numPeople: transportBook['persons'],
+                name: transportBook['name'],
+                price: transportBook['price'],
+                startDate: transportBook['dateInit'],
+                endDate: transportBook['dateEnd']
+            });
+        }
+
+        localStorage.setItem('order', JSON.stringify(order));
     }
 
 }

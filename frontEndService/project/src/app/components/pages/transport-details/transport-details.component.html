@@ -21,8 +21,6 @@
                                 <li><a href="javascript:void(0)" (click)="filterType(2)" *ngIf="!hideLandFilter"><i class='bx bx-x'></i> Transporte terrestre</a></li>
                                 <li><a href="javascript:void(0)" (click)="filterType(1)" *ngIf="!hidePlaneFilter"><i class='bx bx-x'></i> Transporte Aéreo</a></li>
                             </ul>
-
-                            <a routerLink="/" class="delete-selected-filters"><i class='bx bx-trash'></i> <span>Clear All</span></a>
                         </div>
                     </div>
 
@@ -84,7 +82,10 @@
                             </div>
                         </form>
 
-
+                        <div class="item">
+                            <br>
+                            <a href="javascript:void(0)" class="default-btn" (click)="getTransports(true)">Buscar por fecha</a>
+                        </div>
                     </div>
                     <hr>
 
@@ -178,7 +179,7 @@
                     </div>
                 </div>
                 <div class="item">
-                    <a routerLink="/products-details" class="default-btn" *ngIf="transports.length" (click)="selectAndContinue()">Ir a orden de compra</a>
+                    <a href="javascript:void(0)" class="default-btn" *ngIf="transports.length" (click)="selectAndContinue()">Ir a orden de compra</a>
                 </div>
             </div>
         </div>

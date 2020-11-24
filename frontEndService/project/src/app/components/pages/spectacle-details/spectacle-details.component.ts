@@ -112,8 +112,12 @@ export class SpectacleDetailsComponent implements OnInit {
                 seats: this.bookedSeats,
                 name: this.spectacle.description,
                 price: this.spectacle.price * this.bookedSeats.length,
-                date: this.spectacle.date
+                date: this.spectacle.date,
+                country: this.spectacle.country,
+                city: this.spectacle.city,
+                persons: this.nPersons.nativeElement.value
             };
+
             localStorage.setItem('spectacleBook', JSON.stringify(spectacleBook));
             this.router.navigate(['/lodge-details']);
 

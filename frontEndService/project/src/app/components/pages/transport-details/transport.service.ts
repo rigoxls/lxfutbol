@@ -13,26 +13,24 @@ export class TransportService {
     constructor(private http: HttpClient) {
     }
 
-    getTransports(param?: string): Promise<Transport[]> {
+    getTransports(sParams?: { fromDate: string, toDate: string }): Promise<Transport[]> {
         return new Promise((resolve, reject) => {
+
+            const spectacleBooked = JSON.parse(localStorage.getItem('spectacleBook'));
+            const initDate = spectacleBooked.date.split('-');
             const params = {
                 operation: 'search',
-                departureCity: 'Cartagena',
-                arrivalCity: 'Cartagena',
+                departureCity: 'Bogota',
+                arrivalCity: spectacleBooked.city,
                 country: 'Colombia',
-                checkIn: '2020-12-02',
-                checkOut: '2020-12-15',
-                room: 2,
-                type: 'Duplex'
+                checkIn: (sParams) ? sParams.fromDate : spectacleBooked.date,
+                checkOut: (sParams) ? sParams.toDate : `${initDate[0]}-${initDate[1]}-${parseInt(initDate[2], 10) + 3}`
             };
 
             const url = `${this.url}/${params.departureCity}/${params.arrivalCity}/${params.checkIn}`;
             const headers = {
                 'Content-Type': 'application/json'
             };
-
-            const spectacleBooked = JSON.parse(localStorage.getItem('spectacleBook'));
-
 
             this.http.get<Transport[]>(url,
                 {headers}).subscribe(result => {

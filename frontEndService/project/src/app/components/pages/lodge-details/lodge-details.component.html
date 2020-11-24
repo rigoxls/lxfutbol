@@ -23,7 +23,7 @@
                                 <li><a href="javascript:void(0)" (click)="filterType('Familiar')" *ngIf="!hideFamiliarFilter"><i class='bx bx-x'></i> Familiar</a></li>
                             </ul>
 
-                            <a routerLink="/" class="delete-selected-filters"><i class='bx bx-trash'></i> <span>Clear All</span></a>
+
                         </div>
                     </div>
 
@@ -84,7 +84,10 @@
                                 </div>
                             </div>
                         </form>
-
+                        <div class="item">
+                            <br>
+                            <a href="javascript:void(0)" class="default-btn" (click)="getLodges(true)">Buscar por fecha</a>
+                        </div>
 
                     </div>
                     <hr>
@@ -97,8 +100,19 @@
                                 <input #nPersons type="text" value="1">
                                 <span class="plus-btn"><i class='bx bx-plus'></i></span>
                             </div>
+                        </div>
+                    </div>
 
+                    <br>
 
+                    <div class="products-details-desc">
+                        <h3 class="listing-widget-title" style="font-size: 20px;">Número de Habitaciones</h3>
+                        <div class="products-add-to-cart">
+                            <div class="input-counter">
+                                <span class="minus-btn"><i class='bx bx-minus'></i></span>
+                                <input #nRooms type="text" value="1">
+                                <span class="plus-btn"><i class='bx bx-plus'></i></span>
+                            </div>
                         </div>
                     </div>
 
@@ -180,7 +194,7 @@
                     </div>
                 </div>
                 <div class="item">
-                    <a routerLink="/products-details" class="default-btn" *ngIf="lodges.length" (click)="selectAndContinue()">Continúa con la selección de transporte</a>
+                    <a href="javascript:void(0)" class="default-btn" *ngIf="lodges.length" (click)="selectAndContinue()">Continúa con la selección de transporte</a>
                 </div>
             </div>
         </div>
