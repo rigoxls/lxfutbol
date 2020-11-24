@@ -27,14 +27,93 @@
                         </div>
                     </div>
 
+
+                    <hr>
+                    <div>
+                        <h3 class="listing-widget-title" style="font-size: 20px;">Check-in - Check-out</h3>
+                        <form class="form-inline">
+                            <div class="form-group hidden">
+                                <div class="input-group">
+                                    <input name="datepicker"
+                                           class="form-control"
+                                           ngbDatepicker
+                                           #datepicker="ngbDatepicker"
+                                           [autoClose]="'outside'"
+                                           (dateSelect)="onDateSelection($event)"
+                                           [displayMonths]="2"
+                                           [dayTemplate]="t"
+                                           outsideDays="hidden"
+                                           [startDate]="fromDate!"
+                                           tabindex="-1">
+                                    <ng-template #t let-date let-focused="focused">
+                                        <span class="custom-day"
+                                              [class.focused]="focused"
+                                              [class.range]="isRange(date)"
+                                              [class.faded]="isHovered(date) || isInside(date)"
+                                              (mouseenter)="hoveredDate = date"
+                                              (mouseleave)="hoveredDate = null">
+                                          {{ date.day }}
+                                    </span>
+                                    </ng-template>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <input #dpFromDate
+                                           class="form-control" placeholder="yyyy-mm-dd"
+                                           name="dpFromDate"
+                                           [value]="formatter.format(fromDate)"
+                                           (input)="fromDate = validateInput(fromDate, dpFromDate.value)">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-secondary calendar" (click)="datepicker.toggle()"
+                                                type="button"></button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group ml-2">
+                                <div class="input-group">
+                                    <input #dpToDate
+                                           class="form-control" placeholder="yyyy-mm-dd"
+                                           name="dpToDate"
+                                           [value]="formatter.format(toDate)"
+                                           (input)="toDate = validateInput(toDate, dpToDate.value)">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-secondary calendar" (click)="datepicker.toggle()"
+                                                type="button"></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+
+
+                    </div>
+                    <hr>
+
+                    <div class="products-details-desc">
+                        <h3 class="listing-widget-title" style="font-size: 20px;">Número de personas</h3>
+                        <div class="products-add-to-cart">
+                            <div class="input-counter">
+                                <span class="minus-btn"><i class='bx bx-minus'></i></span>
+                                <input #nPersons type="text" value="1">
+                                <span class="plus-btn"><i class='bx bx-plus'></i></span>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                    <br>
+
                     <div class="listing-widget price-list-widget">
                         <h3 class="listing-widget-title">Precio</h3>
 
                         <div class="collection-filter-by-price">
-                            <input class="js-range-of-price" type="text" data-min="0" data-max="500000" name="filter_by_price" data-step="10">
+                            <input class="js-range-of-price" type="text" data-min="0" data-max="500000"
+                                   name="filter_by_price" data-step="10">
                         </div>
                     </div>
 
+                    <hr>
                     <div class="listing-contact">
                         <div class="text">
                             <div class="icon" style="display: inline">
@@ -56,7 +135,7 @@
 
                         <div class="col-lg-5">
                             <div class="listing-ordering-list">
-                                <select>
+                                <select #selectOrder (change)="sortLodges(selectOrder.value)">
                                     <option>Ordenar: Destacados</option>
                                     <option>Ordenar: Precio mas bajo</option>
                                     <option>Ordenar: Precio mas alto</option>
@@ -70,14 +149,11 @@
                     <div class="col-lg-6 col-sm-12 col-md-6" *ngFor="let lodge of lodges">
                         <div class="single-listing-item">
                             <div class="listing-image">
-                                <a routerLink="/listing-details" class="d-block"><img src="assets/img/listing/img5.jpg" alt="image"></a>
+                                <a routerLink="/listing-details" class="d-block"><img src="assets/img/listing/img5.jpg"
+                                                                                      alt="image"></a>
 
                                 <div class="listing-tag">
-                                    <a routerLink="/" class="d-block">{{lodge.type}}</a>
-                                </div>
-
-                                <div class="listing-rating">
-
+                                    <a routerLink="/" class="d-block" style="text-decoration: none">{{lodge.type}}</a>
                                 </div>
                             </div>
 
@@ -92,6 +168,9 @@
                                         <span data-toggle="tooltip" data-placement="top" title="Ultra Hight">
                                             {{lodge.price | currency}}
                                         </span>
+                                        <div class="listing-rating">
+                                            <a routerLink="/listing-details">Seleccionar</a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
