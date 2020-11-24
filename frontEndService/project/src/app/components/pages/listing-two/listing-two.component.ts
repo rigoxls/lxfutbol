@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {Spectactle} from '../../interfaces/spectacle.interface';
 import {Lodge} from '../../interfaces/lodge.interface';
 import {LodgeService} from './lodge.service';
@@ -11,6 +11,13 @@ import {NgbDate, NgbCalendar, NgbDateParserFormatter} from '@ng-bootstrap/ng-boo
     styleUrls: ['./listing-two.component.scss']
 })
 export class ListingTwoComponent implements OnInit {
+
+    @ViewChild('nPersons') nPersons: ElementRef;
+
+    public hideDuplexFilter = false;
+    public hideSingleFilter = false;
+    public hideFamiliarFilter = false;
+    public selectActionName = 'Seleccionar';
 
     lodges: Lodge[];
     bkLodges: Lodge[];
@@ -99,6 +106,56 @@ export class ListingTwoComponent implements OnInit {
     validateInput(currentValue: NgbDate | null, input: string): NgbDate | null {
         const parsed = this.formatter.parse(input);
         return parsed && this.calendar.isValid(NgbDate.from(parsed)) ? NgbDate.from(parsed) : currentValue;
+    }
+
+    filterType(type) {
+        switch (type) {
+            case 'Duplex':
+                this.hideDuplexFilter = true;
+                break;
+            case 'Single':
+                this.hideSingleFilter = true;
+                break;
+            case 'Familiar':
+                this.hideFamiliarFilter = true;
+                break;
+        }
+
+        this.lodges = this.lodges.filter(lodge => {
+            return lodge.type !== type;
+        });
+    }
+
+    selectLodge(lodgeNumber) {
+        if (this.lodges.length === 1) {
+            this.selectActionName = 'Seleccionar';
+            this.lodges = this.bkLodges;
+        } else {
+            this.selectActionName = 'Elegir Nuevamente';
+            this.bkLodges = this.lodges;
+            this.lodges = this.lodges.filter(lodge => {
+                return lodge.number === lodgeNumber;
+            });
+            document.documentElement.scrollTop = 450;
+        }
+    }
+
+    selectAndContinue() {
+        const spectacleBook = {
+            id: this.lodges[0].number,
+            type: 'lodging',
+            persons: this.nPersons.nativeElement.value,
+            name: this.lodges[0].name,
+            price: this.lodges[0].price * this.nPersons.nativeElement.value,
+            dateInit: this.getDate(this.fromDate),
+            dateEnd: this.getDate(this.toDate)
+        };
+    debugger;
+        localStorage.setItem('spectacleBook', JSON.stringify(spectacleBook));
+    }
+
+    getDate(jsonDate) {
+        return `${jsonDate['day']}/${jsonDate['month']}/${jsonDate['year']}`;
     }
 
 }

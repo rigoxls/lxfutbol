@@ -3,7 +3,7 @@
 <div class="page-title-area page-title-bg2">
     <div class="container">
         <div class="page-title-content">
-            <h2>Listing</h2>
+            <h2>Selección de Hospedaje</h2>
         </div>
     </div>
 </div>
@@ -18,9 +18,9 @@
 
                         <div class="selected-filters-wrap-list">
                             <ul>
-                                <li><a routerLink="/"><i class='bx bx-x'></i> Duplex</a></li>
-                                <li><a routerLink="/"><i class='bx bx-x'></i> Single</a></li>
-                                <li><a routerLink="/"><i class='bx bx-x'></i> Familiar</a></li>
+                                <li><a href="javascript:void(0)" (click)="filterType('Duplex')" *ngIf="!hideDuplexFilter"><i class='bx bx-x'></i> Duplex</a></li>
+                                <li><a href="javascript:void(0)" (click)="filterType('Single')" *ngIf="!hideSingleFilter"><i class='bx bx-x'></i> Single</a></li>
+                                <li><a href="javascript:void(0)" (click)="filterType('Familiar')" *ngIf="!hideFamiliarFilter"><i class='bx bx-x'></i> Familiar</a></li>
                             </ul>
 
                             <a routerLink="/" class="delete-selected-filters"><i class='bx bx-trash'></i> <span>Clear All</span></a>
@@ -30,7 +30,7 @@
 
                     <hr>
                     <div>
-                        <h3 class="listing-widget-title" style="font-size: 20px;">Check-in - Check-out</h3>
+                        <h3 class="listing-widget-title" style="font-size: 20px;"><b>LLegada - Salida</b></h3>
                         <form class="form-inline">
                             <div class="form-group hidden">
                                 <div class="input-group">
@@ -169,7 +169,7 @@
                                             {{lodge.price | currency}}
                                         </span>
                                         <div class="listing-rating">
-                                            <a routerLink="/listing-details">Seleccionar</a>
+                                            <a href="javascript:void(0)" (click)="selectLodge(lodge.number)">{{selectActionName}}</a>
                                         </div>
                                     </div>
                                 </div>
@@ -178,6 +178,9 @@
                             <div class="listing-badge">Habitaciones disponibles!</div>
                         </div>
                     </div>
+                </div>
+                <div class="item">
+                    <a routerLink="/products-details" class="default-btn" *ngIf="lodges.length" (click)="selectAndContinue()">Continúa con la selección de transporte</a>
                 </div>
             </div>
         </div>
