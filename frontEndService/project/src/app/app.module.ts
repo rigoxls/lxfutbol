@@ -22,7 +22,7 @@ import { CategoriesOneComponent } from './components/pages/categories-one/catego
 import { CategoriesTwoComponent } from './components/pages/categories-two/categories-two.component';
 import { ListingOneComponent } from './components/pages/listing-one/listing-one.component';
 import { LodgeDetailsComponent } from './components/pages/lodge-details/lodge-details.component';
-import { ListingThreeComponent } from './components/pages/listing-three/listing-three.component';
+import { TransportDetailsComponent } from './components/pages/transport-details/transport-details.component';
 import { ListingFourComponent } from './components/pages/listing-four/listing-four.component';
 import { ListingFiveComponent } from './components/pages/listing-five/listing-five.component';
 import { ProductListComponent } from './components/pages/product-list/product-list.component';
@@ -70,7 +70,7 @@ import { ToastContainerComponent } from './components/pages/Toast/toast-containe
     CategoriesTwoComponent,
     ListingOneComponent,
     LodgeDetailsComponent,
-    ListingThreeComponent,
+    TransportDetailsComponent,
     ListingFourComponent,
     ListingFiveComponent,
     ProductListComponent,

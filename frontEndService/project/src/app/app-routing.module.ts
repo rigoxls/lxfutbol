@@ -9,7 +9,7 @@ import {CategoriesOneComponent} from './components/pages/categories-one/categori
 import {CategoriesTwoComponent} from './components/pages/categories-two/categories-two.component';
 import {ListingFiveComponent} from './components/pages/listing-five/listing-five.component';
 import {ListingFourComponent} from './components/pages/listing-four/listing-four.component';
-import {ListingThreeComponent} from './components/pages/listing-three/listing-three.component';
+import {TransportDetailsComponent} from './components/pages/transport-details/transport-details.component';
 import {LodgeDetailsComponent} from './components/pages/lodge-details/lodge-details.component';
 import {ListingOneComponent} from './components/pages/listing-one/listing-one.component';
 import {ProductListComponent} from './components/pages/product-list/product-list.component';
@@ -39,7 +39,7 @@ const routes: Routes = [
     {path: 'categories-two', component: CategoriesTwoComponent},
     {path: 'listing-one', component: ListingOneComponent},
     {path: 'lodge-details', component: LodgeDetailsComponent},
-    {path: 'listing-three', component: ListingThreeComponent},
+    {path: 'transport-details', component: TransportDetailsComponent},
     {path: 'listing-four', component: ListingFourComponent},
     {path: 'listing-five', component: ListingFiveComponent},
     {path: 'blog-one', component: BlogOneComponent},
