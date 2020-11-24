@@ -1,33 +1,31 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {Lodge} from '../../interfaces/lodge.interface';
+import {Transport} from '../../interfaces/transport.interface';
 import {NgbCalendar, NgbDate, NgbDateParserFormatter} from '@ng-bootstrap/ng-bootstrap';
-import {LodgeService} from '../lodge-details/lodge.service';
+import {TransportService} from './transport.service';
 
 @Component({
-  selector: 'app-transport-details',
-  templateUrl: './transport-details.component.html',
-  styleUrls: ['./transport-details.component.scss']
+    selector: 'app-transport-details',
+    templateUrl: './transport-details.component.html',
+    styleUrls: ['./transport-details.component.scss']
 })
 export class TransportDetailsComponent implements OnInit {
-
-
     @ViewChild('nPersons') nPersons: ElementRef;
 
-    public hideDuplexFilter = false;
-    public hideSingleFilter = false;
-    public hideFamiliarFilter = false;
+    public hideLandFilter = false;
+    public hidePlaneFilter = false;
+
     public selectActionName = 'Seleccionar';
 
-    lodges: Lodge[] = [];
-    bkLodges: Lodge[];
+    transports: Transport[] = [];
+    bkTransports: Transport[];
 
     hoveredDate: NgbDate | null = null;
 
     fromDate: NgbDate | null;
     toDate: NgbDate | null;
 
-    constructor(private lodgeService: LodgeService, private calendar: NgbCalendar, public formatter: NgbDateParserFormatter) {
-        this.getLodges();
+    constructor(private transportService: TransportService, private calendar: NgbCalendar, public formatter: NgbDateParserFormatter) {
+        this.getTransports();
         setTimeout(() => {
             const lis = document.getElementsByClassName('option');
             // @ts-ignore
@@ -37,13 +35,13 @@ export class TransportDetailsComponent implements OnInit {
 
                     switch (text) {
                         case 'Ordenar: Destacados':
-                            this.sortLodges(1);
+                            this.sortTransports(1);
                             break;
                         case 'Ordenar: Precio mas bajo':
-                            this.sortLodges(2);
+                            this.sortTransports(2);
                             break;
                         case 'Ordenar: Precio mas alto':
-                            this.sortLodges(3);
+                            this.sortTransports(3);
                             break;
                     }
 
@@ -63,18 +61,18 @@ export class TransportDetailsComponent implements OnInit {
         }
     }
 
-    public async getLodges(): Promise<Lodge[]> {
-        this.lodges = await this.lodgeService.getLodges();
-        this.bkLodges = this.lodges;
-        return this.lodges;
+    public async getTransports(): Promise<Transport[]> {
+        this.transports = await this.transportService.getTransports();
+        this.bkTransports = this.transports;
+        return this.transports;
     }
 
-    public sortLodges(sort) {
-        this.lodges = this.bkLodges;
+    public sortTransports(sort) {
+        this.transports = this.bkTransports;
         if (sort === 1) {
             return;
         }
-        this.lodges.sort((a, b) => {
+        this.transports.sort((a, b) => {
             if (sort === 2) {
                 return (a.price > b.price) ? 1 : -1;
             } else {
@@ -113,32 +111,29 @@ export class TransportDetailsComponent implements OnInit {
     }
 
     filterType(type) {
-        switch (type) {
-            case 'Duplex':
-                this.hideDuplexFilter = true;
+        switch (parseInt(type, 10)) {
+            case 1:
+                this.hidePlaneFilter = true;
                 break;
-            case 'Single':
-                this.hideSingleFilter = true;
-                break;
-            case 'Familiar':
-                this.hideFamiliarFilter = true;
+            case 2:
+                this.hideLandFilter = true;
                 break;
         }
 
-        this.lodges = this.lodges.filter(lodge => {
-            return lodge.type !== type;
+        this.transports = this.transports.filter(trans => {
+            return trans.type !== type;
         });
     }
 
-    selectLodge(lodgeNumber) {
-        if (this.lodges.length === 1) {
+    selectTransport(transportId) {
+        if (this.transports.length === 1) {
             this.selectActionName = 'Seleccionar';
-            this.lodges = this.bkLodges;
+            this.transports = this.bkTransports;
         } else {
             this.selectActionName = 'Elegir Nuevamente';
-            this.bkLodges = this.lodges;
-            this.lodges = this.lodges.filter(lodge => {
-                return lodge.number === lodgeNumber;
+            this.bkTransports = this.transports;
+            this.transports = this.transports.filter(trans => {
+                return trans.id === transportId;
             });
             document.documentElement.scrollTop = 450;
         }
@@ -146,11 +141,11 @@ export class TransportDetailsComponent implements OnInit {
 
     selectAndContinue() {
         const spectacleBook = {
-            id: this.lodges[0].number,
+            id: this.transports[0].id,
             type: 'lodging',
             persons: this.nPersons.nativeElement.value,
-            name: this.lodges[0].name,
-            price: this.lodges[0].price * this.nPersons.nativeElement.value,
+            name: this.transports[0].name,
+            price: this.transports[0].price * this.nPersons.nativeElement.value,
             dateInit: this.getDate(this.fromDate),
             dateEnd: this.getDate(this.toDate)
         };

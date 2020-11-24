@@ -18,8 +18,8 @@
 
                         <div class="selected-filters-wrap-list">
                             <ul>
-                                <li><a href="javascript:void(0)" (click)="filterType('Duplex')" *ngIf="!hideDuplexFilter"><i class='bx bx-x'></i> Transporte terrestre</a></li>
-                                <li><a href="javascript:void(0)" (click)="filterType('Single')" *ngIf="!hideSingleFilter"><i class='bx bx-x'></i> Transporte Aéreo</a></li>
+                                <li><a href="javascript:void(0)" (click)="filterType(2)" *ngIf="!hideLandFilter"><i class='bx bx-x'></i> Transporte terrestre</a></li>
+                                <li><a href="javascript:void(0)" (click)="filterType(1)" *ngIf="!hidePlaneFilter"><i class='bx bx-x'></i> Transporte Aéreo</a></li>
                             </ul>
 
                             <a routerLink="/" class="delete-selected-filters"><i class='bx bx-trash'></i> <span>Clear All</span></a>
@@ -134,7 +134,7 @@
 
                         <div class="col-lg-5">
                             <div class="listing-ordering-list">
-                                <select #selectOrder (change)="sortLodges(selectOrder.value)">
+                                <select #selectOrder (change)="sortTransports(selectOrder.value)">
                                     <option>Ordenar: Destacados</option>
                                     <option>Ordenar: Precio mas bajo</option>
                                     <option>Ordenar: Precio mas alto</option>
@@ -145,36 +145,40 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-lg-12 col-sm-12 col-md-6" *ngFor="let lodge of lodges">
+                    <div class="col-lg-12 col-sm-12 col-md-6" *ngFor="let transport of transports">
                         <div class="single-listing-item">
                             <div class="listing-image">
-
                             </div>
 
                             <div class="listing-content">
-                                <h3><a routerLink="/listing-details" class="d-inline-block">{{lodge.name}}</a></h3>
-                                <span class="location"><i class="bx bx-map"></i> {{lodge.address}}</span>
+                                <h3><a routerLink="/listing-details" class="d-inline-block">{{transport.departureCity}} - {{transport.arrivalCity}}</a></h3>
+                                <hr />
+                                <span class="location"><i class="bx bxs-plane-alt"></i> <b>IDA:</b> {{transport.departureDate}}</span>
+                                <span class="location"><i class="bx bxs-plane-land"></i> <b>REGRESO:</b> {{transport.arrivalDate}}</span>
                             </div>
 
                             <div class="listing-box-footer">
                                 <div class="d-flex align-items-center justify-content-between">
                                     <div class="price">
+                                        <div style="font-size: 12px; display: inline; color: #4a6f8a">
+                                            <b> 1 Adulto </b>
+                                        </div>
                                         <span data-toggle="tooltip" data-placement="top" title="Ultra Hight">
-                                            {{lodge.price | currency}}
+                                            &nbsp;{{transport.price | currency}}
                                         </span>
                                         <div class="listing-rating">
-                                            <a href="javascript:void(0)" (click)="selectLodge(lodge.number)">{{selectActionName}}</a>
+                                            <a href="javascript:void(0)" (click)="selectTransport(transport.id)">{{selectActionName}}</a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="listing-badge">Habitaciones disponibles!</div>
+                            <div class="listing-badge">{{transport.name}}</div>
                         </div>
                     </div>
                 </div>
                 <div class="item">
-                    <a routerLink="/products-details" class="default-btn" *ngIf="lodges.length" (click)="selectAndContinue()">Ir a orden de compra</a>
+                    <a routerLink="/products-details" class="default-btn" *ngIf="transports.length" (click)="selectAndContinue()">Ir a orden de compra</a>
                 </div>
             </div>
         </div>
