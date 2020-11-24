@@ -1,5 +1,4 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {Spectactle} from '../../interfaces/spectacle.interface';
 import {Lodge} from '../../interfaces/lodge.interface';
 import {LodgeService} from './lodge.service';
 import {NgbDate, NgbCalendar, NgbDateParserFormatter} from '@ng-bootstrap/ng-bootstrap';
@@ -19,7 +18,7 @@ export class LodgeDetailsComponent implements OnInit {
     public hideFamiliarFilter = false;
     public selectActionName = 'Seleccionar';
 
-    lodges: Lodge[];
+    lodges: Lodge[] = [];
     bkLodges: Lodge[];
 
     hoveredDate: NgbDate | null = null;
@@ -51,21 +50,26 @@ export class LodgeDetailsComponent implements OnInit {
                 }, false);
             }
 
-
         }, 1000);
 
     }
 
     ngOnInit(): void {
+        const spectacleBooked = JSON.parse(localStorage.getItem('spectacleBook'));
+        const initDate = spectacleBooked.date.split('-');
+        if (Array.isArray(initDate)) {
+            this.fromDate = new NgbDate(parseInt(initDate[0], 10), parseInt(initDate[1], 10), (parseInt(initDate[2], 10)));
+            this.toDate = new NgbDate(parseInt(initDate[0], 10), parseInt(initDate[1], 10), (parseInt(initDate[2], 10) + 3));
+        }
     }
 
-    private async getLodges(): Promise<Lodge[]> {
+    public async getLodges(): Promise<Lodge[]> {
         this.lodges = await this.lodgeService.getLodges();
         this.bkLodges = this.lodges;
         return this.lodges;
     }
 
-    private sortLodges(sort) {
+    public sortLodges(sort) {
         this.lodges = this.bkLodges;
         if (sort === 1) {
             return;
@@ -150,8 +154,8 @@ export class LodgeDetailsComponent implements OnInit {
             dateInit: this.getDate(this.fromDate),
             dateEnd: this.getDate(this.toDate)
         };
-    debugger;
-        localStorage.setItem('spectacleBook', JSON.stringify(spectacleBook));
+
+        localStorage.setItem('lodgeBook', JSON.stringify(spectacleBook));
     }
 
     getDate(jsonDate) {

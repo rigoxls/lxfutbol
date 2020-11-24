@@ -37,7 +37,7 @@
                     <h3>{{spectacle.description}}</h3>
 
                     <div class="price">
-                        <span class="new-price">{{spectacle.price | currency}}</span>
+                        <span class="new-price">{{(spectacle.price * bookedSeats.length) | currency}}</span>
                     </div>
 
                     <ul class="products-info">
@@ -103,42 +103,6 @@
                                 </div>
                             </div>
                         </div>
-                        <!--<div class="card">
-                            <div class="card-header" role="tab" id="headingTwo">
-                                <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">Additional information <i class='bx bx-chevron-down'></i></a>
-                            </div>
-                            <div id="collapseTwo" class="collapse" role="tabpanel" data-parent="#accordionEx">
-                                <div class="card-body">
-                                    <div class="table-responsive">
-                                        <table class="table table-striped">
-                                            <tbody>
-                                                <tr>
-                                                    <td>Brand:</td>
-                                                    <td>EnvyTheme</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Color:</td>
-                                                    <td>Brown</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Size:</td>
-                                                    <td>Large, Medium</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Weight:</td>
-                                                    <td>1 kg</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Dimensions:</td>
-                                                    <td>16 x 22 x 123 cm</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>-->
-
                     </div>
 
                     <div class="buy-checkbox-btn">
@@ -155,7 +119,7 @@
                         </div>
 
                         <div class="item">
-                            <a routerLink="/lodge-details" class="default-btn" (click)="selectAndContinue()">Continúa con la selección de hospedaje</a>
+                            <a href="javascript:void(0)" class="default-btn" [ngClass]="{'disabled-button': errors}" (click)="selectAndContinue()">Continúa con la selección de hospedaje</a>
                         </div>
                     </div>
 

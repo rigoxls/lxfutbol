@@ -1,5 +1,5 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
     selector: 'app-spectacle-details',
@@ -12,12 +12,13 @@ export class SpectacleDetailsComponent implements OnInit {
 
     private id: number;
     public spectacle: any;
+    public errors = true;
 
     public zone = 1;
 
     public seats: any;
 
-    private bookedSeats = [];
+    public bookedSeats = [];
 
     public northSeats = [
         [Array(10).fill('').map((x, i) => `CA${i}`)], [Array(10).fill('').map((x, i) => `CB${i}`)],
@@ -51,7 +52,7 @@ export class SpectacleDetailsComponent implements OnInit {
         [Array(10).fill('').map((x, i) => `IB${i}`)], [Array(10).fill('').map((x, i) => `JB${i}`)]
     ];
 
-    constructor(private route: ActivatedRoute) {
+    constructor(private route: ActivatedRoute, private router: Router) {
         this.seats = this.northSeats;
     }
 
@@ -96,17 +97,26 @@ export class SpectacleDetailsComponent implements OnInit {
             this.bookedSeats = [...new Set(this.bookedSeats)];
         }
 
+        this.errors = (!this.bookedSeats.length);
+
         this.nPersons.nativeElement.value = (this.bookedSeats.length) ? this.bookedSeats.length : 1;
     }
 
     selectAndContinue() {
-        const spectacleBook = {
-          id: this.id,
-          seats: this.bookedSeats,
-          name: this.spectacle.description,
-          price: this.spectacle.price * this.bookedSeats.length
-        };
-        localStorage.setItem('spectacleBook', JSON.stringify(spectacleBook));
-    }
+        if (!this.bookedSeats.length) {
+            this.errors = true;
+        } else {
+            this.errors = false;
+            const spectacleBook = {
+                id: this.id,
+                seats: this.bookedSeats,
+                name: this.spectacle.description,
+                price: this.spectacle.price * this.bookedSeats.length,
+                date: this.spectacle.date
+            };
+            localStorage.setItem('spectacleBook', JSON.stringify(spectacleBook));
+            this.router.navigate(['/lodge-details']);
 
+        }
+    }
 }

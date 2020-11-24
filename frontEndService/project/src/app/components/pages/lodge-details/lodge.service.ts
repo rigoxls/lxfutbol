@@ -20,6 +20,8 @@ export class LodgeService {
                 'Content-Type': 'application/json'
             };
 
+            const spectacleBooked = JSON.parse(localStorage.getItem('spectacleBook'));
+
             const params = {
                 data: {
                     operation: 'search',
