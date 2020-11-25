@@ -362,7 +362,7 @@ namespace AviancaServices
         {
             if ((endpointConfiguration == EndpointConfiguration.ServicioAviancaVuelosSoapHttpPort))
             {
-                return new System.ServiceModel.EndpointAddress("http://localhost:8083/consultarVuelo");
+                return new System.ServiceModel.EndpointAddress("http://localhost:8084/consultar");
             }
             throw new System.InvalidOperationException(string.Format("Could not find endpoint with name \'{0}\'.", endpointConfiguration));
         }

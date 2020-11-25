@@ -6,17 +6,17 @@ EXPOSE 80
 
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
 WORKDIR /src
-COPY ["src/web/web.csproj", "src/web/"]
+COPY ["src/web/transform-soap.csproj", "src/web/"]
 COPY ["src/ApplicationCore/ApplicationCore.csproj", "src/ApplicationCore/"]
-RUN dotnet restore "src/web/web.csproj"
+RUN dotnet restore "src/web/transform-soap.csproj"
 COPY . .
 WORKDIR "/src/src/web"
-RUN dotnet build "web.csproj" -c Release -o /app/build
+RUN dotnet build "transform-soap.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "web.csproj" -c Release -o /app/publish
+RUN dotnet publish "transform-soap.csproj" -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "web.dll"]
+ENTRYPOINT ["dotnet", "transform-soap.dll"]

@@ -58,31 +58,31 @@ namespace web.Controllers
 
 
         // POST: api/TransformSoap/transformLodge/2
-        [HttpPost("transformLodge/{idProvider}")]
-        public ActionResult TransformLodge(int idProvider, [FromBody] SearchTransportModel Message)
-        {
-            try
-            {
-                if (!ModelState.IsValid)
-                {
-                    return BadRequest(ModelState);
-                }
-                string template = _distributedCache.GetString(PROVIDER_TEMPLATE_CACHE);
-                Params search = Message.Params;
-                string Type = "Lodging";
-                Transport transport = new Transport()
-                {
-                    ArrivingCity = search.ArrivingCity,
-                    DepartinCity = search.DepartinCity,
-                    DepartinDate = search.DepartinDate
-                };
-                return Ok(_transformSoapService.Listener(idProvider, transport, Type));
-            }
-            catch (Exception)
-            {
-                return StatusCode(500);
-            }
-        }
+        //[HttpPost("transformLodge/{idProvider}")]
+        //public ActionResult TransformLodge(int idProvider, [FromBody] SearchLodgingModel Message)
+        //{
+        //    try
+        //    {
+        //        if (!ModelState.IsValid)
+        //        {
+        //            return BadRequest(ModelState);
+        //        }
+        //        string template = _distributedCache.GetString(PROVIDER_TEMPLATE_CACHE);
+        //        Params2 search = Message.Params;
+        //        string Type = "Lodging";
+        //        //Transport transport = new Transport()
+        //        //{
+        //        //    ArrivingCity = search.ArrivingCity,
+        //        //    DepartinCity = search.DepartinCity,
+        //        //    DepartinDate = search.DepartinDate
+        //        //};
+        //        return Ok(_transformSoapService.Listener(idProvider, transport, Type));
+        //    }
+        //    catch (Exception)
+        //    {
+        //        return StatusCode(500);
+        //    }
+        //}
 
 
 

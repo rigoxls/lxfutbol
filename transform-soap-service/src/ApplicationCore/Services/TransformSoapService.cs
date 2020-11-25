@@ -5,25 +5,36 @@ using AviancaServices;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using System;
+using HiltonRoomServices;
+using HiltonBookingServices;
 
 namespace ApplicationCore.Services
 {
     public class TransformSoapService : ITransformSoapService
     {
+
+        //provides services
         private readonly AAFlightsServiceClient _aFlightsServiceClient = new AAFlightsServiceClient();
 
         private readonly ServicioAviancaVuelosClient _aviancaServices  = new ServicioAviancaVuelosClient();
 
+        //private readonly HiltonRoomServiceClient _hiltonRoomServiceClient = new HiltonRoomServiceClient();
+
+        //private readonly HiltonBookingServiceClient _hiltonBookingServices = new HiltonBookingServiceClient();
+
+
+        //responses
         private readonly TransportSearchResponse SearchResponse = new TransportSearchResponse();
 
         private readonly TransportBookResponse BookResponse = new TransportBookResponse();
+
 
         public TransformSoapService()
         {
           
         }
 
-        public string Listener(int idProvider, Transport Message, string Type)
+        public string Listener(int idProvider, Transport Message,  string Type)
         {
             CheckProvider(Type, Message.Operation, Message, idProvider);
             string jsonResult = Message.Operation == "search" ? JsonConvert.SerializeObject(SearchResponse) : JsonConvert.SerializeObject(BookResponse);
@@ -49,6 +60,8 @@ namespace ApplicationCore.Services
                 switch (operation)
                 {
                     case "search":
+                        //HiltonSearch(HMessage, idProvider).Result;
+
                         break;
                     case "book":
                         break;
@@ -107,6 +120,15 @@ namespace ApplicationCore.Services
             BookResponse.Result = vueloResponse.result;
             return BookResponse;
         }
+
+
+        //public async Task<HiltonRoomServiceProcessResponse> HiltonSearch(Lodging lodging, int idProvider)
+        //{
+        //    HiltonRoomServiceProcessRequest hiltonRoomService = new HiltonRoomServiceProcessRequest();
+        //    await _hiltonRoomServiceClient.initiateAsync(hiltonRoomService);
+        //    return 
+
+        //}
 
     }
 }
