@@ -8469,9 +8469,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\rodri\\Macrom\\Pica final 2\\lxfutbol\\transform-soap-service\\src\\web\\web.csproj",
-      "projectName": "web",
-      "projectPath": "C:\\Users\\rodri\\Macrom\\Pica final 2\\lxfutbol\\transform-soap-service\\src\\web\\web.csproj",
+      "projectUniqueName": "C:\\Users\\rodri\\Macrom\\Pica final 2\\lxfutbol\\transform-soap-service\\src\\web\\transform-soap.csproj",
+      "projectName": "transform-soap",
+      "projectPath": "C:\\Users\\rodri\\Macrom\\Pica final 2\\lxfutbol\\transform-soap-service\\src\\web\\transform-soap.csproj",
       "packagesPath": "C:\\Users\\rodri\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\rodri\\Macrom\\Pica final 2\\lxfutbol\\transform-soap-service\\src\\web\\obj\\",
       "projectStyle": "PackageReference",
