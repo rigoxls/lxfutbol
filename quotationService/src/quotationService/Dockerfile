@@ -2,13 +2,15 @@
 
 FROM mcr.microsoft.com/dotnet/core/aspnet:3.1-buster-slim AS base
 WORKDIR /app
+EXPOSE 80
 
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
 WORKDIR /src
-COPY ["quotationService/quotationService.csproj", "quotationService/"]
-RUN dotnet restore "quotationService/quotationService.csproj"
+COPY ["src/quotationService/quotationService.csproj", "src/quotationService/"]
+COPY ["src/Infraestructure/Infraestructure.csproj", "src/Infraestructure/"]
+RUN dotnet restore "src/quotationService/quotationService.csproj"
 COPY . .
-WORKDIR "/src/quotationService"
+WORKDIR "/src/src/quotationService"
 RUN dotnet build "quotationService.csproj" -c Release -o /app/build
 
 FROM build AS publish

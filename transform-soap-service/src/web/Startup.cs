@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Steeltoe.Discovery.Client;
 
 
 
@@ -31,6 +32,7 @@ namespace web
 
             services.AddControllers();
             services.AddSingleton<ITransformSoapService, TransformSoapService>();
+            services.AddDiscoveryClient(Configuration);
             services.AddDistributedRedisCache(option =>
             {
                 option.Configuration = "127.0.0.1:6379";
@@ -54,6 +56,9 @@ namespace web
             {
                 endpoints.MapControllers();
             });
+
+            app.UseDiscoveryClient();
+
         }
     }
 }

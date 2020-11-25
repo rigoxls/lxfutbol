@@ -56,13 +56,10 @@ export class LoginComponent {
                 this.showError();
             }
         );
-
-        localStorage.setItem('userAutenticado', JSON.stringify(this.user));
         setTimeout(() => {
-
+            localStorage.setItem('userAutenticado', JSON.stringify(this.user));        
             if (this.user.rol['id'] === 1) {
-                //window.location.href = CONFIG.userLoggedPath;
-                this.router.navigate(["/"]);
+                window.location.href = CONFIG.userLoggedPath;
             } else {
                 window.location.href = CONFIG.adminPath;
             }

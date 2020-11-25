@@ -27,13 +27,13 @@ public class UserController {
 	private UserEntity userSession;
 
 	@PostMapping("/user/registry")
-	public ResponseEntity<Object> registry(@RequestBody RegistryUserDto userRegistry) {
+	public ResponseEntity<Boolean> registry(@RequestBody RegistryUserDto userRegistry) {
 		try {
 			userService.registry(userRegistry);
 		} catch (Exception ex) {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(Boolean.FALSE, HttpStatus.NOT_FOUND);
 		}
-		return new ResponseEntity<>(HttpStatus.OK);
+		return new ResponseEntity<>(Boolean.TRUE, HttpStatus.OK);
 	}
 	
 	

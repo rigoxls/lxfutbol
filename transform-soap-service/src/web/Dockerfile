@@ -2,14 +2,15 @@
 
 FROM mcr.microsoft.com/dotnet/core/aspnet:3.1-buster-slim AS base
 WORKDIR /app
-
+EXPOSE 80
 
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
 WORKDIR /src
-COPY ["web/web.csproj", "web/"]
-RUN dotnet restore "web/web.csproj"
+COPY ["src/web/web.csproj", "src/web/"]
+COPY ["src/ApplicationCore/ApplicationCore.csproj", "src/ApplicationCore/"]
+RUN dotnet restore "src/web/web.csproj"
 COPY . .
-WORKDIR "/src/web"
+WORKDIR "/src/src/web"
 RUN dotnet build "web.csproj" -c Release -o /app/build
 
 FROM build AS publish

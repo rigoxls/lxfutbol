@@ -35,7 +35,7 @@
                                 <ul class="dropdown-menu">
                                      <li class="nav-item">
                                         <a routerLink="/listing-five" class="nav-link" routerLinkActive="active"[routerLinkActiveOptions]="{exact: true}">
-                                            <option *ngFor="let place of places" [ngValue]="place" (click)="setNombreDestino(place.nombreDepartamento)">{{place.nombreDepartamento}}</option>
+                                            <option *ngFor="let place of places" [ngValue]="place" (click)="setNombreDestino(place.city)">{{place.city}}</option>
                                         </a>
                                     </li>
                                 </ul>

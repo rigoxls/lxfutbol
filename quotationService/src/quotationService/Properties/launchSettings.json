@@ -11,6 +11,7 @@
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,
+      "launchUrl": "api/Quotations",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
@@ -18,10 +19,11 @@
     "quotationService": {
       "commandName": "Project",
       "launchBrowser": true,
+      "launchUrl": "api/Quotations",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
-      "applicationUrl": "http://localhost:5000"
+      "applicationUrl": "http://localhost:5001"
     },
     "Docker": {
       "commandName": "Docker",

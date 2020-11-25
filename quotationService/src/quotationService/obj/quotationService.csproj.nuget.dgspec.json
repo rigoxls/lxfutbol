@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\rodri\\Macrom\\Pica final 2\\lxfutbol\\quotationService\\quotationService\\quotationService\\quotationService.csproj": {}
+    "C:\\Users\\rodri\\Macrom\\Pica final 2\\lxfutbol\\quotationService\\src\\quotationService\\quotationService.csproj": {}
   },
   "projects": {
-    "C:\\Users\\rodri\\Macrom\\Pica final 2\\lxfutbol\\quotationService\\quotationService\\Infraestructure\\Infraestructure.csproj": {
+    "C:\\Users\\rodri\\Macrom\\Pica final 2\\lxfutbol\\quotationService\\src\\Infraestructure\\Infraestructure.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\rodri\\Macrom\\Pica final 2\\lxfutbol\\quotationService\\quotationService\\Infraestructure\\Infraestructure.csproj",
+        "projectUniqueName": "C:\\Users\\rodri\\Macrom\\Pica final 2\\lxfutbol\\quotationService\\src\\Infraestructure\\Infraestructure.csproj",
         "projectName": "Infraestructure",
-        "projectPath": "C:\\Users\\rodri\\Macrom\\Pica final 2\\lxfutbol\\quotationService\\quotationService\\Infraestructure\\Infraestructure.csproj",
+        "projectPath": "C:\\Users\\rodri\\Macrom\\Pica final 2\\lxfutbol\\quotationService\\src\\Infraestructure\\Infraestructure.csproj",
         "packagesPath": "C:\\Users\\rodri\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\rodri\\Macrom\\Pica final 2\\lxfutbol\\quotationService\\quotationService\\Infraestructure\\obj\\",
+        "outputPath": "C:\\Users\\rodri\\Macrom\\Pica final 2\\lxfutbol\\quotationService\\src\\Infraestructure\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -43,9 +43,19 @@
           "dependencies": {
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[5.0.0, )"
+              "version": "[3.1.10, )"
             },
-            "MySql.Data.EntityFramework": {
+            "Microsoft.EntityFrameworkCore.Design": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[3.1.10, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[3.1.10, )"
+            },
+            "MySql.Data.EntityFrameworkCore": {
               "target": "Package",
               "version": "[8.0.22, )"
             }
@@ -69,14 +79,14 @@
         }
       }
     },
-    "C:\\Users\\rodri\\Macrom\\Pica final 2\\lxfutbol\\quotationService\\quotationService\\quotationService\\quotationService.csproj": {
+    "C:\\Users\\rodri\\Macrom\\Pica final 2\\lxfutbol\\quotationService\\src\\quotationService\\quotationService.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\rodri\\Macrom\\Pica final 2\\lxfutbol\\quotationService\\quotationService\\quotationService\\quotationService.csproj",
+        "projectUniqueName": "C:\\Users\\rodri\\Macrom\\Pica final 2\\lxfutbol\\quotationService\\src\\quotationService\\quotationService.csproj",
         "projectName": "quotationService",
-        "projectPath": "C:\\Users\\rodri\\Macrom\\Pica final 2\\lxfutbol\\quotationService\\quotationService\\quotationService\\quotationService.csproj",
+        "projectPath": "C:\\Users\\rodri\\Macrom\\Pica final 2\\lxfutbol\\quotationService\\src\\quotationService\\quotationService.csproj",
         "packagesPath": "C:\\Users\\rodri\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\rodri\\Macrom\\Pica final 2\\lxfutbol\\quotationService\\quotationService\\quotationService\\obj\\",
+        "outputPath": "C:\\Users\\rodri\\Macrom\\Pica final 2\\lxfutbol\\quotationService\\src\\quotationService\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -95,8 +105,8 @@
         "frameworks": {
           "netcoreapp3.1": {
             "projectReferences": {
-              "C:\\Users\\rodri\\Macrom\\Pica final 2\\lxfutbol\\quotationService\\quotationService\\Infraestructure\\Infraestructure.csproj": {
-                "projectPath": "C:\\Users\\rodri\\Macrom\\Pica final 2\\lxfutbol\\quotationService\\quotationService\\Infraestructure\\Infraestructure.csproj"
+              "C:\\Users\\rodri\\Macrom\\Pica final 2\\lxfutbol\\quotationService\\src\\Infraestructure\\Infraestructure.csproj": {
+                "projectPath": "C:\\Users\\rodri\\Macrom\\Pica final 2\\lxfutbol\\quotationService\\src\\Infraestructure\\Infraestructure.csproj"
               }
             }
           }
@@ -110,9 +120,27 @@
       "frameworks": {
         "netcoreapp3.1": {
           "dependencies": {
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[3.1.10, )"
+            },
+            "Microsoft.EntityFrameworkCore.Sqlite": {
+              "target": "Package",
+              "version": "[3.1.10, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[3.1.10, )"
+            },
             "Microsoft.VisualStudio.Azure.Containers.Tools.Targets": {
               "target": "Package",
               "version": "[1.10.9, )"
+            },
+            "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
+              "target": "Package",
+              "version": "[3.1.4, )"
             }
           },
           "imports": [
