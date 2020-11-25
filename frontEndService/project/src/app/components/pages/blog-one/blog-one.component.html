@@ -143,22 +143,22 @@
 <section #actividades class="listing-area pt-100 pb-70">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-lg-4" *ngFor="let activity of activities">
+            <div class="col-lg-4" *ngFor="let spectacle of spectacles">
                 <div class="single-listing-box">
                     <a  class="listing-image">
-                        <img src="{{activity.imagenesActividad[0]}}" alt="image" style="height: 280px">
+                        <img src="assets/img/logo-esp.jpg" alt="image" style="height: 280px">
                     </a>
 
-                    <div class="listing-badge" [ngClass]="{'closed': activity.estado != 1}">
-                        {{activity.estado != 1 ? 'Agotado' : 'Disponible'}}
+                    <div class="listing-badge">
+                        {{spectacle.date}}
                     </div>
 
                     <div class="listing-content">
                         <div class="content">
-                            <h3><a routerLink="/listing-details"  [ngClass]="{'disabled': activity.estado != 1}" [queryParams]="{id: activity.idActividad}" >{{activity.nombreActividad}}</a></h3>
+                            <h2 class="title"><a href="/spectacle-details/{{spectacle.id}}">{{spectacle.description}}</a></h2>
                             <span class="location"><i class='bx bx-map'></i>
-                                {{activity.nombreDepartamento}},
-                                {{activity.nombreSitioTuristico}}
+                                {{spectacle.country}},
+                                {{spectacle.city}}
                             </span>
 
                             <div class="rating fix">
@@ -174,14 +174,14 @@
 
                                 <div class="price-level">
                                     <span data-toggle="tooltip" data-placement="top" title="Ultra Hight">
-                                        Desde <strong>{{activity.precioBase | currency: 'COP ':false:'2.0' }}</strong>
+                                        Desde <strong>{{spectacle.price | currency: 'COP ':false:'2.0' }}</strong>
                                     </span>
                                 </div>
 
                                 <div class="listing-category">
                                     <a routerLink="/" data-toggle="tooltip" data-placement="top" title="Category">
                                         <i class='bx bx-walk'></i>
-                                        {{activity.categoria}}
+                                        {{spectacle.type}}
                                     </a>
                                 </div>
                             </div>
