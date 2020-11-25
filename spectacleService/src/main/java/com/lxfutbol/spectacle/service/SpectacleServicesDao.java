@@ -32,4 +32,15 @@ public class SpectacleServicesDao {
 		return listCitys;
 	}
 	
+	public List<String> findCategorySpectacle() {
+		
+		List<String> listCategorys = new ArrayList<>();
+		List<Object[]> citys = entityManager.createNativeQuery("select DISTINCT type, country from espectacle").getResultList();
+		
+		for(Object[] city : citys) {
+			listCategorys.add(String.valueOf(city[0]));
+		}
+		return listCategorys;
+	}
+	
 }

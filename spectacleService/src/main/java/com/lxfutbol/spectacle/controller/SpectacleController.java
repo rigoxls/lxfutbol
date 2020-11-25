@@ -23,5 +23,11 @@ public class SpectacleController {
 		public List<PlacesDto> listPlaces(){
 			return servicesDao.findPlacesSpectacle();
 		}
+		
+
+		@GetMapping("/list/category")
+		public List<String> listCategory(){
+			return servicesDao.findCategorySpectacle();
+		}
 	
 }
