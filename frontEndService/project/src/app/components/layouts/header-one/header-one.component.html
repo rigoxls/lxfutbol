@@ -35,7 +35,7 @@
                                 <ul class="dropdown-menu">
                                      <li class="nav-item">
                                         <a routerLink="/listing-five" class="nav-link" routerLinkActive="active"[routerLinkActiveOptions]="{exact: true}">
-                                            <option *ngFor="let place of places" [ngValue]="place" (click)="setNombreDestino(place.city)">{{place.city}}</option>
+                                            <option *ngFor="let place of places" [ngValue]="place" (click)="setNameCity(place.city)">{{place.city}}</option>
                                         </a>
                                     </li>
                                 </ul>
@@ -45,7 +45,7 @@
                                 <ul class="dropdown-menu">
                                     <li class="nav-item">
                                         <a routerLink="/blog-one" class="nav-link" routerLinkActive="active"[routerLinkActiveOptions]="{exact: true}">
-                                            <option *ngFor="let categoria of categorias" [ngValue]="categoria" (click)="setNombreCategoria(categoria)">{{categoria}}</option>
+                                            <option *ngFor="let categoria of categorias" [ngValue]="categoria" (click)="setNameCategory(categoria)">{{categoria}}</option>
                                         </a>
                                     </li>
                                 </ul>

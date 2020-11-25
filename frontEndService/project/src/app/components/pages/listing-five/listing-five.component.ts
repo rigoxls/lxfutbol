@@ -10,24 +10,22 @@ import { HomeService } from '../home-one/home.service';
 })
 export class ListingFiveComponent implements OnInit {
 
-  activities: Spectactle[];
-  place: string;
+  spectacles: Spectactle[];
+  cityName: string;
 
   constructor(private homeService: HomeService) {
   }
 
   ngOnInit(): void {
-    this.place = JSON.parse(localStorage.getItem('placesName'));
-    this.getActivities();
+    this.cityName = JSON.parse(localStorage.getItem('city'));
+    this.getSpectacles();
   }
 
-  private async getActivities(): Promise<Spectactle[]> {
-      /* RIGO
-    this.activities = await this.homeService.getActivities();
-    this.activities = this.activities.filter(ac => ac.nombreDepartamento === this.place);
-    */
-
-    return this.activities;
+  private async getSpectacles(): Promise<Spectactle[]> {
+    this.spectacles = await this.homeService.getSpectacle();
+    this.spectacles = this.spectacles.filter(ac => ac.city === this.cityName);
+    
+    return this.spectacles;
 
   }
 

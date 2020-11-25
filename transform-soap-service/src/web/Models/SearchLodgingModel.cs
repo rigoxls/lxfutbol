@@ -10,11 +10,11 @@ namespace web.Models
     {
 
         [JsonProperty("params")]
-        public Params2 Params { get; set; }
+        public Lodge Params { get; set; }
 
     }
 
-    public class Params2
+    public class Lodge
     {
         public string Operation { get; set; }
         public string City { get; set; }

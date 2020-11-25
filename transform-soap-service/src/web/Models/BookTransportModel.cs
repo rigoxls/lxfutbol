@@ -7,16 +7,12 @@ namespace web.Models
     {
         [Required]
         public string Operation { get; set; }
-        [Required]
-        public string DepartinCity { get; set; }
-        [Required]
-        public string ArrivingCity { get; set; }
-        [Required]
-        public DateTime DepartinDate { get; set; }
-        public string Cabin { get; set; }
-        public string PromotionCode { get; set; }
-        public string Class { get; set; }
-
+        public string City { get; set; }
+        public string Country { get; set; }
+        public DateTime CheckIn { get; set; }
+        public DateTime Checkout { get; set; }
+        public int Rooms { get; set; }
+        public string Type { get; set; }
         public BookTransportModel() {}
 
     }
