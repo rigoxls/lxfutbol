@@ -9,22 +9,20 @@ import { HomeService } from '../home-one/home.service';
 })
 export class BlogOneComponent implements OnInit {
 
-  activities: Spectactle[];
-  categoriaNombre : String;
+  spectacles: Spectactle[];
+  categoryName : String;
 
   constructor(private homeService: HomeService) { }
 
   ngOnInit(): void {
-    this.categoriaNombre = JSON.parse(localStorage.getItem('categoria'));
-    this.getActivities();
+    this.categoryName = JSON.parse(localStorage.getItem('category'));
+    this.getSpectacles();
   }
 
-  private async getActivities() {
-      /* RIGO
-    this.activities = await this.homeService.getActivities();
-    this.activities = this.activities.filter(ac => ac.categoria === this.categoriaNombre);
-    return this.activities;
-*/
+  private async getSpectacles() {
+    this.spectacles = await this.homeService.getSpectacle();
+    this.spectacles = this.spectacles.filter(ac => ac.type === this.categoryName);
+    return this.spectacles;
   }
 
 }

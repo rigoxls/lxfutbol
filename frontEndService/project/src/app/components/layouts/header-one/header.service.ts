@@ -14,8 +14,8 @@ export class HeaderService {
     //private placeUrl = environment.APIEndPoint+'spectacle/list';
     private placeUrl = 'http://localhost:8758/spectacle/list';
 
-    private categoriesUrl = 'environment.APIEndPoint getCategories';
-
+    //private categoriesUrl = 'environment.APIEndPoint getCategories';
+    private categoriesUrl = 'http://localhost:8758/spectacle/list/category';
     constructor(private http: HttpClient) {
     }
 
@@ -36,7 +36,7 @@ export class HeaderService {
     }
 
 
-    getCategorias(): Promise<String[]> {
+    finCategorys(): Promise<String[]> {
         return new Promise((resolve, reject) => {
             const headers = {
                 'Content-Type': 'application/json'
@@ -52,7 +52,7 @@ export class HeaderService {
         });
     }
 
-    obtenerLoginUser(): Promise<Usuario> {
+    findLoginUser(): Promise<Usuario> {
         return JSON.parse(localStorage.getItem('userAutenticado'));
     }
 

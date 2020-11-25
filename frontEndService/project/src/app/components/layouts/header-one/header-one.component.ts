@@ -22,7 +22,7 @@ export class HeaderOneComponent implements OnInit {
     ngOnInit(): void {
         this.getCategorias();
         this.getPlaces();
-        this.getUsuarioAutenticado();
+        this.getUserAuthentication();
     }
 
     private async getPlaces(): Promise<Place[]> {
@@ -31,8 +31,8 @@ export class HeaderOneComponent implements OnInit {
         return this.places;
     }    
 
-    private async getUsuarioAutenticado(): Promise<Usuario> {
-        this.usuarioAtenticado = await this.headerService.obtenerLoginUser();
+    private async getUserAuthentication(): Promise<Usuario> {
+        this.usuarioAtenticado = await this.headerService.findLoginUser();
         return this.usuarioAtenticado;
     }
 
@@ -41,17 +41,17 @@ export class HeaderOneComponent implements OnInit {
         window.location.reload();
     }
 
-    setNombreDestino(placesName : String){
-        localStorage.setItem('placesName', JSON.stringify(placesName));
+    setNameCity(cityName : String){
+        localStorage.setItem('city', JSON.stringify(cityName));
     }
 
     private async getCategorias(): Promise<String[]> {
-        this.categorias = await this.headerService.getCategorias();
+        this.categorias = await this.headerService.finCategorys();
         return this.categorias;
     }
 
-    setNombreCategoria(categoria : String){
-        localStorage.setItem('categoria', JSON.stringify(categoria));
+    setNameCategory(categoryName : String){
+        localStorage.setItem('category', JSON.stringify(categoryName));
     }
 
 }
