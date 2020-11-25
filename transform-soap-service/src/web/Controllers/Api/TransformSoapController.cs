@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text.Json;
 using ApplicationCore.Entities;
 using ApplicationCore.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Distributed;
-using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
 using web.Models;
 
 namespace web.Controllers
@@ -57,32 +53,31 @@ namespace web.Controllers
         }
 
 
-        // POST: api/TransformSoap/transformLodge/2
-        //[HttpPost("transformLodge/{idProvider}")]
-        //public ActionResult TransformLodge(int idProvider, [FromBody] SearchLodgingModel Message)
-        //{
-        //    try
-        //    {
-        //        if (!ModelState.IsValid)
-        //        {
-        //            return BadRequest(ModelState);
-        //        }
-        //        string template = _distributedCache.GetString(PROVIDER_TEMPLATE_CACHE);
-        //        Params2 search = Message.Params;
-        //        string Type = "Lodging";
-        //        //Transport transport = new Transport()
-        //        //{
-        //        //    ArrivingCity = search.ArrivingCity,
-        //        //    DepartinCity = search.DepartinCity,
-        //        //    DepartinDate = search.DepartinDate
-        //        //};
-        //        return Ok(_transformSoapService.Listener(idProvider, transport, Type));
-        //    }
-        //    catch (Exception)
-        //    {
-        //        return StatusCode(500);
-        //    }
-        //}
+        //POST: api/TransformSoap/transformLodge/2
+        [HttpPost("transformLodge/{idProvider}")]
+        public ActionResult TransformLodge(int idProvider, [FromBody] SearchLodgingModel Message)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
+                string template = _distributedCache.GetString(PROVIDER_TEMPLATE_CACHE);
+                Lodge search = Message.Params;
+                string Type = "Lodging";
+                Lodging lodging = new Lodging() {
+                    Operation = search.Operation,
+                    CheckIn = search.CheckIn,
+                    Checkout = search.Checkout
+                };
+                return Ok(_transformSoapService.ListenerLodge(idProvider, lodging, Type));
+            }
+            catch (Exception)
+            {
+                return StatusCode(500);
+            }
+        }
 
 
 

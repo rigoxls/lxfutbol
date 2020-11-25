@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Infraestructure.Data;
+using Steeltoe.Discovery.Client;
 
 namespace quotationService
 {
@@ -41,6 +42,7 @@ namespace quotationService
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddDiscoveryClient(Configuration); 
             services.AddDbContext<QuotationContext>(options =>
              options.UseMySQL(Configuration.GetConnectionString("DefaultConnection")));
 
@@ -54,6 +56,7 @@ namespace quotationService
             {
                 app.UseDeveloperExceptionPage();
             }
+            app.UseDiscoveryClient();
 
             app.UseRouting();
 
