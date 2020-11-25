@@ -250,13 +250,40 @@
         <h3>Acuerdo comercial</h3>
 
         <div class="row">
+            <a href="javascript:void(0)" class="auth-button" (click)="authGoogle()"> Auth Google </a>
+            <a href="javascript:void(0)" class="auth-button" (click)="getRules()"> Obtener reglas </a>
+            <br>
+            <hr>
+            <br>
+
             <div class="col-lg-12 col-md-12">
+                <div class="business-rules" *ngIf="rules['values']">
+                    <table class="styled-table">
+                        <thead>
+                        <tr>
+                            <th>Regla</th>
+                            <th>Valor de acuerdo</th>
+                            <th>Condición</th>
+                            <th>Valor de referencia</th>
+                            <th>Puntaje</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let rule of rules['values']">
+                            <td>{{rule[1]}}</td>
+                            <td><input type="text" (blur)="calculateAgreement($event.target.value, rule[2], rule[3], rule[4], rule[0])"></td>
+                            <td>{{rule[2]}}</td>
+                            <td>{{rule[3]}}</td>
+                            <td>{{rule[4]}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
                 <div class="form-group">
                     <label><i class='bx bx-purchase-tag'></i> Acuerdo:</label>
-                    <input formControlName="agreement" type="number" class="form-control" placeholder="">
+                    <input formControlName="agreement" type="number" class="form-control" placeholder="" [(ngModel)]="agreement" readonly>
                     <div *ngIf="submitted && form.controls.agreement.errors" class="error-form">
                         <div class="error-message" *ngIf="form.controls.agreement.errors.required">Campo requerido</div>
-                        <div class="error-message" *ngIf="form.controls.agreement.errors.minlength">Campo debe tener mínimo 3 caracteres</div>
                     </div>
                 </div>
             </div>

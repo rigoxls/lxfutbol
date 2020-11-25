@@ -2,6 +2,8 @@ package com.lxfutbol.provider.controller;
 
 import java.io.IOException;
 import java.net.URI;
+import java.security.GeneralSecurityException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
@@ -23,6 +25,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.google.api.services.sheets.v4.Sheets;
+import com.google.api.services.sheets.v4.Sheets.Spreadsheets.Values.Get;
+import com.google.api.services.sheets.v4.model.BatchGetValuesResponse;
+import com.google.api.services.sheets.v4.model.ValueRange;
 import com.lxfutbol.provider.dto.ProviderDTO;
 import com.lxfutbol.provider.repository.ProviderTemplateEntity;
 import com.lxfutbol.provider.repository.ProviderEntity;
@@ -38,8 +44,12 @@ public class ProviderController {
 
 	@Autowired
 	private RedisService redisService;
-
-	ProviderController() {
+	
+    private static String SPREADSHEET_ID = "1Yj1pkc8B18yEOd_E5kEIRG8tO5aqH8QdW-iPCA35UAg";
+	
+    private static Sheets sheetsService;
+    
+	ProviderController() throws IOException, GeneralSecurityException {		
 		// Providers in memory
 		CompletableFuture.delayedExecutor(5, TimeUnit.SECONDS).execute(() -> {
 			List<ProviderEntity> providers = providerService.listActiveProviders();
@@ -115,4 +125,16 @@ public class ProviderController {
 		providerService.deleteProvider(providerId);
 		return ResponseEntity.noContent().build();
 	}
+	
+	@GetMapping("/provider/auth/rules")
+	public String authRules() throws IOException, GeneralSecurityException {        
+		sheetsService = SheetsServiceUtil.getSheetsService();
+		return "";
+	}	
+	
+	@GetMapping("/provider/rules")
+	public ValueRange getRules() throws IOException, GeneralSecurityException {        
+        ValueRange readResult = sheetsService.spreadsheets().values().get(SPREADSHEET_ID, "Sheet1!A2:E12").execute();   
+        return readResult;
+	}	
 }

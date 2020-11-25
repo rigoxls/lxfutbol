@@ -68,4 +68,30 @@ export class ProviderService {
                 });
         });
     }
+
+    authGoogle(): Promise<any[]> {
+        return new Promise((resolve, reject) => {
+            this.http.get<any[]>(`${environment.requestAuth}`)
+                .subscribe(result => {
+                        resolve(result);
+                    },
+                    error => {
+                        console.info(error);
+                        reject(error);
+                    });
+        });
+    }
+
+    getRules(): Promise<any[]> {
+        return new Promise((resolve, reject) => {
+            this.http.get<any[]>(`${environment.getRules}`)
+                .subscribe(result => {
+                        resolve(result);
+                    },
+                    error => {
+                        console.info(error);
+                        reject(error);
+                    });
+        });
+    }
 }
