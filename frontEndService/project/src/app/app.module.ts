@@ -21,13 +21,12 @@ import { ContactComponent } from './components/pages/contact/contact.component';
 import { CategoriesOneComponent } from './components/pages/categories-one/categories-one.component';
 import { CategoriesTwoComponent } from './components/pages/categories-two/categories-two.component';
 import { ListingOneComponent } from './components/pages/listing-one/listing-one.component';
-import { ListingTwoComponent } from './components/pages/listing-two/listing-two.component';
-import { ListingThreeComponent } from './components/pages/listing-three/listing-three.component';
+import { LodgeDetailsComponent } from './components/pages/lodge-details/lodge-details.component';
+import { TransportDetailsComponent } from './components/pages/transport-details/transport-details.component';
 import { ListingFourComponent } from './components/pages/listing-four/listing-four.component';
 import { ListingFiveComponent } from './components/pages/listing-five/listing-five.component';
-import { ListingDetailsComponent } from './components/pages/listing-details/listing-details.component';
 import { ProductListComponent } from './components/pages/product-list/product-list.component';
-import { ProductsDetailsComponent } from './components/pages/products-details/products-details.component';
+import { SpectacleDetailsComponent } from './components/pages/spectacle-details/spectacle-details.component';
 import { CartComponent } from './components/pages/cart/cart.component';
 import { CheckoutComponent } from './components/pages/checkout/checkout.component';
 import { BlogOneComponent } from './components/pages/blog-one/blog-one.component';
@@ -45,7 +44,6 @@ import { LoginComponent } from './components/pages/login/login.component';
 import { RegisterComponent } from './components/pages/register/register.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ProviderModalComponent } from './components/pages/listing-details/provider-modal/provider-modal.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ToastContainerComponent } from './components/pages/Toast/toast-container/toast-container.component';
 
@@ -71,13 +69,12 @@ import { ToastContainerComponent } from './components/pages/Toast/toast-containe
     CategoriesOneComponent,
     CategoriesTwoComponent,
     ListingOneComponent,
-    ListingTwoComponent,
-    ListingThreeComponent,
+    LodgeDetailsComponent,
+    TransportDetailsComponent,
     ListingFourComponent,
     ListingFiveComponent,
-    ListingDetailsComponent,
     ProductListComponent,
-    ProductsDetailsComponent,
+    SpectacleDetailsComponent,
     CartComponent,
     CheckoutComponent,
     BlogOneComponent,
@@ -93,7 +90,6 @@ import { ToastContainerComponent } from './components/pages/Toast/toast-containe
     ComingSoonComponent,
     LoginComponent,
     RegisterComponent,
-    ProviderModalComponent,
     ToastContainerComponent
   ],
     imports: [

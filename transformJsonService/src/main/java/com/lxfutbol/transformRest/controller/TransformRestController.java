@@ -1,5 +1,7 @@
 package com.lxfutbol.transformRest.controller;
 
+import java.util.ArrayList;
+
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
 import org.slf4j.Logger;
@@ -24,8 +26,7 @@ public class TransformRestController {
 	@PostMapping("/transform/{idProvider}")
 	public String transfor(@PathVariable int idProvider, @RequestBody String params) throws JSONException {		
 	
-		JSONObject result = transformRestService.getProviderData(idProvider, params);
-	    
+		ArrayList<JSONObject> result = transformRestService.getProviderData(idProvider, params);	    
 	    JSONObject transportResult = new JSONObject();
 	    transportResult.put("transport", result);		
 		
@@ -35,7 +36,7 @@ public class TransformRestController {
 	@PostMapping("/transformLodge/{idProvider}")
 	public String transforLodge(@PathVariable int idProvider, @RequestBody String params) throws JSONException {		
 	
-		JSONObject result = transformRestService.getProviderData(idProvider, params);
+		ArrayList<JSONObject> result = transformRestService.getProviderData(idProvider, params);
 	    JSONObject lodgeResult = new JSONObject();
 	    lodgeResult.put("lodge", result);	
 		
@@ -45,7 +46,7 @@ public class TransformRestController {
 	@PostMapping("/transformSpectacle/{idProvider}")
 	public String transforEspectacle(@PathVariable int idProvider, @RequestBody String params) throws JSONException {		
 	
-		JSONObject result = transformRestService.getProviderData(idProvider, params);
+		ArrayList<JSONObject> result = transformRestService.getProviderData(idProvider, params);
 	    JSONObject espectacleResult = new JSONObject();
 	    espectacleResult.put("spectacle", result);	
 		

@@ -1,0 +1,135 @@
+<app-header-one></app-header-one>
+
+<div class="page-title-area page-title-bg4">
+    <div class="container">
+        <div class="page-title-content">
+            <h2>{{spectacle.description}}</h2>
+        </div>
+    </div>
+</div>
+
+<section class="product-details-area pt-100 pb-70">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-5 col-md-12">
+
+                <img src="/assets/img/estadio_1.jpg" width="420" *ngIf="zone === 1">
+                <img src="/assets/img/estadio_2.jpg" width="420" *ngIf="zone === 2">
+                <img src="/assets/img/estadio_3.jpg" width="420" *ngIf="zone === 3">
+                <img src="/assets/img/estadio_4.jpg" width="420" *ngIf="zone === 4">
+
+                <div class="plane">
+                    <ol class="cabin fuselage">
+                        <li class="row row--1">
+                            <ol class="seats" type="A" *ngFor="let seat of seats">
+                                <li class="seat" *ngFor="let nSeat of seat[0]">
+                                    <input type="checkbox" id="{{nSeat}}" (click)="countSeats(nSeat)" />
+                                    <label for="{{nSeat}}">{{nSeat}}</label>
+                                </li>
+                            </ol>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="col-lg-7 col-md-12">
+                <div class="products-details-desc">
+                    <h3>{{spectacle.description}}</h3>
+
+                    <div class="price">
+                        <span class="new-price">{{(spectacle.price * bookedSeats.length) | currency}}</span>
+                    </div>
+
+                    <ul class="products-info">
+                        <li><span>Disponibilidad: </span> <a routerLink="/products-details" style="color: #18891d">Disponible</a></li>
+                        <li><span>Fecha: </span> <a routerLink="/products-details">{{spectacle.date}}</a></li>
+                    </ul>
+
+
+                    <div class="products-add-to-cart">
+                        <div class="input-counter">
+                            <span class="minus-btn"><i class='bx bx-minus'></i></span>
+                            <input #nPersons type="text" value="1">
+                            <span class="plus-btn"><i class='bx bx-plus'></i></span>
+                        </div>
+
+                        <button type="submit" class="default-btn">Persona(s)</button>
+                    </div>
+                    <hr>
+                     <div class="sector-section">
+                         <h5>Sector de tribuna</h5>
+                         <div class="form-check">
+                             <input class="form-check-input" type="radio" name="zones" id="zone1" value="1" checked (click)="changeZone(1)">
+                             <label class="form-check-label" for="zone1">
+                                 Zona Oriente
+                             </label>
+                         </div>
+                         <div class="form-check">
+                             <input class="form-check-input" type="radio" name="zones" id="zone2" value="2" (click)="changeZone(2)">
+                             <label class="form-check-label" for="zone2">
+                                 Zona Norte
+                             </label>
+                         </div>
+
+                         <div class="form-check">
+                             <input class="form-check-input" type="radio" name="zones" id="zone3" value="3" (click)="changeZone(3)">
+                             <label class="form-check-label" for="zone3">
+                                 Zona Occidente
+                             </label>
+                         </div>
+
+                         <div class="form-check">
+                             <input class="form-check-input" type="radio" name="zones" id="zone4" value="4" (click)="changeZone(4)">
+                             <label class="form-check-label" for="zone4">
+                                 Zona Sur
+                             </label>
+                         </div>
+                     </div>
+
+                    <div class="products-details-accordion" id="accordionEx" role="tablist" aria-multiselectable="true">
+                        <div class="card">
+                            <div class="card-header" role="tab" id="headingOne">
+                                <a data-toggle="collapse" data-parent="#accordionEx" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                    Términos y Condiciones
+                                    <i class='bx bx-chevron-down'></i></a>
+                            </div>
+                            <div id="collapseOne" class="collapse show" role="tabpanel" data-parent="#accordionEx">
+                                <div class="card-body">
+                                    <p>
+                                        Toure Balón se reserva el derecho de informar sobre cualquier cambio en el evento que pueda surgir por
+                                        parte del proveedor autorizado, por consiguiente cualquier cambio previo al evento debe ser gestionado
+                                        directamente con el proveedor através de nuestros canales de comunicación interna.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="buy-checkbox-btn">
+                        <div class="item">
+                            <input class="inp-cbx" id="cbx" type="checkbox">
+                            <label class="cbx" for="cbx">
+                                <span>
+                                    <svg width="12px" height="10px" viewbox="0 0 12 10">
+                                        <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                                    </svg>
+                                </span>
+                                <span>Estoy de acuerdo con los términos y condiciones</span>
+                            </label>
+                        </div>
+
+                        <div class="item">
+                            <a href="javascript:void(0)" class="default-btn" [ngClass]="{'disabled-button': errors}" (click)="selectAndContinue()">Continúa con la selección de hospedaje</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+</section>

@@ -7,14 +7,13 @@ import {HowItWorksComponent} from './components/pages/how-it-works/how-it-works.
 import {ContactComponent} from './components/pages/contact/contact.component';
 import {CategoriesOneComponent} from './components/pages/categories-one/categories-one.component';
 import {CategoriesTwoComponent} from './components/pages/categories-two/categories-two.component';
-import {ListingDetailsComponent} from './components/pages/listing-details/listing-details.component';
 import {ListingFiveComponent} from './components/pages/listing-five/listing-five.component';
 import {ListingFourComponent} from './components/pages/listing-four/listing-four.component';
-import {ListingThreeComponent} from './components/pages/listing-three/listing-three.component';
-import {ListingTwoComponent} from './components/pages/listing-two/listing-two.component';
+import {TransportDetailsComponent} from './components/pages/transport-details/transport-details.component';
+import {LodgeDetailsComponent} from './components/pages/lodge-details/lodge-details.component';
 import {ListingOneComponent} from './components/pages/listing-one/listing-one.component';
 import {ProductListComponent} from './components/pages/product-list/product-list.component';
-import {ProductsDetailsComponent} from './components/pages/products-details/products-details.component';
+import {SpectacleDetailsComponent} from './components/pages/spectacle-details/spectacle-details.component';
 import {CartComponent} from './components/pages/cart/cart.component';
 import {CheckoutComponent} from './components/pages/checkout/checkout.component';
 import {BlogOneComponent} from './components/pages/blog-one/blog-one.component';
@@ -39,11 +38,10 @@ const routes: Routes = [
     {path: 'categories-one', component: CategoriesOneComponent},
     {path: 'categories-two', component: CategoriesTwoComponent},
     {path: 'listing-one', component: ListingOneComponent},
-    {path: 'listing-two', component: ListingTwoComponent},
-    {path: 'listing-three', component: ListingThreeComponent},
+    {path: 'lodge-details', component: LodgeDetailsComponent},
+    {path: 'transport-details', component: TransportDetailsComponent},
     {path: 'listing-four', component: ListingFourComponent},
     {path: 'listing-five', component: ListingFiveComponent},
-    {path: 'listing-details', component: ListingDetailsComponent},
     {path: 'blog-one', component: BlogOneComponent},
     {path: 'blog-two', component: BlogTwoComponent},
     {path: 'blog-three', component: BlogThreeComponent},
@@ -53,7 +51,7 @@ const routes: Routes = [
     {path: 'blog-details-two', component: BlogDetailsTwoComponent},
     {path: 'blog-details-three', component: BlogDetailsThreeComponent},
     {path: 'product-list', component: ProductListComponent},
-    {path: 'products-details', component: ProductsDetailsComponent},
+    {path: 'spectacle-details/:id', component: SpectacleDetailsComponent},
     {path: 'cart', component: CartComponent},
     {path: 'checkout', component: CheckoutComponent},
     {path: 'faqs', component: FaqComponent},

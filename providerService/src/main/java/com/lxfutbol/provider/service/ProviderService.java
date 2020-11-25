@@ -117,6 +117,7 @@ public class ProviderService {
 				long providerId = provider.getId();
 				providerObj.put("id", providerId);
 				providerObj.put("dataType", provider.getDataType());
+				providerObj.put("name", provider.getName());
 				providerObj.put("agreement", provider.getAgreement());				
 				providersObjs.add(providerObj);	
 			}

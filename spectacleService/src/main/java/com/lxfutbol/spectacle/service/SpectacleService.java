@@ -77,10 +77,12 @@ public class SpectacleService {
 				responseService  = proxyServiceRest.transformSpectacle(Integer.valueOf(idProvider), param.toString());
 			}	
 
-			JSONObject temp = processReplyMessage(responseService);
-			temp.put("agreement", Integer.valueOf(agreement));
-
+			JSONArray temp = processReplyMessage(responseService);
+			
 			JSONObject resultEspectacle = new JSONObject();
+			resultEspectacle.put("agreement", Integer.valueOf(agreement));
+			resultEspectacle.put("idProvider", Integer.valueOf(idProvider));
+			
 			resultEspectacle.put("providerEspectacle", temp);
 			result.put(resultEspectacle);
 
@@ -89,17 +91,22 @@ public class SpectacleService {
 		}
 	}
 
-	public JSONObject processReplyMessage(String response) {
+	public JSONArray processReplyMessage(String response) {
 
 		LOG.info("Entra a processReplyMessage: ");
 
-		JSONObject result = null;
+		JSONArray result = null;
 		try {
 			JSONObject jsonObjectMessage = new JSONObject(response);
-			JSONObject params = jsonObjectMessage.getJSONObject("spectacle");
+			JSONArray spectacleArray = jsonObjectMessage.getJSONArray("spectacle");
+			
+			for (int i = 0; i < spectacleArray.length(); i++) {
+				JSONObject params = spectacleArray.getJSONObject(i);
+				this.saveSpectacle(params);
+			}
+			
+			result = spectacleArray;
 
-			this.saveSpectacle(params);
-			result = params;
 
 		} catch (Exception ex) {
 			LOG.info("Error leyendo mensaje de respuesta : " + ex.getMessage());
@@ -120,7 +127,7 @@ public class SpectacleService {
 			String country = (String) params.get("country");
 			String description = (String) params.get("description");
 
-			espectacle.setIdProvider(Long.valueOf(idProvider));;
+			espectacle.setIdProvider(Long.valueOf(idProvider));
 			espectacle.setDate(Date.valueOf(date));
 			espectacle.setPrice(price);
 			espectacle.setType(type);

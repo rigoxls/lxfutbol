@@ -128,10 +128,12 @@ public class LodgeService {
 				responseService  = proxyServiceRest.transforLodge(Integer.valueOf(idProvider), param.toString());
 			}	
 
-			JSONObject temp = processReplyMessage(responseService);
-			temp.put("agreement", Integer.valueOf(agreement));
-
+			JSONArray temp = processReplyMessage(responseService);			
 			JSONObject resultLodge = new JSONObject();
+			
+			resultLodge.put("agreement", Integer.valueOf(agreement));
+			resultLodge.put("idProvider", Integer.valueOf(idProvider));			
+			
 			resultLodge.put("providerLodge", temp);
 			result.put(resultLodge);
 
@@ -181,17 +183,21 @@ public class LodgeService {
 	 * }
 	 */
 
-	public JSONObject processReplyMessage(String response) {
+	public JSONArray processReplyMessage(String response) {
 
 		LOG.info("Entra a processReplyMessage: ");
 
-		JSONObject result = null;
+		JSONArray result = null;
 		try {
 			JSONObject jsonObjectMessage = new JSONObject(response);
-			JSONObject params = jsonObjectMessage.getJSONObject("lodge");
-
-			this.saveLodge(params);
-			result = params;
+			JSONArray lodgeArray = jsonObjectMessage.getJSONArray("lodge");
+			
+			for (int i = 0; i < lodgeArray.length(); i++) {
+				JSONObject params = lodgeArray.getJSONObject(i);
+				this.saveLodge(params);
+			}
+			
+			result = lodgeArray;
 
 		} catch (Exception ex) {
 			LOG.info("Error leyendo mensaje de respuesta : " + ex.getMessage());

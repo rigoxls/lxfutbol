@@ -1,11 +1,11 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Usuario } from '../../interfaces/usuario.interface';
-import { LoginService } from './login.service';
-import { Router } from '@angular/router';
-import { CONFIG } from '../../../../assets/config';
-import { NgbProgressbarConfig } from '@ng-bootstrap/ng-bootstrap';
-import { ToastService } from '../Toast/toast-container/toast.service';
+import {Component, OnInit, Output, EventEmitter} from '@angular/core';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {Usuario} from '../../interfaces/usuario.interface';
+import {LoginService} from './login.service';
+import {Router} from '@angular/router';
+import {CONFIG} from '../../../../assets/config';
+import {NgbProgressbarConfig} from '@ng-bootstrap/ng-bootstrap';
+import {ToastService} from '../Toast/toast-container/toast.service';
 
 @Component({
     selector: 'app-login',
@@ -30,8 +30,8 @@ export class LoginComponent {
         config.max = 1000;
         config.striped = true;
         config.animated = true;
-        config.type = "info";
-        config.height = "6px";
+        config.type = 'info';
+        config.height = '6px';
     }
 
     ngOnInit(): void {
@@ -40,7 +40,7 @@ export class LoginComponent {
     onSubmit(): void {
 
         if (this.form.value.email === '' && this.form.value.password === '') {
-            this.showErrorDatos()
+            this.showErrorDatos();
         } else if (this.form.value.email !== '' && this.form.value.password !== '') {
             this.isLoad = true;
             this.getUsusario();
@@ -57,7 +57,7 @@ export class LoginComponent {
             }
         );
         setTimeout(() => {
-            localStorage.setItem('userAutenticado', JSON.stringify(this.user));        
+            localStorage.setItem('userAutenticado', JSON.stringify(this.user));
             if (this.user.rol['id'] === 1) {
                 window.location.href = CONFIG.userLoggedPath;
             } else {
@@ -68,13 +68,13 @@ export class LoginComponent {
     }
 
     showErrorDatos() {
-        this.toastService.show("Ingrese los datos para autenticarse", { classname: 'bg-success text-light', delay: 1500 });
-        this.router.navigate(["/login"]);
+        this.toastService.show('Ingrese los datos para autenticarse', {classname: 'bg-success text-light', delay: 1500});
+        this.router.navigate(['/login']);
     }
 
     showError() {
-        this.toastService.show("Verifique lo datos. El usuario no existe", { classname: 'bg-danger text-light', delay: 1500 });
-        this.router.navigate(["/login"]);
+        this.toastService.show('Verifique lo datos. El usuario no existe', {classname: 'bg-danger text-light', delay: 1500});
+        this.router.navigate(['/login']);
     }
 
 }

@@ -1,0 +1,202 @@
+<app-header-one></app-header-one>
+
+<div class="page-title-area page-title-bg2">
+    <div class="container">
+        <div class="page-title-content">
+            <h2>Selección de Hospedaje</h2>
+        </div>
+    </div>
+</div>
+
+<section class="listing-area ptb-100">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-md-12">
+                <div class="listing-widget-area">
+                    <div class="listing-widget filter-list-widget">
+                        <h3 class="listing-widget-title">Selección actual</h3>
+
+                        <div class="selected-filters-wrap-list">
+                            <ul>
+                                <li><a href="javascript:void(0)" (click)="filterType('Duplex')" *ngIf="!hideDuplexFilter"><i class='bx bx-x'></i> Duplex</a></li>
+                                <li><a href="javascript:void(0)" (click)="filterType('Single')" *ngIf="!hideSingleFilter"><i class='bx bx-x'></i> Single</a></li>
+                                <li><a href="javascript:void(0)" (click)="filterType('Familiar')" *ngIf="!hideFamiliarFilter"><i class='bx bx-x'></i> Familiar</a></li>
+                            </ul>
+
+
+                        </div>
+                    </div>
+
+
+                    <hr>
+                    <div>
+                        <h3 class="listing-widget-title" style="font-size: 20px;"><b>LLegada - Salida</b></h3>
+                        <form class="form-inline">
+                            <div class="form-group hidden">
+                                <div class="input-group">
+                                    <input name="datepicker"
+                                           class="form-control"
+                                           ngbDatepicker
+                                           #datepicker="ngbDatepicker"
+                                           [autoClose]="'outside'"
+                                           (dateSelect)="onDateSelection($event)"
+                                           [displayMonths]="2"
+                                           [dayTemplate]="t"
+                                           outsideDays="hidden"
+                                           [startDate]="fromDate!"
+                                           tabindex="-1">
+                                    <ng-template #t let-date let-focused="focused">
+                                        <span class="custom-day"
+                                              [class.focused]="focused"
+                                              [class.range]="isRange(date)"
+                                              [class.faded]="isHovered(date) || isInside(date)"
+                                              (mouseenter)="hoveredDate = date"
+                                              (mouseleave)="hoveredDate = null">
+                                          {{ date.day }}
+                                    </span>
+                                    </ng-template>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <input #dpFromDate
+                                           class="form-control" placeholder="yyyy-mm-dd"
+                                           name="dpFromDate"
+                                           [value]="formatter.format(fromDate)"
+                                           (input)="fromDate = validateInput(fromDate, dpFromDate.value)">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-secondary calendar" (click)="datepicker.toggle()"
+                                                type="button"></button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group ml-2">
+                                <div class="input-group">
+                                    <input #dpToDate
+                                           class="form-control" placeholder="yyyy-mm-dd"
+                                           name="dpToDate"
+                                           [value]="formatter.format(toDate)"
+                                           (input)="toDate = validateInput(toDate, dpToDate.value)">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-secondary calendar" (click)="datepicker.toggle()"
+                                                type="button"></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        <div class="item">
+                            <br>
+                            <a href="javascript:void(0)" class="default-btn" (click)="getLodges(true)">Buscar por fecha</a>
+                        </div>
+
+                    </div>
+                    <hr>
+
+                    <div class="products-details-desc">
+                        <h3 class="listing-widget-title" style="font-size: 20px;">Número de personas</h3>
+                        <div class="products-add-to-cart">
+                            <div class="input-counter">
+                                <span class="minus-btn"><i class='bx bx-minus'></i></span>
+                                <input #nPersons type="text" value="1">
+                                <span class="plus-btn"><i class='bx bx-plus'></i></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <br>
+
+                    <div class="products-details-desc">
+                        <h3 class="listing-widget-title" style="font-size: 20px;">Número de Habitaciones</h3>
+                        <div class="products-add-to-cart">
+                            <div class="input-counter">
+                                <span class="minus-btn"><i class='bx bx-minus'></i></span>
+                                <input #nRooms type="text" value="1">
+                                <span class="plus-btn"><i class='bx bx-plus'></i></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <br>
+
+                    <div class="listing-widget price-list-widget">
+                        <h3 class="listing-widget-title">Precio</h3>
+
+                        <div class="collection-filter-by-price">
+                            <input class="js-range-of-price" type="text" data-min="0" data-max="500000"
+                                   name="filter_by_price" data-step="10">
+                        </div>
+                    </div>
+
+                    <hr>
+                    <div class="listing-contact">
+                        <div class="text">
+                            <div class="icon" style="display: inline">
+                                <i class="bx bx-phone-call"></i>
+                            </div>
+                            <span> &nbsp;Linea de atención:</span>
+                            <a href="tel:+098798768753">+0987-9876-8753</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-8 col-md-12">
+                <div class="listing-filter-options">
+                    <div class="row align-items-center">
+                        <div class="col-lg-7">
+                            <p>Mosrando 1 de 100</p>
+                        </div>
+
+                        <div class="col-lg-5">
+                            <div class="listing-ordering-list">
+                                <select #selectOrder (change)="sortLodges(selectOrder.value)">
+                                    <option>Ordenar: Destacados</option>
+                                    <option>Ordenar: Precio mas bajo</option>
+                                    <option>Ordenar: Precio mas alto</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-6 col-sm-12 col-md-6" *ngFor="let lodge of lodges">
+                        <div class="single-listing-item">
+                            <div class="listing-image">
+                                <a routerLink="/listing-details" class="d-block"><img src="assets/img/listing/img5.jpg"
+                                                                                      alt="image"></a>
+
+                                <div class="listing-tag">
+                                    <a routerLink="/" class="d-block" style="text-decoration: none">{{lodge.type}}</a>
+                                </div>
+                            </div>
+
+                            <div class="listing-content">
+                                <h3><a routerLink="/listing-details" class="d-inline-block">{{lodge.name}}</a></h3>
+                                <span class="location"><i class="bx bx-map"></i> {{lodge.address}}</span>
+                            </div>
+
+                            <div class="listing-box-footer">
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <div class="price">
+                                        <span data-toggle="tooltip" data-placement="top" title="Ultra Hight">
+                                            {{lodge.price | currency}}
+                                        </span>
+                                        <div class="listing-rating">
+                                            <a href="javascript:void(0)" (click)="selectLodge(lodge.number)">{{selectActionName}}</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="listing-badge">Habitaciones disponibles!</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="item">
+                    <a href="javascript:void(0)" class="default-btn" *ngIf="lodges.length" (click)="selectAndContinue()">Continúa con la selección de transporte</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

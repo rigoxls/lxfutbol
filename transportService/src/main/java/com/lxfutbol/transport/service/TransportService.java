@@ -50,7 +50,7 @@ public class TransportService {
 				JSONObject jsonObject = providers.getJSONObject(i);
 				TransportEntity resultTransport = validateConsult(params, jsonObject.get("id").toString());
 				if (resultTransport == null) {
-					invocationTransform(jsonObject.get("id").toString(), params, jsonObject.get("agreement").toString(),
+					invocationTransform(jsonObject.get("id").toString(), jsonObject.get("name").toString(),  params, jsonObject.get("agreement").toString(),
 							jsonObject.get("dataType").toString());
 				} else {
 					result.put(senderResponse(resultTransport));
@@ -100,7 +100,7 @@ public class TransportService {
 		return resultTranspor;
 	}
 
-	private void invocationTransform(String idProvider, JSONObject params, String agreement, String typeService) {
+	private void invocationTransform(String idProvider, String name, JSONObject params, String agreement, String typeService) {
 		LOG.info("Entra a invocationServicesSoa: ");
 		try {
 			
@@ -112,10 +112,13 @@ public class TransportService {
 				responseService  = proxyServiceRest.transfor(Integer.valueOf(idProvider), param.toString());
 			}		
 
-			JSONObject temp = transportUtil.processReplyMessage(responseService);
-			temp.put("agreement", Integer.valueOf(agreement));
-
+			JSONArray temp = transportUtil.processReplyMessage(responseService);
+			
 			JSONObject resultTransport = new JSONObject();
+			resultTransport.put("agreement", Integer.valueOf(agreement));
+			resultTransport.put("idProvider", Integer.valueOf(idProvider));
+			resultTransport.put("name", name);
+			
 			resultTransport.put("providerTransport", temp);
 			result.put(resultTransport);
 

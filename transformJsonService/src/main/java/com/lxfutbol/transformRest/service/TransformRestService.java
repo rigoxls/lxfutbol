@@ -1,5 +1,7 @@
 package com.lxfutbol.transformRest.service;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -40,7 +42,7 @@ public class TransformRestService {
 		return provider;
 	}
 	
-	public JSONObject getProviderData(int idProvider, String stringParams) throws JSONException {
+	public ArrayList<JSONObject> getProviderData(int idProvider, String stringParams) throws JSONException {
 				
 		//Getting params
 		JSONObject params = new JSONObject(stringParams);
@@ -66,7 +68,8 @@ public class TransformRestService {
 		return distpach(template, stringParams);				
 	}
 	
-	public JSONObject distpach(JSONObject template, String stringParams) throws JSONException {
+	public ArrayList<JSONObject> distpach(JSONObject template, String stringParams) throws JSONException {
+				
 	    HttpHeaders headers = new HttpHeaders();
 	    headers.setContentType(MediaType.APPLICATION_JSON);
 		
@@ -76,22 +79,32 @@ public class TransformRestService {
 	    
 	    RestTemplate restTemplate = new RestTemplate();
 	    ResponseEntity<String> result = restTemplate.postForEntity(uri, request, String.class);
-	    JSONObject resParams = new JSONObject(result.getBody());
 	    
-	    JSONObject mapping = (JSONObject) template.get("mapping");
-	    JSONObject mappingProp = (JSONObject) mapping.get("properties");
-	    	    
-	    JSONArray params = mappingProp.names();
+	    String jsonString = result.getBody();
+	    ArrayList<JSONObject> jsonArrayResponse = new ArrayList<JSONObject>();
+	    JSONArray jsonArray = new JSONArray(jsonString);
 	    
-	    JSONObject mappedParams = new JSONObject();
 	    
-	    for (int i = 0; i < params.length(); i++) {	    	
-	    	String key = params.getString(i);
-	    	String value = mappingProp.getString(key);	    	
-	    	mappedParams.put(key, resParams.get(value));
-	    }
+	    for(int k = 0; k < jsonArray.length(); k++) {	        	        	        
+	    	JSONObject resParams = jsonArray.getJSONObject(k);   
+		    JSONObject mapping = (JSONObject) template.get("mapping");
+		    JSONObject mappingProp = (JSONObject) mapping.get("properties");
+		    	    
+		    JSONObject mappedParams = new JSONObject();
+		    JSONArray params = mappingProp.names();
+		    
+		    for (int i = 0; i < params.length(); i++) {
+		    	String key = params.getString(i);
+		    	String value = mappingProp.getString(key);
+		    	mappedParams.put(key, resParams.get(value));
+		    }
+		    
+		    jsonArrayResponse.add(mappedParams);
+	        
+	    }	    
 	    
-	    return mappedParams;	    
+		return jsonArrayResponse;
+	    
 	}
 	
 	public void mappingAttributes(JSONObject resParams) {
