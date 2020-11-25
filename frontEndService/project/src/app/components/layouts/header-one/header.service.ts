@@ -3,19 +3,16 @@ import {Place} from '../../interfaces/place.interface';
 import {HttpClient} from '@angular/common/http';
 import {Usuario} from '../../interfaces/usuario.interface';
 import {Categorias} from '../../interfaces/categorias';
-
-//import { environment } from "src/environments/environment";
+import { environment } from "src/environments/environment";
 
 @Injectable({
     providedIn: 'root'
 })
 export class HeaderService {
 
-    //private placeUrl = environment.APIEndPoint+'spectacle/list';
-    private placeUrl = 'http://localhost:8758/spectacle/list';
+    private placeUrl = environment.APIEndPoint+'spectacle/list';
+    private categoriesUrl = environment.APIEndPoint + 'spectacle/list/category';
 
-    //private categoriesUrl = 'environment.APIEndPoint getCategories';
-    private categoriesUrl = 'http://localhost:8758/spectacle/list/category';
     constructor(private http: HttpClient) {
     }
 
