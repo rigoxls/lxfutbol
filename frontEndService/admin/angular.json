@@ -1,6 +1,6 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
-  "version": 1, 
+  "version": 1,
   "newProjectRoot": "projects",
   "projects": {
     "admin-dashboard": {
@@ -28,19 +28,22 @@
               "src/assets"
             ],
             "styles": [
-                "node_modules/bootstrap/scss/bootstrap.scss",
-                "src/assets/css/vendors.min.css",
-                "src/assets/css/style.scss",
-                "src/assets/css/responsive.scss",
-                "src/styles.scss"
+              "node_modules/bootstrap/scss/bootstrap.scss",
+              "src/assets/css/vendors.min.css",
+              "src/assets/css/style.scss",
+              "src/assets/css/responsive.scss",
+              "src/styles.scss"
             ],
             "scripts": [
-                "node_modules/jquery/dist/jquery.min.js",
-                "node_modules/popper.js/dist/umd/popper.min.js",
-                "node_modules/bootstrap/dist/js/bootstrap.min.js",
-                "node_modules/apexcharts/dist/apexcharts.min.js",
-                "src/assets/js/vendors.min.js",
-                "src/assets/js/custom.js"
+              "node_modules/jquery/dist/jquery.min.js",
+              "node_modules/popper.js/dist/umd/popper.min.js",
+              "node_modules/bootstrap/dist/js/bootstrap.min.js",
+              "node_modules/apexcharts/dist/apexcharts.min.js",
+              "node_modules/primeng/resources/themes/saga-blue/theme.css",
+              "node_modules/primeng/resources/primeng.min.css",
+              "node_modules/primeicons/primeicons.css",
+              "src/assets/js/vendors.min.js",
+              "src/assets/js/custom.js"
             ]
           },
           "configurations": {
@@ -134,6 +137,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "admin-dashboard"
+    }
+  },
+  "defaultProject": "admin-dashboard",
+  "cli": {
+    "analytics": "1ca6eb0f-0eae-4eb1-95aa-e1bafed25620"
+  }
 }

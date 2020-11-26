@@ -14,6 +14,9 @@ import { UserComponent } from './components/pages/user/user.component';
 import { UserListComponent } from './components/pages/user-list/user-list.component';
 import { ProviderComponent } from './components/pages/provider/provider.component';
 import { ProviderListComponent } from './components/pages/provider-list/provider-list.component';
+import { OrdersComponent } from './components/pages/orders/orders.component';
+import { TableModule } from 'primeng/table';
+import { DetailOrderComponent } from './components/pages/detail-order/detail-order.component';
 
 @NgModule({
     declarations: [
@@ -27,6 +30,8 @@ import { ProviderListComponent } from './components/pages/provider-list/provider
         UserListComponent,
         ProviderComponent,
         ProviderListComponent,
+        OrdersComponent,
+        DetailOrderComponent,
     ],
     imports: [
         BrowserModule,
@@ -36,7 +41,8 @@ import { ProviderListComponent } from './components/pages/provider-list/provider
         ReactiveFormsModule,
         FormsModule,
         HttpClientModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        TableModule
     ],
     providers: [],
     bootstrap: [AppComponent]
