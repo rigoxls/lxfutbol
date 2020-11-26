@@ -26,6 +26,7 @@ public class OrderEntity {
 	private String email;
 	private String address;
 	private String paidStatus;
+	private String phone;
 	
 	
 	public Integer getNoOrder() {
@@ -83,4 +84,10 @@ public class OrderEntity {
 	public void setPaidStatus(String paidStatus) {
 		this.paidStatus = paidStatus;
 	}
+	public String getPhone() {
+		return phone;
+	}
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}	
 }
