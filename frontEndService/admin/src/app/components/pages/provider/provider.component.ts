@@ -1,13 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ProviderService } from './/provider.service';
-import { ActivatedRoute } from '@angular/router';
-import { environment } from 'src/environments/environment';
+import {Component, OnInit} from '@angular/core';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {ProviderService} from './/provider.service';
+import {ActivatedRoute} from '@angular/router';
+import {environment} from 'src/environments/environment';
 
 @Component({
-  selector: 'app-provider',
-  templateUrl: './provider.component.html',
-  styleUrls: ['./provider.component.scss']
+    selector: 'app-provider',
+    templateUrl: './provider.component.html',
+    styleUrls: ['./provider.component.scss']
 })
 export class ProviderComponent implements OnInit {
 
@@ -19,7 +19,10 @@ export class ProviderComponent implements OnInit {
     public submitted = false;
 
     public images = [];
+    public rules = {};
 
+    public agreement = 0;
+    public rulesProcessed = {};
 
     constructor(
         private providerService: ProviderService,
@@ -77,8 +80,7 @@ export class ProviderComponent implements OnInit {
             status: new FormControl('1', Validators.required),
             dataType: new FormControl('1', Validators.required),
             agreement: new FormControl('', [
-                Validators.required,
-                Validators.minLength(3)
+                Validators.required
             ]),
         });
     }
@@ -119,6 +121,75 @@ export class ProviderComponent implements OnInit {
                 this.message = 'Ha ocurrido un error en la creación del proveedor';
                 window.scrollTo(0, 0);
             });
+    }
+
+    authGoogle() {
+        this.providerService.authGoogle();
+        setTimeout(() => {
+            const popup = window.open(`${environment.googleApi}`,
+                '_blank', 'top=0,left=0,width=600,height=600');
+        }, 200);
+    }
+
+    getRules() {
+        this.providerService.getRules().then(result => {
+            this.rules = result;
+        });
+    }
+
+    calculateAgreement(value, condition, valRef, score, id) {
+        switch (condition) {
+            case '">"':
+                if (parseFloat(value) > parseFloat(valRef)) {
+                    this.agreement = this.agreement + parseFloat(score);
+                    this.rulesProcessed[id] = true;
+                    ;
+                } else {
+                    if (this.rulesProcessed[id]) {
+                        this.agreement = this.agreement - parseFloat(score);
+                        delete this.rulesProcessed[id];
+                    }
+                }
+                break;
+
+            case '"<"':
+                if (parseFloat(value) < parseFloat(valRef)) {
+                    this.agreement = this.agreement + parseFloat(score);
+                    this.rulesProcessed[id] = true;
+                } else {
+                    if (this.rulesProcessed[id]) {
+                        this.agreement = this.agreement - parseFloat(score);
+                        delete this.rulesProcessed[id];
+                    }
+                }
+                break;
+
+            case '"="':
+                if (parseFloat(value) === parseFloat(valRef)) {
+                    this.agreement = this.agreement + parseFloat(score);
+                    this.rulesProcessed[id] = true;
+                } else {
+                    if (this.rulesProcessed[id]) {
+                        this.agreement = this.agreement - parseFloat(score);
+                        delete this.rulesProcessed[id];
+                    }
+                }
+                break;
+
+            case '"<>"':
+                if (parseFloat(value) !== parseFloat(valRef)) {
+                    this.agreement = this.agreement + parseFloat(score);
+                    this.rulesProcessed[id] = true;
+                } else {
+                    if (this.rulesProcessed[id]) {
+                        this.agreement = this.agreement - parseFloat(score);
+                        delete this.rulesProcessed[id];
+                    }
+                }
+                break;
+        }
+
+        this.agreement = parseFloat(this.agreement.toFixed(2));
     }
 
 }

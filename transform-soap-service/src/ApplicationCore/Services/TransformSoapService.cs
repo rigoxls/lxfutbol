@@ -18,9 +18,9 @@ namespace ApplicationCore.Services
 
         private readonly ServicioAviancaVuelosClient _aviancaServices  = new ServicioAviancaVuelosClient();
 
-        //private readonly HiltonRoomServiceClient _hiltonRoomServiceClient = new HiltonRoomServiceClient();
+        private readonly HiltonRoomServiceClient _hiltonRoomServiceClient = new HiltonRoomServiceClient();
 
-        //private readonly HiltonBookingServiceClient _hiltonBookingServices = new HiltonBookingServiceClient();
+        private readonly HiltonBookingServiceClient _hiltonBookingServices = new HiltonBookingServiceClient();
 
 
         //responses
@@ -28,20 +28,36 @@ namespace ApplicationCore.Services
 
         private readonly TransportBookResponse BookResponse = new TransportBookResponse();
 
+        private readonly LodgingSearchResponse lodgingSearchResponse = new LodgingSearchResponse();
+
+        private readonly LodgingBookResponse lodgingBookResponse = new LodgingBookResponse();
+
+
+        //variables
+        private Lodging lodging;
+      
+        private Transport transport;
 
         public TransformSoapService()
         {
           
         }
 
-        public string Listener(int idProvider, Transport Message,  string Type)
+        public string Listener(int idProvider, Transport transport, string Type)
         {
-            CheckProvider(Type, Message.Operation, Message, idProvider);
-            string jsonResult = Message.Operation == "search" ? JsonConvert.SerializeObject(SearchResponse) : JsonConvert.SerializeObject(BookResponse);
+            CheckProvider(Type, transport.Operation, transport, lodging,idProvider);
+            string jsonResult = transport.Operation == "search" ? JsonConvert.SerializeObject(SearchResponse) : JsonConvert.SerializeObject(BookResponse);
             return jsonResult;
         }
 
-        private void CheckProvider(string type, string operation, Transport message, int idProvider)
+        public string ListenerLodge(int idProvider, Lodging lodging, string Type)
+        {
+            CheckProvider(Type, lodging.Operation, transport, lodging, idProvider);
+            string jsonResult = lodging.Operation == "search" ? JsonConvert.SerializeObject(lodgingSearchResponse) : JsonConvert.SerializeObject(lodgingBookResponse);
+            return jsonResult;
+        }
+
+        private void CheckProvider(string type, string operation, Transport message, Lodging lodging, int idProvider)
         {
             if (type == "Transport")
             {
@@ -60,10 +76,13 @@ namespace ApplicationCore.Services
                 switch (operation)
                 {
                     case "search":
-                        //HiltonSearch(HMessage, idProvider).Result;
+                       _ = HiltonSearch(lodging, idProvider).Result;
 
                         break;
                     case "book":
+
+                        _ = HiltonSearch(lodging, idProvider).Result;
+
                         break;
                 }
             }
@@ -98,7 +117,7 @@ namespace ApplicationCore.Services
 
         public async Task<TransportSearchResponse> AviancaSearch(Transport Message, int idProvider)
         {
-            consultarVueloRequest request = new consultarVueloRequest(Message.DepartinCity, Message.ArrivingCity, Message.DepartinDate, Message.Class);
+            consultarVueloRequest request = new consultarVueloRequest(Message.DepartinCity, Message.ArrivingCity, Message.DepartinDate, Message.Cabin);
             consultarVueloResponse consultarVuelo = await _aviancaServices.consultarVueloAsync(request.ciudadOrigen, request.ciudadDestino, request.fechaSalida, request.clase);
             foreach (Vuelo vuelo in consultarVuelo.result) 
             {
@@ -122,13 +141,29 @@ namespace ApplicationCore.Services
         }
 
 
-        //public async Task<HiltonRoomServiceProcessResponse> HiltonSearch(Lodging lodging, int idProvider)
-        //{
-        //    HiltonRoomServiceProcessRequest hiltonRoomService = new HiltonRoomServiceProcessRequest();
-        //    await _hiltonRoomServiceClient.initiateAsync(hiltonRoomService);
-        //    return 
+        public async Task<LodgingSearchResponse> HiltonSearch(Lodging lodging, int idProvider)
+        {
+            HiltonRoomServiceProcessRequest hiltonRoomService = new HiltonRoomServiceProcessRequest();
+            HiltonRoomServiceProcessResponse processResponse = new HiltonRoomServiceProcessResponse();
+            await _hiltonRoomServiceClient.initiateAsync(hiltonRoomService);
+            foreach (Room room in processResponse.result)
+            {
+                lodgingSearchResponse.IdProvider = idProvider;
+                lodgingSearchResponse.NumberRoom = room.Number;
+                lodgingSearchResponse.Cabin.Name = room.Hotel.Name;
+                lodgingSearchResponse.Cabin.Address = room.Hotel.Address;
+                lodgingSearchResponse.Cabin.City = room.Hotel.City;
+                lodgingSearchResponse.Cabin.Country = room.Hotel.Country;
+                lodgingSearchResponse.PriceRoom = Int32.Parse(room.Price.ToString());
+                lodgingSearchResponse.TypeRoom = room.Type;
+                lodgingSearchResponse.CheckIn = lodging.CheckIn;
+                lodgingSearchResponse.CheckIn = lodging.Checkout;
+            }
 
-        //}
+            return lodgingSearchResponse;
 
+        }
+
+  
     }
 }

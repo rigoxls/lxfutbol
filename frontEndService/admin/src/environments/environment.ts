@@ -6,8 +6,11 @@ const ip = '127.0.0.1';
 const port = '8080';
 
 export const environment = {
-  production: false,
-  APIEndPoint: `http://${ip}:${port}`
+    production: false,
+    APIEndPoint: `http://${ip}:${port}`,
+    googleApi: 'https://accounts.google.com/o/oauth2/auth?access_type=offline&client_id=763843322066-hckctr2gs228c0t4pnuuqcc4qku54934.apps.googleusercontent.com&redirect_uri=http://localhost:8288/Callback&response_type=code&scope=https://www.googleapis.com/auth/spreadsheets',
+    requestAuth: 'http://localhost:8080/provider/auth/rules',
+    getRules: 'http://localhost:8080/provider/rules'
 };
 
 /*
