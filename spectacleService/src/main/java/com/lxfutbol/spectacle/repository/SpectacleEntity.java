@@ -2,6 +2,7 @@ package com.lxfutbol.spectacle.repository;
 
 import java.math.BigDecimal;
 import java.sql.Date;
+import java.util.Calendar;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,7 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "ESPECTACLE")
+@Table(name = "SPECTACLES")
 public class SpectacleEntity {
 	
 	@Id
@@ -23,6 +24,8 @@ public class SpectacleEntity {
 	private String city;
 	private String country;
 	private String description;
+	private Calendar dateCreate;
+	
 	public long getId() {
 		return id;
 	}
@@ -71,7 +74,11 @@ public class SpectacleEntity {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	
-	
+	public Calendar getDateCreate() {
+		return dateCreate;
+	}
+	public void setDateCreate(Calendar dateCreate) {
+		this.dateCreate = dateCreate;
+	}
 }
 	
