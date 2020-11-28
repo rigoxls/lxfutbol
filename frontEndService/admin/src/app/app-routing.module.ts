@@ -5,6 +5,8 @@ import {UserComponent} from './components/pages/user/user.component';
 import {UserListComponent} from './components/pages/user-list/user-list.component';
 import {ProviderComponent} from './components/pages/provider/provider.component';
 import {ProviderListComponent} from './components/pages/provider-list/provider-list.component';
+import {OrdersComponent} from './components/pages/orders/orders.component';
+import {DetailOrderComponent} from './components/pages/detail-order/detail-order.component';
 
 const routes: Routes = [
     {path: '', component: DashboardComponent},
@@ -16,6 +18,8 @@ const routes: Routes = [
     {path: 'provider-edit/:id', component: ProviderComponent},
     {path: 'provider-list', component: ProviderListComponent},
     {path: 'provider-list/:type', component: ProviderListComponent},
+    {path: 'orders', component: OrdersComponent},
+    {path: 'detailOrder', component: DetailOrderComponent},
 ];
 
 @NgModule({

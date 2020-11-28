@@ -2,9 +2,13 @@ package com.lxfutbol.lodge.service;
 
 import java.math.BigDecimal;
 import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import org.codehaus.jettison.json.JSONArray;
 import org.codehaus.jettison.json.JSONObject;
@@ -23,7 +27,7 @@ public class LodgeService {
 
 	private final Logger LOG = LoggerFactory.getLogger(LodgeService.class);
 	private JSONArray result;
-	private final Integer TIME = 8;
+	private final Integer TIME = 10;
 	private final String TYPE_SOAP = "xml";
 
 	@PersistenceContext
@@ -46,6 +50,10 @@ public class LodgeService {
 	@Autowired
 	private TransformSoapProxyService proxyServiceSoap;
 
+	/**
+	 * Procesar mensajes leidos desde Kafka
+	 * @param message
+	 */
 	private void processMessage(String message) {
 
 		result = new JSONArray();
@@ -56,14 +64,12 @@ public class LodgeService {
 
 			for (int i = 0; i < providers.length(); i++) {
 				JSONObject jsonObject = providers.getJSONObject(i);
-				// LodgeEntity resultLodge = validateConsult(params,
-				// jsonObject.get("id").toString());
-				// if (resultLodge == null) {
-				invocationTransform(jsonObject.get("id").toString(), params, jsonObject.get("agreement").toString(),
-						jsonObject.get("dataType").toString());
-				/*
-				 * } else { result.put(senderResponse(resultLodge)); }
-				 */
+				Boolean resultConsult = consultLogde(params, jsonObject.get("id").toString(),
+						jsonObject.get("name").toString(), jsonObject.get("agreement").toString());
+				if (!resultConsult) {
+					invocationTransform(jsonObject.get("id").toString(), params, jsonObject.get("agreement").toString(),
+							jsonObject.get("dataType").toString(), jsonObject.get("name").toString());
+				}
 			}
 		} catch (Exception ex) {
 			LOG.info("Error leyendo datos del mensaje: " + ex.getMessage());
@@ -73,14 +79,16 @@ public class LodgeService {
 
 	}
 
+	/**
+	 * Creación mensaje de respuesta
+	 * @param resultLodge
+	 * @return
+	 */
 	private JSONObject senderResponse(LodgeEntity resultLodge) {
 		JSONObject lodge = new JSONObject();
 
 		JSONObject hotel = new JSONObject();
-
-		JSONObject lodgetResponse = new JSONObject();
 		try {
-			lodge.put("idProvider", resultLodge.getIdProvider());
 			lodge.put("number", resultLodge.getNumberRoom());
 			lodge.put("price", resultLodge.getPriceRoom());
 			lodge.put("type", resultLodge.getTypeRoom());
@@ -91,49 +99,39 @@ public class LodgeService {
 			hotel.put("address", resultLodge.getAddressHotel());
 			hotel.put("city", resultLodge.getCityHotel());
 			hotel.put("country", resultLodge.getCountryHotel());
-
 			lodge.put("hotel", hotel);
-
-			lodgetResponse.put("providerLodge", lodge);
 		} catch (Exception exs) {
 			LOG.info("Error armando la respuesta de transacción en cache", exs);
 		}
-		return lodgetResponse;
+		return lodge;
 	}
 
-	/*
-	 * private LodgeEntity validateConsult(JSONObject params, String idProvider) {
-	 * LOG.info("Entra a validar HashCode"); LodgeEntity resultTranspor = null; try
-	 * { String city = (String) params.get("city"); String country = (String)
-	 * params.get("country"); String checkIn = (String) params.get("checkIn");
-	 * String checkout = (String) params.get("checkout"); String type = (String)
-	 * params.get("type");
-	 * 
-	 * int hashCode = (idProvider + country + type + city + checkIn +
-	 * checkout).hashCode(); resultTranspor = consultlodgetHash(hashCode);
-	 * 
-	 * } catch (Exception ex) { LOG.info("Error validando HashCode de la consulta",
-	 * ex); } return resultTranspor; }
+	/**
+	 * Invocación de transformadores
+	 * @param idProvider
+	 * @param params
+	 * @param agreement
+	 * @param typeService
+	 * @param name
 	 */
-
-	private void invocationTransform(String idProvider, JSONObject params, String agreement, String typeService) {
+	private void invocationTransform(String idProvider, JSONObject params, String agreement, String typeService, String name) {
 		LOG.info("Entra a invocationServicesSoa: ");
 		try {
 
 			JSONObject param = new JSONObject().put("params", params);
 			String responseService = "";
 			if (typeService.equals(TYPE_SOAP)) {
-				//responseService =proxyServiceSoap.transforLodge(Integer.valueOf(idProvider), param.toString());
+				responseService =proxyServiceSoap.transforLodge(Integer.valueOf(idProvider), param.toString());
 			} else {
 				responseService  = proxyServiceRest.transforLodge(Integer.valueOf(idProvider), param.toString());
 			}	
 
-			JSONArray temp = processReplyMessage(responseService);			
+			JSONArray temp = processReplyMessage(responseService, idProvider);			
 			JSONObject resultLodge = new JSONObject();
 			
 			resultLodge.put("agreement", Integer.valueOf(agreement));
 			resultLodge.put("idProvider", Integer.valueOf(idProvider));			
-			
+			resultLodge.put("name", name);
 			resultLodge.put("providerLodge", temp);
 			result.put(resultLodge);
 
@@ -141,49 +139,14 @@ public class LodgeService {
 			LOG.info("Error enviando mensaje : " + ex.getMessage());
 		}
 	}
-
-	/*
-	 * public LodgeEntity consultlodgetHash(int hashCode) { LodgeEntity
-	 * resultTransport = null; try { java.util.Date date = new java.util.Date();
-	 * SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); String
-	 * dateFormat = format.format( date );
-	 * 
-	 * 
-	 * Calendar calendar = Calendar.getInstance(); calendar.setTime(date);
-	 * calendar.add(Calendar.HOUR, TIME); java.util.Date date2 = calendar.getTime();
-	 * String dateFormat2 = format.format( date2 );
-	 * 
-	 * Query q = entityManager
-	 * .createNativeQuery("SELECT id_provider, flight, class_flight, departure_city, arrival_city,"
-	 * + " departure_date, arrival_date, price" +
-	 * " FROM transport where hash_code = :hash or date_update_transport between :date and :date2"
-	 * ); q.setParameter("hash", hashCode); q.setParameter("date", dateFormat);
-	 * q.setParameter("date2", dateFormat2);
-	 * 
-	 * Object[] transport = (Object[]) q.getSingleResult(); resultTransport = new
-	 * TransportEntity();
-	 * 
-	 * resultTransport.setIdProvider(Long.valueOf(String.valueOf(transport[0])));
-	 * resultTransport.setFlight(String.valueOf(transport[1]));
-	 * resultTransport.setClassFlight(String.valueOf(transport[2]));
-	 * resultTransport.setDepartureCity(String.valueOf(transport[2]));
-	 * resultTransport.setArrivalCity(String.valueOf(transport[4]));
-	 * resultTransport.setDepartureDate(Date.valueOf(String.valueOf(transport[5])));
-	 * resultTransport.setArrivalDate(Date.valueOf(String.valueOf(transport[6])));
-	 * resultTransport.setPrice(new BigDecimal(String.valueOf(transport[7])));
-	 * 
-	 * 
-	 * LOG.info("Transporte existe"); } catch (NoResultException ex) {
-	 * LOG.info("No existen registros para el transporte consultado"); } catch
-	 * (Exception ex) { LOG.info("Error consultando los registros de transporte",
-	 * ex); }
-	 * 
-	 * return resultTransport;
-	 * 
-	 * }
+	
+	/**
+	 * Leer mensaje de respuesta de los transformadores
+	 * @param response
+	 * @param idProvider
+	 * @return
 	 */
-
-	public JSONArray processReplyMessage(String response) {
+	public JSONArray processReplyMessage(String response, String idProvider) {
 
 		LOG.info("Entra a processReplyMessage: ");
 
@@ -194,7 +157,7 @@ public class LodgeService {
 			
 			for (int i = 0; i < lodgeArray.length(); i++) {
 				JSONObject params = lodgeArray.getJSONObject(i);
-				this.saveLodge(params);
+				this.saveLodge(params, idProvider);
 			}
 			
 			result = lodgeArray;
@@ -205,12 +168,17 @@ public class LodgeService {
 		return result;
 	}
 
-	private LodgeEntity saveLodge(JSONObject params) {
+	/**
+	 * Guardar Logde en base de datos
+	 * @param params
+	 * @param idProvider
+	 * @return
+	 */
+	private LodgeEntity saveLodge(JSONObject params, String idProvider) {
 
 		LOG.info("Entra a saveTransport: ");
 		LodgeEntity lodge = new LodgeEntity();
 		try {
-			String idProvider = (String) params.get("idProvider");
 			String number = (String) params.get("number");
 			BigDecimal price = new BigDecimal((Integer) params.get("price"));
 			String type = (String) params.get("type");
@@ -232,6 +200,7 @@ public class LodgeService {
 			lodge.setAddressHotel(address);
 			lodge.setCityHotel(city);
 			lodge.setCountryHotel(country);
+			lodge.setDateCreate(Calendar.getInstance());
 
 			lodgeRepository.save(lodge);
 		} catch (Exception ex) {
@@ -239,5 +208,79 @@ public class LodgeService {
 		}
 		return lodge;
 
+	}
+	
+	/**
+	 * Consultar en base de datos Logde disponibles en el rango de tiempo 
+	 * @param params
+	 * @param idProvider
+	 * @param name
+	 * @param agreement
+	 * @return
+	 */
+	public Boolean consultLogde(JSONObject params, String idProvider, String name, String agreement) {
+		LodgeEntity resulLodge = null;
+		JSONObject resultObe = new JSONObject();
+		JSONArray objectTemp = new JSONArray();;
+		
+		try {
+			java.util.Date date = new java.util.Date();
+			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			String dateFormat = format.format(date);
+
+			String city = (String) params.get("city");
+			String country = (String) params.get("country");
+			String checkIn = (String) params.get("checkIn");
+			String checkout = (String) params.get("checkout");
+
+			Calendar calendar = Calendar.getInstance();
+			calendar.setTime(date);
+			calendar.add(Calendar.MINUTE, -TIME);
+			java.util.Date date2 = calendar.getTime();
+			String dateFormat2 = format.format(date2);
+
+			Query q = entityManager
+					.createNativeQuery("SELECT address_hotel, name_hotel, number_room, price_room, type_room"
+							+ " FROM lodge where city_hotel = :city and country_hotel ="
+							+ " :country and check_in = :checkIn and checkout = :checkout and id_provider = :idProvider and  date_create between :date and :date2");
+			q.setParameter("city", city);
+			q.setParameter("country", country);
+			q.setParameter("checkIn", checkIn);
+			q.setParameter("checkout", checkout);
+			q.setParameter("idProvider", idProvider);
+			q.setParameter("date", dateFormat2);
+			q.setParameter("date2", dateFormat);
+
+			List<Object[]> lodges = (List<Object[]>) q.getResultList();
+
+			if (!lodges.isEmpty()) {
+				for (Object[] lodge : lodges) {
+					resulLodge = new LodgeEntity();
+					
+					resulLodge.setAddressHotel(String.valueOf(lodge[0]));
+					resulLodge.setCheckIn(Date.valueOf(checkIn));
+					resulLodge.setCheckout(Date.valueOf(checkout));
+					resulLodge.setCityHotel(city);
+					resulLodge.setCountryHotel(country);
+					resulLodge.setNameHotel(String.valueOf(lodge[1]));
+					resulLodge.setNumberRoom(String.valueOf(lodge[2]));
+					resulLodge.setPriceRoom(new BigDecimal(String.valueOf(lodge[3])));
+					resulLodge.setTypeRoom(String.valueOf(lodge[4]));
+					objectTemp.put(senderResponse(resulLodge));
+				}
+				resultObe.put("agreement", Integer.valueOf(agreement));
+				resultObe.put("idProvider", Integer.valueOf(idProvider));
+				resultObe.put("name", name);
+				resultObe.put("providerLodge", objectTemp);
+				result.put(resultObe);
+				return true;
+			} else {
+				return false;
+			}
+
+		} catch (Exception ex) {
+			LOG.info("Error consultando los registros de transporte", ex);
+		}
+		return false;
 	}
 }

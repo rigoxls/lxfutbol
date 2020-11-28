@@ -2,6 +2,7 @@ package com.lxfutbol.lodge.repository;
 
 import java.math.BigDecimal;
 import java.sql.Date;
+import java.util.Calendar;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -24,10 +25,10 @@ public class LodgeEntity {
 	private String numberRoom;
 	private BigDecimal priceRoom;
 	private String typeRoom;
-	private int hashCode;
-	private java.util.Date dateUpdateLodge;
+	private Calendar dateCreate;
 	private Date checkIn;
 	private Date checkout;
+	
 	public long getId() {
 		return id;
 	}
@@ -82,17 +83,12 @@ public class LodgeEntity {
 	public void setTypeRoom(String typeRoom) {
 		this.typeRoom = typeRoom;
 	}
-	public int getHashCode() {
-		return hashCode;
+		
+	public Calendar getDateCreate() {
+		return dateCreate;
 	}
-	public void setHashCode(int hashCode) {
-		this.hashCode = hashCode;
-	}
-	public java.util.Date getDateUpdateLodge() {
-		return dateUpdateLodge;
-	}
-	public void setDateUpdateLodge(java.util.Date dateUpdateLodge) {
-		this.dateUpdateLodge = dateUpdateLodge;
+	public void setDateCreate(Calendar dateCreate) {
+		this.dateCreate = dateCreate;
 	}
 	public Date getCheckIn() {
 		return checkIn;

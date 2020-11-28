@@ -1,0 +1,46 @@
+<p>orders works!</p>
+<div class="breadcrumb-area">
+  <h1>Consultar Ordenes</h1>
+
+  <ol class="breadcrumb">
+    <li class="item"><a routerLink="/"><i class='bx bx-home-alt'></i></a></li>
+
+    <li class="item">Dashboard</li>
+
+    <li class="item">Consultar Ordenes</li>
+  </ol>
+</div>
+
+<div class="content-section implementation">
+  <div class="card">
+
+    <p-table [value]="orders">
+      <ng-template pTemplate="header">
+        <tr>
+          <th>No. Orden</th>
+          <th>Nombre Cliente</th>
+          <th>Apellido Cliente</th>
+          <th>Valor Total</th>
+          <th>Estado</th>
+          <th>Acciones</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-order>
+        <tr>
+          <td>{{order.noOrder}}</td>
+          <td>{{order.nameUser}}</td>
+          <td>{{order.lastNameUser}}</td>
+          <td>{{order.totalValue}}</td>
+          <td>{{order.paidStatus}}</td>
+          <td>
+
+            <a href="/detailOrder" class="nav-link" (click)="setOrder(order)">
+              <span class="title">Ver Detalle</span>
+            </a>
+
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>

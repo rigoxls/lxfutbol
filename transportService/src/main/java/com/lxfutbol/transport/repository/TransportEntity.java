@@ -2,7 +2,6 @@ package com.lxfutbol.transport.repository;
 
 import java.math.BigDecimal;
 import java.sql.Date;
-import java.sql.Time;
 import java.util.Calendar;
 
 import javax.persistence.Entity;
@@ -10,6 +9,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import jdk.jfr.Timespan;
 
 @Entity
 @Table(name = "TRANSPORT")
@@ -26,8 +27,11 @@ public class TransportEntity {
 	private Date departureDate;
 	private Date arrivalDate;
 	private BigDecimal price;
-	private int hashCode;
-	private java.util.Date dateUpdateTransport;
+	private String cabin;
+	private Integer meals;
+	private Integer type;
+	private Calendar dateUpdateTransport;
+	
 	
 	public long getId() {
 		return id;
@@ -100,29 +104,37 @@ public class TransportEntity {
 	public void setPrice(BigDecimal price) {
 		this.price = price;
 	}
-	
-	public int getHashCode() {
-		return hashCode;
-	}
 
-	public void setHashCode(int hashCode) {
-		this.hashCode = hashCode;
-	}
-
-	public java.util.Date getDateUpdateTransport() {
+	public Calendar getDateUpdateTransport() {
 		return dateUpdateTransport;
 	}
 
-	public void setDateUpdateTransport(java.util.Date dateUpdateTransport) {
+	public void setDateUpdateTransport(Calendar dateUpdateTransport) {
 		this.dateUpdateTransport = dateUpdateTransport;
 	}
 
-	@Override
-	public int hashCode() {
-		// TODO Auto-generated method stub
-		return (getIdProvider() + getDepartureCity() + getArrivalCity() + getDepartureDate() ).hashCode();
+	public String getCabin() {
+		return cabin;
 	}
-	
 
-	
+	public void setCabin(String cabin) {
+		this.cabin = cabin;
+	}
+
+	public Integer getMeals() {
+		return meals;
+	}
+
+	public void setMeals(Integer meals) {
+		this.meals = meals;
+	}
+
+	public Integer getType() {
+		return type;
+	}
+
+	public void setType(Integer type) {
+		this.type = type;
+	}
+		
 }

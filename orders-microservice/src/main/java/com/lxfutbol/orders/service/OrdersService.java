@@ -47,6 +47,7 @@ public class OrdersService implements IOrdersService{
 		orderCreate.setEmail(order.getEmail());
 		orderCreate.setAddress(order.getAddress());
 		orderCreate.setPaidStatus(order.getPaidStatus());
+		orderCreate.setPhone(order.getPhone());
 		
 		orderDb.save(orderCreate);
 		itemDb.saveAll(items);
@@ -70,6 +71,7 @@ public class OrdersService implements IOrdersService{
 			order.setEmail(orderE.getEmail());
 			order.setAddress(orderE.getAddress());
 			order.setPaidStatus(orderE.getPaidStatus());
+			order.setPhone(orderE.getPhone());
 			listItems = new ArrayList<>();
 			for (ItemsEntity item : orderE.getItems()) {
 				items = new ItemDto();
