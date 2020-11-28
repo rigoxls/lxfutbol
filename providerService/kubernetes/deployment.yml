@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: provider-deployment
+  labels:
+    name: provider-deployment
+    env: prod
+spec:
+  template:
+    metadata:
+      name: provider-pod
+      labels:
+        name: provider-pod
+    spec:
+      containers:
+        - name: provider-service
+          image: lxfutbol/provider-service:dockerfile1      
+      restartPolicy: Always
+  replicas: 1
+  selector:
+    matchLabels:
+      name: provider-pod

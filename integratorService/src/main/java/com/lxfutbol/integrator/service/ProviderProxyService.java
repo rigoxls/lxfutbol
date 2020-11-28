@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import com.lxfutbol.integrator.dto.Providerdto;
 
 //Feign sabe que tiene que hablar con Eureka server
-@FeignClient(name = "provider-service", url = "http://localhost:8080")
+@FeignClient(name = "provider-service", url = "http://provider-service:8080")
 //@FeignClient(name = "zuul-api-gateway-service") //zuul name app
 public interface ProviderProxyService {
 

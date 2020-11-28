@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis-master
+  labels:
+    name: redis-service
+    env: prod
+spec:
+  selector:
+    matchLabels:
+      name: redis-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        name: redis-service
+    spec:
+      containers:
+      - name: master
+        image: redis:alpine
+        resources:
+          requests:
+            cpu: 100m
+            memory: 100Mi      
+        ports:
+        - containerPort: 6379
+      restartPolicy: Always

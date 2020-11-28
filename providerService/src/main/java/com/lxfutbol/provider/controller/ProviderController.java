@@ -137,4 +137,9 @@ public class ProviderController {
         ValueRange readResult = sheetsService.spreadsheets().values().get(SPREADSHEET_ID, "Sheet1!A2:E12").execute();   
         return readResult;
 	}	
+	
+	@GetMapping("/")
+	public String status()  {		
+		return "ok";
+	}	
 }

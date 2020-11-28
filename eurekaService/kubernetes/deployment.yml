@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: eureka-deployment
+  labels:
+    name: eureka-deployment
+    env: prod
+spec:
+  template:
+    metadata:
+      name: eureka-pod
+      labels:
+        name: eureka-pod
+    spec:
+      containers:
+        - name: eureka-service
+          image: lxfutbol/eureka-microservice:0.0.1-SNAPSHOT
+      restartPolicy: Always
+  replicas: 1
+  selector:
+    matchLabels:
+      name: eureka-pod

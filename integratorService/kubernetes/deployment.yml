@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: integrator-deployment
+  labels:
+    name: integrator-deployment
+    env: prod
+spec:
+  template:
+    metadata:
+      name: integrator-pod
+      labels:
+        name: integrator-pod
+    spec:
+      containers:
+        - name: integrator-service
+          image: lxfutbol/integrator-service:dockerfile1      
+      restartPolicy: Always
+  replicas: 1
+  selector:
+    matchLabels:
+      name: integrator-pod

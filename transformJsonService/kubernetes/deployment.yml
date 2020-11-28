@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: transform-json-deployment
+  labels:
+    name: transform-json-deployment
+    env: prod
+spec:
+  template:
+    metadata:
+      name: transform-json-pod
+      labels:
+        name: transform-json-pod
+    spec:
+      containers:
+        - name: transform-json-service
+          image: lxfutbol/transform-json-service:dockerfile1     
+      restartPolicy: Always
+  replicas: 1
+  selector:
+    matchLabels:
+      name: transform-json-pod
