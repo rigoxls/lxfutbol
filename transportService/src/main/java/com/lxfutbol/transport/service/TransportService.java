@@ -15,6 +15,7 @@ import org.codehaus.jettison.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.jackson.JsonObjectDeserializer;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Service;
@@ -61,7 +62,7 @@ public class TransportService {
 
 			for (int i = 0; i < providers.length(); i++) {
 				JSONObject jsonObject = providers.getJSONObject(i);
-				Boolean resultTransport = consultTransport(params, jsonObject.get("id").toString());
+				Boolean resultTransport = consultTransport(params, jsonObject.get("id").toString(),  jsonObject.get("name").toString(), jsonObject.get("agreement").toString());
 				if (!resultTransport) {
 					invocationTransform(jsonObject.get("id").toString(), jsonObject.get("name").toString(), params,
 							jsonObject.get("agreement").toString(), jsonObject.get("dataType").toString());
@@ -116,8 +117,11 @@ public class TransportService {
 	 * @param idProvider
 	 * @return
 	 */
-	public Boolean consultTransport(JSONObject params, String idProvider) {
+	public Boolean consultTransport(JSONObject params, String idProvider, String name, String agreement) {
 		TransportEntity resultTransport = null;
+		JSONObject resultObe = new JSONObject();
+		JSONArray objectTemp = new JSONArray();;
+		
 		try {
 			java.util.Date date = new java.util.Date();
 			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -161,8 +165,13 @@ public class TransportService {
 					resultTransport.setCabin(String.valueOf(transport[8]));
 					resultTransport.setMeals(Integer.valueOf(String.valueOf(transport[9])));
 					resultTransport.setType(Integer.valueOf(String.valueOf(transport[10])));
-					senderResponse(resultTransport);
+					objectTemp.put(senderResponse(resultTransport, idProvider, name, agreement));
 				}
+				resultObe.put("agreement", Integer.valueOf(agreement));
+				resultObe.put("idProvider", Integer.valueOf(idProvider));
+				resultObe.put("name", name);
+				resultObe.put("providerTransport", objectTemp);
+				result.put(resultObe);
 				return true;
 			} else {
 				return false;
@@ -178,11 +187,9 @@ public class TransportService {
 	 * Creación de resulta hacia kafka
 	 * @param resultTransport
 	 */
-	private void senderResponse(TransportEntity resultTransport) {
+	private JSONObject senderResponse(TransportEntity resultTransport, String idProvider, String name, String agreement) {
 		JSONObject transport = new JSONObject();
-		JSONObject transportResponse = new JSONObject();
 		try {
-			transport.put("idProvider", resultTransport.getIdProvider());
 			transport.put("flight", resultTransport.getFlight());
 			transport.put("class", resultTransport.getClassFlight());
 			transport.put("departureCity", resultTransport.getDepartureCity());
@@ -190,11 +197,11 @@ public class TransportService {
 			transport.put("departureDate", resultTransport.getDepartureDate());
 			transport.put("arrivalDate", resultTransport.getArrivalDate());
 			transport.put("price", resultTransport.getPrice());
-			transportResponse.put("providerTransport", transport);
-			result.put(transportResponse);
+			
 		} catch (Exception exs) {
 			LOG.info("Error armando la respuesta de transacción en cache", exs);
 		}
+		return transport;
 	}
 	/**
 	 * Procesar respuestas desde los microservicios transformadores. 

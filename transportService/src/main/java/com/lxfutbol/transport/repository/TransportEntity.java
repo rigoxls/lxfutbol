@@ -30,7 +30,6 @@ public class TransportEntity {
 	private String cabin;
 	private Integer meals;
 	private Integer type;
-	@Timespan
 	private Calendar dateUpdateTransport;
 	
 	
