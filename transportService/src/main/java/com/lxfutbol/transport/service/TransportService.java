@@ -15,7 +15,6 @@ import org.codehaus.jettison.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.jackson.JsonObjectDeserializer;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Service;
@@ -165,7 +164,7 @@ public class TransportService {
 					resultTransport.setCabin(String.valueOf(transport[8]));
 					resultTransport.setMeals(Integer.valueOf(String.valueOf(transport[9])));
 					resultTransport.setType(Integer.valueOf(String.valueOf(transport[10])));
-					objectTemp.put(senderResponse(resultTransport, idProvider, name, agreement));
+					objectTemp.put(senderResponse(resultTransport));
 				}
 				resultObe.put("agreement", Integer.valueOf(agreement));
 				resultObe.put("idProvider", Integer.valueOf(idProvider));
@@ -187,9 +186,10 @@ public class TransportService {
 	 * Creación de resulta hacia kafka
 	 * @param resultTransport
 	 */
-	private JSONObject senderResponse(TransportEntity resultTransport, String idProvider, String name, String agreement) {
+	private JSONObject senderResponse(TransportEntity resultTransport) {
 		JSONObject transport = new JSONObject();
 		try {
+			transport.put("cabin", resultTransport.getCabin());
 			transport.put("flight", resultTransport.getFlight());
 			transport.put("class", resultTransport.getClassFlight());
 			transport.put("departureCity", resultTransport.getDepartureCity());
@@ -197,6 +197,8 @@ public class TransportService {
 			transport.put("departureDate", resultTransport.getDepartureDate());
 			transport.put("arrivalDate", resultTransport.getArrivalDate());
 			transport.put("price", resultTransport.getPrice());
+			transport.put("meals", resultTransport.getMeals());
+			transport.put("type", resultTransport.getType());
 			
 		} catch (Exception exs) {
 			LOG.info("Error armando la respuesta de transacción en cache", exs);
@@ -268,4 +270,5 @@ public class TransportService {
 		return transport;
 
 	}
+
 }
