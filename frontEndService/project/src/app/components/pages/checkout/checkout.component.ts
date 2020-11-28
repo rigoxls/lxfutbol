@@ -5,6 +5,10 @@ import { CartService } from "../cart/cart.service";
 import { ToastService } from "../Toast/toast-container/toast.service";
 import { NgbProgressbarConfig } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
+import { loadStripe } from '@stripe/stripe-js';
+import { PaymentService } from './payment.service'
+
+const stripePromise = loadStripe('pk_test_TYooMQauvdEDq54NiTphI7jx');
 
 @Component({
     selector: "app-checkout",
@@ -15,13 +19,14 @@ export class CheckoutComponent implements OnInit {
     email: Email = new Email();
     frmGroup: FormGroup;
     loggedIn: boolean;
-  isPaying: boolean;
+    isPaying: boolean;
 
     constructor(
       private router: Router,
         private cartService: CartService,
         public toastService: ToastService,
         private formBuilder: FormBuilder,
+        private paymentService:PaymentService,
         config: NgbProgressbarConfig
 
     ) {
@@ -62,13 +67,31 @@ export class CheckoutComponent implements OnInit {
         }
     }
 
-    simularPago() {
-      setTimeout(() => {
-        this.isPaying=true;
-    }, 1000);
-     this.toastService
-     .show("!Pago éxitoso!, se ha enviado los detalles de la reserva a su correo", { classname: 'bg-danger text-light', delay: 15000 });
-      this.sendEmail();
+    async goToPay() {
+
+      this.isPaying=true;
+
+      const stripe =  await stripePromise;
+
+      const response = await fetch("http://localhost:53472/api/PaymentController/create-checkout-session", {
+        method: "POST",
+      });
+      
+      const session = await response.json();
+  
+      const result = await stripe.redirectToCheckout({
+        sessionId: session.id,
+      });
+
+      if(result.error){
+        this.toastService.show("Hubo un problema al procesar su pago", { classname: 'bg-danger text-light', delay: 15000 });
+      }
+    //   setTimeout(() => {
+    //     this.isPaying=true;
+    // }, 1000);
+    //  this.toastService
+    //  .show("!Pago éxitoso!, se ha enviado los detalles de la reserva a su correo", { classname: 'bg-danger text-light', delay: 15000 });
+    //   this.sendEmail();
     }
 
     sendEmail() {

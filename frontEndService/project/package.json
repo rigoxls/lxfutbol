@@ -21,11 +21,13 @@
     "@angular/platform-browser-dynamic": "~9.0.6",
     "@angular/router": "~9.0.6",
     "@ng-bootstrap/ng-bootstrap": "^6.2.0",
+    "@stripe/stripe-js": "^1.11.0",
     "bootstrap": "^4.5.0",
     "jquery": "^3.5.1",
     "ngx-owl-carousel": "^2.0.7",
     "popper.js": "^1.16.1",
     "rxjs": "~6.5.4",
+    "stripe": "^8.126.0",
     "tslib": "^1.10.0",
     "zone.js": "~0.10.2"
   },
