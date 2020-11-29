@@ -3,17 +3,17 @@ kind: Deployment
 metadata:
   name: redis-master
   labels:
-    name: redis-service
+    name: redis-pod
     env: prod
 spec:
   selector:
     matchLabels:
-      name: redis-service
+      name: redis-deploy
   replicas: 1
   template:
     metadata:
       labels:
-        name: redis-service
+        name: redis-deploy
     spec:
       containers:
       - name: master

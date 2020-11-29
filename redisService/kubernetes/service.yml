@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: redis-master
+  name: redis-service
   labels:
     name: redis-service
 spec:
@@ -11,4 +11,4 @@ spec:
       targetPort: 6379
       nodePort: 30001
   selector:
-    name: redis-service
+    name: redis-deploy
