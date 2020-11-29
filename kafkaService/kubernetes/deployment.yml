@@ -3,7 +3,7 @@ apiVersion: apps/v1
 metadata:
   name: zookeeper-deploy
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: zookeeper-1
@@ -28,9 +28,7 @@ metadata:
   labels:
     app: zookeeper-1
 spec:
-  ports:
-  - name: client
-    port: 2181
-    protocol: TCP
+  ports: 
+    - port: 2181    
   selector:
     app: zookeeper-1
