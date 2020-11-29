@@ -27,8 +27,8 @@ class KafkaProducerConfig {
 
 	private final Logger LOG = LoggerFactory.getLogger(getClass());
 
-	//@Value("${com.lxfutbol.integrator.kafka.bootstrap-servers}")
-	private String bootstrapServers = "kafka-cluster:9092";
+	@Value("${com.lxfutbol.integrator.kafka.bootstrap-servers}")
+	private String bootstrapServers;
 
 	@Bean
 	Map<String, Object> producerConfigs() {
@@ -43,8 +43,8 @@ class KafkaProducerConfig {
 	
 	@Bean
 	ProducerFactory<String, String> producerFactory() {
-		LOG.debug("***************************************************");
-		LOG.debug("Paso por ProducerFactory");
+		System.out.println("***************************************************");
+		System.out.println("Paso por ProducerFactory");
 		return new DefaultKafkaProducerFactory<>(producerConfigs());
 	}
 	
@@ -53,9 +53,8 @@ class KafkaProducerConfig {
         ConcurrentMessageListenerContainer<String, String> replyContainer = factory.createContainer("reply-integrator-provider");
         replyContainer.getContainerProperties().setMissingTopicsFatal(false);
         replyContainer.getContainerProperties().setGroupId("integrator_group_1");
-		LOG.debug("***************************************************");
-		LOG.debug("Paso por ReplyingKafkaTemplate");
-		System.out.println(producerFactory());
+        System.out.println("***************************************************");
+        System.out.println("Paso por ReplyingKafkaTemplate");		
         return new ReplyingKafkaTemplate<>(producerFactory(), replyContainer);
     }
 
@@ -64,10 +63,9 @@ class KafkaProducerConfig {
         KafkaTemplate<String, String> kafkaTemplate = new KafkaTemplate<>(producerFactory());
         factory.getContainerProperties().setMissingTopicsFatal(false);
         factory.setReplyTemplate(kafkaTemplate);
-		LOG.debug("***************************************************");
-		LOG.debug("Paso por KafkaTemplate");
-		System.out.println(producerFactory());
-		System.out.println(kafkaTemplate);
+        System.out.println("***************************************************");
+        System.out.println("Paso por KafkaTemplate");
+		
         return kafkaTemplate;
     }
 }
