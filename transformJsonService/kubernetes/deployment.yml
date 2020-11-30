@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: transform-json-deployment
+  labels:
+    name: transform-json-deployment
+    env: prod
+spec:
+  template:
+    metadata:
+      name: transform-json-pod
+      labels:
+        name: transform-json-pod
+    spec:
+      containers:
+        - name: transform-json-service
+          image: lxfutbol/transform-json-service:dockerfile1     
+      restartPolicy: Always
+  replicas: 1
+  selector:
+    matchLabels:
+      name: transform-json-pod
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: transform-json-service
+  labels:
+    name: transform-json-service
+spec:
+  type: NodePort
+  ports:
+    - port: 8086
+      targetPort: 8086
+      nodePort: 30007
+  selector:
+    name: transform-json-pod

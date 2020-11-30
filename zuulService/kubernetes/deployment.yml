@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: zuul-deployment
+  labels:
+    name: zuul-deployment
+    env: prod
+spec:
+  template:
+    metadata:
+      name: zuul-pod
+      labels:
+        name: zuul-pod
+    spec:
+      containers:
+        - name: zuul-service
+          image: lxfutbol/zuul-microservice:0.0.1-SNAPSHOT
+          ports:
+          - containerPort: 8765          
+      restartPolicy: Always
+  replicas: 1
+  selector:
+    matchLabels:
+      name: zuul-pod
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: zuul-service
+  labels:
+    name: zuul-service
+spec:
+  type: NodePort
+  ports:
+    - port: 8765
+      targetPort: 8765
+      nodePort: 30003
+  selector:
+    name: zuul-pod      

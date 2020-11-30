@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: integrator-deployment
+  labels:
+    name: integrator-deployment
+    env: prod
+spec:
+  template:
+    metadata:
+      name: integrator-pod
+      labels:
+        name: integrator-pod
+    spec:
+      containers:
+        - name: integrator-service
+          image: lxfutbol/integrator-service:dockerfile1      
+      restartPolicy: Always
+  replicas: 1
+  selector:
+    matchLabels:
+      name: integrator-pod
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: integrator-service
+  labels:
+    name: integrator-service
+spec:
+  type: NodePort
+  ports:
+    - port: 8081
+      targetPort: 8081
+      nodePort: 30005
+  selector:
+    name: integrator-pod

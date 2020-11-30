@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spectacle-deployment
+  labels:
+    name: spectacle-deployment
+    env: prod
+spec:
+  template:
+    metadata:
+      name: spectacle-pod
+      labels:
+        name: spectacle-pod
+    spec:
+      containers:
+        - name: spectacle-service
+          image: lxfutbol/spectacle-service:dockerfile1      
+      restartPolicy: Always
+  replicas: 1
+  selector:
+    matchLabels:
+      name: spectacle-pod
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: spectacle-service
+  labels:
+    name: spectacle-service
+spec:
+  type: NodePort
+  ports:
+    - port: 8758
+      targetPort: 8758
+      nodePort: 30006
+  selector:
+    name: spectacle-pod
