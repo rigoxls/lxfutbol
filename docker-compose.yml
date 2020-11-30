@@ -1,27 +1,33 @@
 version: '3.3'
 services:
   zookeeper:
-    image: 'docker.io/bitnami/zookeeper:3-debian-10'
+    image: 'wurstmeister/zookeeper'
     ports:
       - '2181:2181'
     volumes:
       - 'zookeeper_data:/bitnami'
     environment:
-      - ALLOW_ANONYMOUS_LOGIN=yes
+      ALLOW_ANONYMOUS_LOGIN: "yes"
+    networks:
+      - lxfutbol-compose-network
+
   kafka:
-    image: 'docker.io/bitnami/kafka:2-debian-10'
+    image: 'wurstmeister/kafka'
     ports:
       - '9092:9092'
     volumes:
       - 'kafka_data:/bitnami'
-    environment:
-      #- KAFKA_BROKER_ID=1
-      - KAFKA_LISTENERS=PLAINTEXT://:9092
-      - KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://localhost:9092
-      - KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181
-      - ALLOW_PLAINTEXT_LISTENER=yes
+    environment:      
+      KAFKA_LISTENERS: PLAINTEXT://:9092
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
+      KAFKA_ADVERTISED_HOST_NAME: kafka
+      KAFKA_ADVERTISED_PORT: 9092      
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      ALLOW_PLAINTEXT_LISTENER: "yes"
     depends_on:
       - zookeeper
+    networks:
+      - lxfutbol-compose-network      
 
   redis:
     image: "redis:alpine"  
@@ -33,7 +39,7 @@ services:
     environment:
       - REDIS_REPLICATION_MODE=master
     networks:
-      - lxfutbol-compose-network      
+      - lxfutbol-compose-network   
 
   eureka-service:
     image: lxfutbol/eureka-microservice:0.0.1-SNAPSHOT
@@ -72,7 +78,7 @@ services:
     networks:
       - lxfutbol-compose-network
 
-        provider-service:
+  provider-service:
     image: lxfutbol/provider-service:dockerfile1
     ports:
       - "8080:8080"
@@ -107,103 +113,8 @@ services:
       RDS_USERNAME: lxfutbol
       RDS_PASSWORD: lxfutbolPass
     networks:
-      - lxfutbol-compose-network  
-      
-  lodge-service:
-    image: lxfutbol/lodge-service:dockerfile1
-    ports:
-      - "8082:8080"
-    restart: always
-    depends_on: 
-      - eureka-service
-      - mysql
-      - provider-service
-    environment: 
-      HOST_URL: localhost
-      RDS_HOSTNAME: mysql
-      RDS_PORT: 3306
-      RDS_DB_NAME: lxfutbol
-      RDS_USERNAME: lxfutbol
-      RDS_PASSWORD: lxfutbolPass
-    networks:
-      - lxfutbol-compose-network   
-      
-  spectacle-service:
-    image: lxfutbol/spectacle-service:dockerfile1
-    ports:
-      - "8083:8080"
-    restart: always
-    depends_on: 
-      - eureka-service
-      - mysql
-      - provider-service
-    environment: 
-      HOST_URL: localhost
-      RDS_HOSTNAME: mysql
-      RDS_PORT: 3306
-      RDS_DB_NAME: lxfutbol
-      RDS_USERNAME: lxfutbol
-      RDS_PASSWORD: lxfutbolPass
-    networks:
-      - lxfutbol-compose-network
-      
-  transport-service:
-    image: lxfutbol/transport-service:dockerfile1
-    ports:
-      - "8084:8080"
-    restart: always
-    depends_on: 
-      - eureka-service
-      - mysql
-      - provider-service
-    environment: 
-      HOST_URL: localhost
-      RDS_HOSTNAME: mysql
-      RDS_PORT: 3306
-      RDS_DB_NAME: lxfutbol
-      RDS_USERNAME: lxfutbol
-      RDS_PASSWORD: lxfutbolPass
-    networks:
-      - lxfutbol-compose-network 
-      
-  transform-soap-service:
-    image: lxfutbol/transform-soap-service:dockerfile1
-    ports:
-      - "8085:8080"
-    restart: always
-    depends_on: 
-      - eureka-service
-      - mysql
-      - provider-service
-    environment: 
-      HOST_URL: localhost
-      RDS_HOSTNAME: mysql
-      RDS_PORT: 3306
-      RDS_DB_NAME: lxfutbol
-      RDS_USERNAME: lxfutbol
-      RDS_PASSWORD: lxfutbolPass
-    networks:
       - lxfutbol-compose-network       
 
-  transform-json-service:
-    image: lxfutbol/transform-json-service:dockerfile1
-    ports:
-      - "8086:8080"
-    restart: always
-    depends_on: 
-      - eureka-service
-      - mysql
-      - provider-service
-    environment: 
-      HOST_URL: localhost
-      RDS_HOSTNAME: mysql
-      RDS_PORT: 3306
-      RDS_DB_NAME: lxfutbol
-      RDS_USERNAME: lxfutbol
-      RDS_PASSWORD: lxfutbolPass
-    networks:
-      - lxfutbol-compose-network      
-   
 # Volumes
 volumes:
   mysql-database-volume:
