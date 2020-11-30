@@ -1,4 +1,5 @@
 package com.lxfutbol.provider.conf;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
@@ -15,7 +16,7 @@ import com.lxfutbol.provider.repository.ProviderTemplateEntity;
  
 @Configuration
 public class RedisConfig {
-     
+	
     @Bean
     JedisConnectionFactory jedisConnectionFactory() {
     	JedisConnectionFactory factory = new JedisConnectionFactory();

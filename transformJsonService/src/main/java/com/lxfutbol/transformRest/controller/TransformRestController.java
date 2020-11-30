@@ -7,6 +7,8 @@ import org.codehaus.jettison.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,6 +18,7 @@ import com.lxfutbol.transformRest.service.RedisService;
 import com.lxfutbol.transformRest.service.TransformRestService;
 
 @RestController
+@CrossOrigin(origins="*")
 public class TransformRestController {
 	
 	private final Logger LOG = LoggerFactory.getLogger(TransformRestController.class);
@@ -44,12 +47,16 @@ public class TransformRestController {
 	}
 	
 	@PostMapping("/transformSpectacle/{idProvider}")
-	public String transforEspectacle(@PathVariable int idProvider, @RequestBody String params) throws JSONException {		
-	
-		ArrayList<JSONObject> result = transformRestService.getProviderData(idProvider, params);
+	public String transforEspectacle(@PathVariable int idProvider, @RequestBody String params) throws JSONException {	
+		ArrayList<JSONObject> result = transformRestService.getProviderData(idProvider, params);		
 	    JSONObject espectacleResult = new JSONObject();
 	    espectacleResult.put("spectacle", result);	
 		
 		return espectacleResult.toString();
+	}
+	
+	@GetMapping("/status")
+	public String transforLodge()  {
+		return "ok";
 	}	
 }

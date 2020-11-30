@@ -99,7 +99,7 @@ services:
   integrator-service:
     image: lxfutbol/integrator-service:dockerfile1
     ports:
-      - "8081:8080"
+      - "8081:8081"
     restart: always
     depends_on: 
       - eureka-service
@@ -113,7 +113,45 @@ services:
       RDS_USERNAME: lxfutbol
       RDS_PASSWORD: lxfutbolPass
     networks:
-      - lxfutbol-compose-network       
+      - lxfutbol-compose-network  
+
+  spectacle-service:
+    image: lxfutbol/spectacle-service:dockerfile1
+    ports:
+      - "8758:8758"
+    restart: always
+    depends_on: 
+      - eureka-service
+      - mysql
+      - provider-service
+    environment: 
+      HOST_URL: localhost
+      RDS_HOSTNAME: mysql
+      RDS_PORT: 3306
+      RDS_DB_NAME: lxfutbol
+      RDS_USERNAME: lxfutbol
+      RDS_PASSWORD: lxfutbolPass
+    networks:
+      - lxfutbol-compose-network
+
+  transform-json-service:
+    image: lxfutbol/transform-json-service:dockerfile1
+    ports:
+      - "8086:8086"
+    restart: always
+    depends_on: 
+      - eureka-service
+      - mysql
+      - provider-service
+    environment: 
+      HOST_URL: localhost
+      RDS_HOSTNAME: mysql
+      RDS_PORT: 3306
+      RDS_DB_NAME: lxfutbol
+      RDS_USERNAME: lxfutbol
+      RDS_PASSWORD: lxfutbolPass
+    networks:
+      - lxfutbol-compose-network                  
 
 # Volumes
 volumes:

@@ -141,5 +141,11 @@ public class IntegratorController {
         JsonNode json = mapper.readTree(transportResponse);
         return ResponseEntity.ok(json);
 		
-	}		
+	}	
+	
+	
+	@GetMapping("/integrator/status")
+	public String status() {
+		return "status ok";
+	}	
 }
