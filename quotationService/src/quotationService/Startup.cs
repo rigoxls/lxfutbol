@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Infraestructure.Data;
+using Infraestructure.sakila;
 using Steeltoe.Discovery.Client;
 
 namespace quotationService
@@ -31,8 +31,8 @@ namespace quotationService
         private void ConfigureInMemoryDatabases(IServiceCollection services)
         {
 
-            //services.AddDbContext<QuotationContext>(c =>
-            //    c.UseMySQL(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<touresbalon_quotationContext>(c =>
+                c.UseMySQL(Configuration.GetConnectionString("DefaultConnection")));
 
             ConfigureServices(services);
 
@@ -42,8 +42,17 @@ namespace quotationService
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddCors(options =>
+            {
+                options.AddPolicy(
+                  "CorsPolicy",
+                  builder => builder.WithOrigins("http://localhost:4200")
+                  .AllowAnyMethod()
+                  .AllowAnyHeader()
+                  .AllowCredentials());
+            });
             services.AddDiscoveryClient(Configuration); 
-            services.AddDbContext<QuotationContext>(options =>
+            services.AddDbContext<touresbalon_quotationContext>(options =>
              options.UseMySQL(Configuration.GetConnectionString("DefaultConnection")));
 
 
@@ -56,6 +65,8 @@ namespace quotationService
             {
                 app.UseDeveloperExceptionPage();
             }
+            app.UseCors("CorsPolicy");
+
             app.UseDiscoveryClient();
 
             app.UseRouting();

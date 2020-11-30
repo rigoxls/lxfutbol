@@ -2,15 +2,15 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace Infraestructure.Data
+namespace Infraestructure.sakila
 {
-    public partial class QuotationContext : DbContext
+    public partial class touresbalon_quotationContext : DbContext
     {
-        public QuotationContext()
+        public touresbalon_quotationContext()
         {
         }
 
-        public QuotationContext(DbContextOptions<QuotationContext> options)
+        public touresbalon_quotationContext(DbContextOptions<touresbalon_quotationContext> options)
             : base(options)
         {
         }
@@ -21,8 +21,7 @@ namespace Infraestructure.Data
         {
             if (!optionsBuilder.IsConfigured)
             {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseMySQL("server=localhost;port=3306;user=root;password=lxfutbolPass;database=touresbalon_quotation");
+                optionsBuilder.UseMySQL("server=tb-providers.cff5umpa7ju3.us-east-1.rds.amazonaws.com;port=3306;database=touresbalon_quotation;uid=root;password=docemonos");
             }
         }
 
@@ -54,6 +53,10 @@ namespace Infraestructure.Data
 
                 entity.Property(e => e.NumPeople)
                     .HasColumnName("num_people")
+                    .HasColumnType("decimal(10,0)");
+
+                entity.Property(e => e.QuotationStatus)
+                    .HasColumnName("quotation_status")
                     .HasColumnType("decimal(10,0)");
 
                 entity.Property(e => e.StartDate)

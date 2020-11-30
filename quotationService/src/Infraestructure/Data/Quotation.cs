@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Infraestructure.Data
+namespace Infraestructure.sakila
 {
     public partial class Quotation
     {
@@ -12,5 +12,6 @@ namespace Infraestructure.Data
         public decimal IdSpectacle { get; set; }
         public decimal IdLodging { get; set; }
         public decimal NumPeople { get; set; }
+        public decimal QuotationStatus { get; set; }
     }
 }

@@ -121,7 +121,7 @@
                             <table class="table table-bordered">
                                 <thead>
                                     <tr>
-                                        <th scope="col">Product Name</th>
+                                        <th scope="col">Numero de orden</th>
                                         <th scope="col">Total</th>
                                     </tr>
                                 </thead>
@@ -129,71 +129,21 @@
                                 <tbody>
                                     <tr>
                                         <td class="product-name">
-                                            <a routerLink="/products-details">Ham Salad</a>
+                                            <a routerLink="/products-details">{{numOrden}}</a>
                                         </td>
 
                                         <td class="product-total">
-                                            <span class="subtotal-amount">$20.00</span>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td class="product-name">
-                                            <a routerLink="/products-details">Fresh Cappuccino</a>
-                                        </td>
-
-                                        <td class="product-total">
-                                            <span class="subtotal-amount">$25.00</span>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td class="product-name">
-                                            <a routerLink="/products-details">Honey Cake</a>
-                                        </td>
-
-                                        <td class="product-total">
-                                            <span class="subtotal-amount">$11.50</span>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td class="product-name">
-                                            <a routerLink="/products-details">Delicious Dish</a>
-                                        </td>
-
-                                        <td class="product-total">
-                                            <span class="subtotal-amount">$50.00</span>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td class="order-subtotal">
-                                            <span>Cart Subtotal</span>
-                                        </td>
-
-                                        <td class="order-subtotal-price">
-                                            <span class="order-subtotal-amount">$106.00</span>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td class="order-shipping">
-                                            <span>Shipping</span>
-                                        </td>
-
-                                        <td class="shipping-price">
-                                            <span>$4.00</span>
+                                            <span class="subtotal-amount"></span>
                                         </td>
                                     </tr>
 
                                     <tr>
                                         <td class="total-price">
-                                            <span>Order Total</span>
+                                            <span>Total de la orden</span>
                                         </td>
 
                                         <td class="product-subtotal">
-                                            <span class="subtotal-amount">$110.00</span>
+                                            <span class="subtotal-amount">{{ total | currency: "COP ":false:"2.0" }}</span>
                                         </td>
                                     </tr>
                                 </tbody>

@@ -41,7 +41,7 @@
                     </thead>
 
                     <tbody>
-                        <tr *ngFor="let item of cotizacion.seleccionProvedores">
+                        <tr *ngFor="let item of cotizacion.selectProviders">
                             <td class="product-thumbnail">
                                 <a routerLink="/products-details">
                                     <img src="assets/img/cotizacion_font.jpg" alt="item">
@@ -49,23 +49,23 @@
                             </td> 
                             
                             <td class="product-name">
-                                <a routerLink="/products-details">{{item.nombre}}</a>
+                                <a routerLink="/products-details">{{item.name}}</a>
                             </td>
 
                             <td class="product-price">
-                                <span class="unit-amount">{{item.costoPersona | currency: "COP ":false:"2.0"}}</span>
+                                <span class="unit-amount">{{item.price | currency: "COP ":false:"2.0"}}</span>
                             </td>
 
                             <td class="product-quantity">
                                 <div class="input-counter">
                                    
-                                    <input type="text" readonly="readonly" min="1" value="{{cotizacion.numPersonas}}">
+                                    <input type="text" readonly="readonly" min="1" value="{{item.numPeople}}">
                             
                                 </div>
                             </td>
 
                             <td class="product-subtotal">
-                                <span class="subtotal-amount">{{item.costoPersona * cotizacion.numPersonas | currency: "COP ":false:"2.0"}}</span>
+                                <span class="subtotal-amount">{{item.price * item.numPeople | currency: "COP ":false:"2.0"}}</span>
 
                                 <!-- <a routerLink="/cart" class="remove"><i class='bx bx-trash'></i></a> -->
                             </td>
@@ -95,7 +95,7 @@
                     <li>IVA <span>{{ iva | currency: "COP ":false:"2.0" }}</span></li>
                     <li>Total <span>{{ total | currency: "COP ":false:"2.0" }}</span></li>
                 </ul>
-                <button type="button" (click)="open(content)" class="default-btn success">Cotizar</button>
+                <button type="button" (click)="open(content)" class="default-btn success">Pagar</button>
                 <a routerLink="/" class="default-btn danger">Descartar</a>
                 <app-toast-container aria-live="polite" aria-atomic="true"></app-toast-container>
 

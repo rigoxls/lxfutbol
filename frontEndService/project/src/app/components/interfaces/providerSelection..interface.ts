@@ -1,11 +1,14 @@
 export class ProviderSelection {
+    
     id: number;
+    type:number;
     nombre: string;
-    costoPersona: number;
+    price: number;
+    startDate?: Date;
+    endDate?: Date;
+    numPeople: number;
     
     constructor(){
-        this.id=0,
-        this.nombre="",
-        this.costoPersona=0;
+
     }
 }

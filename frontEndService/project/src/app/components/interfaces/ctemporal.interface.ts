@@ -1,11 +1,9 @@
 import { ProviderSelection } from './providerSelection..interface';
 
 export class QuotationDetails {
-    numPersonas: number;
-    seleccionProvedores: Array<ProviderSelection>;
-    nombre: string;
+
+    selectProviders: Array<ProviderSelection>;
+    name: string;
     email: string;
-    fechaCotizacion: Date;
-    fechaInicio: Date;
-    fechaFin: Date;
+    quotationDate: Date;
 }

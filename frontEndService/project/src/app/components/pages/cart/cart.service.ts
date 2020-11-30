@@ -9,16 +9,16 @@ import { environment } from "src/environments/environment";
 })
 export class CartService {
 
-    private url = environment.APIEndPoint;
+    private url = "http://localhost:5001/api/Quotations"
 
     constructor(private http: HttpClient) {}
 
-    public insertRunTicket(pTicket: Quotation) {
+    public insertQuotation(pQuotation: Quotation) {
         const headers = {
             "Content-Type": "application/json",
         };
-        const vUrl = `${this.url}/crear/cotizacion`;
-        return this.http.post(vUrl, pTicket, { headers });
+        const vUrl = `${this.url}`;
+        return this.http.post(vUrl, pQuotation, { headers });
     }
 
     public sendEmail(email: Email) {
