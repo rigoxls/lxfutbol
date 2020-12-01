@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: user-deployment
+  labels:
+    name: user-deployment
+    env: prod
+spec:
+  template:
+    metadata:
+      name: user-pod
+      labels:
+        name: user-pod
+    spec:
+      containers:
+        - name: user-service
+          image: lxfutbol/user-service:dockerfile1      
+      restartPolicy: Always
+  replicas: 1
+  selector:
+    matchLabels:
+      name: user-pod
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: user-service
+  labels:
+    name: user-service
+spec:
+  type: NodePort
+  ports:
+    - port: 8092
+      targetPort: 8092
+      nodePort: 30010
+  selector:
+    name: user-pod

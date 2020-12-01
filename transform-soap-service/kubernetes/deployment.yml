@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: soap-deployment
+  labels:
+    name: soap-deployment
+    env: prod
+spec:
+  template:
+    metadata:
+      name: soap-pod
+      labels:
+        name: soap-pod
+    spec:
+      containers:
+        - name: soap-service
+          image: transformsoap:dev
+      restartPolicy: Always
+  replicas: 1
+  selector:
+    matchLabels:
+      name: soap-pod
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: soap-service
+  labels:
+    name: soap-service
+spec:
+  type: NodePort
+  ports:
+    - port: 80
+      targetPort: 80
+      nodePort: 30011
+  selector:
+    name: soap-pod
