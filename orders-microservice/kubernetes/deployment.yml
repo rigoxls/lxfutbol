@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: orders-deployment
+  labels:
+    name: orders-deployment
+    env: prod
+spec:
+  template:
+    metadata:
+      name: orders-pod
+      labels:
+        name: orders-pod
+    spec:
+      containers:
+        - name: orders-service
+          image: lxfutbol/orders-service:dockerfile1      
+      restartPolicy: Always
+  replicas: 1
+  selector:
+    matchLabels:
+      name: orders-pod
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: orders-service
+  labels:
+    name: orders-service
+spec:
+  type: NodePort
+  ports:
+    - port: 8095
+      targetPort: 8095
+      nodePort: 30012
+  selector:
+    name: orders-pod
