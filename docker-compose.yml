@@ -11,7 +11,7 @@ services:
     networks:
       - lxfutbol-compose-network
 
-  kafka:
+  kafka-cluster:
     image: 'wurstmeister/kafka'
     ports:
       - '9092:9092'
@@ -29,7 +29,7 @@ services:
     networks:
       - lxfutbol-compose-network      
 
-  redis:
+  redis-service:
     image: "redis:alpine"  
     command: redis-server 
     ports:
