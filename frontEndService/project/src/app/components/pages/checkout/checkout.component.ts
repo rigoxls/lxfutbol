@@ -7,6 +7,7 @@ import { NgbProgressbarConfig } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
 import { loadStripe } from '@stripe/stripe-js';
 import { PaymentService } from './payment.service'
+import { QuotationDetails } from '../../interfaces/ctemporal.interface';
 
 const stripePromise = loadStripe('pk_test_TYooMQauvdEDq54NiTphI7jx');
 
@@ -20,7 +21,11 @@ export class CheckoutComponent implements OnInit {
     frmGroup: FormGroup;
     loggedIn: boolean;
     isPaying: boolean;
-
+    date: string;
+    cotizacion: any;
+    total:number;
+    numOrden: number;
+    
     constructor(
       private router: Router,
         private cartService: CartService,
@@ -51,8 +56,22 @@ export class CheckoutComponent implements OnInit {
     }
 
     ngOnInit(): void {
+      this.numOrden=new Date().valueOf()
+        this.cotizacion= JSON.parse(localStorage.getItem("Cotizacion")) as QuotationDetails;
+        this.total= JSON.parse(localStorage.getItem("Total"));
         this.setInfoProfile();
+        this.getDate();
+
+
     }
+    getDate() {
+        if (localStorage.getItem("fechaViaje")) {
+            let date = JSON.parse(localStorage.getItem("fechaViaje"));
+            this.date = date.month+"/"+date.day+"/"+date.year;
+
+        }
+    }
+
 
     setInfoProfile() {
         if (localStorage.getItem("userAutenticado")) {
@@ -71,10 +90,16 @@ export class CheckoutComponent implements OnInit {
 
       this.isPaying=true;
 
+      let payment={ total:this.total, items: "Paquete de V+H+E", quantity: 1}
+
       const stripe =  await stripePromise;
 
       const response = await fetch("http://localhost:53472/api/PaymentController/create-checkout-session", {
         method: "POST",
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payment)
       });
       
       const session = await response.json();

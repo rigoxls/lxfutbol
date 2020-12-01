@@ -2,13 +2,11 @@
 
 namespace ApplicationCore.Entities
 {
-    public class LodgingSearchResponse
-    {
-		public int IdProvider { get; set; }
-
+	public class LodgingSearchResponse
+	{
 		public string NumberRoom { get; set; }
 
-		public Cabin Cabin { get; set; }
+		public Cabin Hotel { get; set; }
 		public DateTime CheckIn { get; set; }
 		public DateTime Checkout { get; set; }
 
@@ -18,13 +16,18 @@ namespace ApplicationCore.Entities
 
 
 
-    }
+	}
 
-    public class Cabin
-    {
+	public class Cabin
+	{
 		public string Name { get; set; }
 		public string Address { get; set; }
 		public string City { get; set; }
 		public string Country { get; set; }
+
+		public Cabin()
+		{
+
+		}
 	}
 }

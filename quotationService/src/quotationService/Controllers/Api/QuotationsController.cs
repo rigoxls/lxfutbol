@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Infraestructure.Data;
+using Infraestructure.sakila;
 
 namespace quotationService.Controllers.Api
 {
@@ -12,9 +12,9 @@ namespace quotationService.Controllers.Api
     [ApiController]
     public class QuotationsController : ControllerBase
     {
-        private readonly QuotationContext _context;
+        private readonly touresbalon_quotationContext _context;
 
-        public QuotationsController(QuotationContext context)
+        public QuotationsController(touresbalon_quotationContext context)
         {
             _context = context;
         }

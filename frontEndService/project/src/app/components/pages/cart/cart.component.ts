@@ -27,28 +27,30 @@ export class CartComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.cotizacion= JSON.parse(localStorage.getItem("Cotizacion")) as QuotationDetails;
-    this.subtotal = this.cotizacion.seleccionProvedores
-    .map(c => c.costoPersona)
+    let quotation:any = JSON.parse('{"name":"","email":" ","quotationDate":"2020-11-29","selectProviders":[{"type":1,"numPeople":3,"name":"Partido Ecuador vs Colombia","price":165000},{"type":2,"numPeople":3,"name":"Hotel Carton, Luxury suits","price":360000,"startDate":"2020-2-12","endDate":"2020-2-15"},{"type":3,"numPeople":"4","name":"American Airlines","price":400000,"startDate":"2020-2-12","endDate":"2020-2-15"}]}');
+    this.cotizacion= quotation as QuotationDetails;
+    this.subtotal = this.cotizacion.selectProviders
+    .map(c => c.price)
     .reduce(
         (sum: number, values) => sum + values,
         0
     );
-    this.subtotal= this.subtotal*this.cotizacion.numPersonas;
+    this.subtotal= this.subtotal*this.cotizacion.selectProviders[0].numPeople;
     this.iva= this.subtotal*0.19;
     this.total= this.subtotal+this.iva;
+    localStorage.setItem("Total",JSON.stringify(this.total))
   }
 
 
   cotizar(){
-    this.quotation.fechaCotizacion = this.cotizacion.fechaCotizacion;
-    this.quotation.fechaInicio = new Date(this.cotizacion.fechaInicio).valueOf();
-    this.quotation.fechaFin = new Date(this.cotizacion.fechaFin).valueOf();
-    this.quotation.idActividad = this.cotizacion.seleccionProvedores[0].id;
-    this.quotation.idHospedaje = this.cotizacion.seleccionProvedores[1].id;
-    this.quotation.idTransporte = this.cotizacion.seleccionProvedores[2].id;
-    this.quotation.numPersonas= this.cotizacion.numPersonas;
-    this.cartService.insertRunTicket(this.quotation).subscribe(
+    this.quotation.quotationDate = new Date();
+    this.quotation.startDate = new Date(this.cotizacion.selectProviders[1].startDate);
+    this.quotation.endDate = new Date(this.cotizacion.selectProviders[1].endDate);
+    this.quotation.idSpectacle = this.cotizacion.selectProviders[0].type;
+    this.quotation.idLodging = this.cotizacion.selectProviders[1].type;
+    this.quotation.idTransport = this.cotizacion.selectProviders[2].type;
+    this.quotation.numPeople= this.cotizacion.selectProviders[0].numPeople;
+    this.cartService.insertQuotation(this.quotation).subscribe(
       result => {
       this.showSuccess();
       },
@@ -64,7 +66,7 @@ export class CartComponent implements OnInit {
 
   showSuccess() {
     
-    this.toastService.show("Se ha generado una cotización", { classname: 'bg-success text-light', delay: 15000 });
+    //this.toastService.show("Se ha generado una cotización", { classname: 'bg-success text-light', delay: 15000 });
     this.router.navigate(["/checkout"]);
     this.modalService.dismissAll();
   }
