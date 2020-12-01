@@ -28,7 +28,7 @@ namespace web
             services.AddSingleton<ITransformSoapService, TransformSoapService>();
             services.AddDistributedRedisCache(option =>
             {
-                option.Configuration = "127.0.0.1:6379";
+                option.Configuration = "redis-service:6379";
                 option.InstanceName = "master";
             });
         }
