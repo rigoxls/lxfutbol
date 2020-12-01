@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 
-@FeignClient(name = "transform-json-service", url = "http://localhost:8087")
+@FeignClient(name = "transform-json-service", url = "http://transform-json-service:8086")
 public interface TransformRestProxyService {
 
 	@RequestMapping(method = RequestMethod.POST, path="/transformLodge/{idProvider}")

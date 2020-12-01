@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: transport-deployment
+  labels:
+    name: transport-deployment
+    env: prod
+spec:
+  template:
+    metadata:
+      name: transport-pod
+      labels:
+        name: transport-pod
+    spec:
+      containers:
+        - name: transport-service
+          image: lxfutbol/transport-service:dockerfile1      
+      restartPolicy: Always
+  replicas: 1
+  selector:
+    matchLabels:
+      name: transport-pod
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: transport-service
+  labels:
+    name: transport-service
+spec:
+  type: NodePort
+  ports:
+    - port: 8084
+      targetPort: 8084
+      nodePort: 30008
+  selector:
+    name: transport-pod

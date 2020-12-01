@@ -1,0 +1,371 @@
+[1mdiff --git a/docker-compose.yml b/docker-compose.yml[m
+[1mindex 8278628..8c731aa 100644[m
+[1m--- a/docker-compose.yml[m
+[1m+++ b/docker-compose.yml[m
+[36m@@ -99,7 +99,7 @@[m [mservices:[m
+   integrator-service:[m
+     image: lxfutbol/integrator-service:dockerfile1[m
+     ports:[m
+[31m-      - "8081:8080"[m
+[32m+[m[32m      - "8081:8081"[m
+     restart: always[m
+     depends_on: [m
+       - eureka-service[m
+[36m@@ -113,7 +113,45 @@[m [mservices:[m
+       RDS_USERNAME: lxfutbol[m
+       RDS_PASSWORD: lxfutbolPass[m
+     networks:[m
+[31m-      - lxfutbol-compose-network       [m
+[32m+[m[32m      - lxfutbol-compose-network[m[41m  [m
+[32m+[m
+[32m+[m[32m  spectacle-service:[m
+[32m+[m[32m    image: lxfutbol/spectacle-service:dockerfile1[m
+[32m+[m[32m    ports:[m
+[32m+[m[32m      - "8758:8758"[m
+[32m+[m[32m    restart: always[m
+[32m+[m[32m    depends_on:[m[41m [m
+[32m+[m[32m      - eureka-service[m
+[32m+[m[32m      - mysql[m
+[32m+[m[32m      - provider-service[m
+[32m+[m[32m    environment:[m[41m [m
+[32m+[m[32m      HOST_URL: localhost[m
+[32m+[m[32m      RDS_HOSTNAME: mysql[m
+[32m+[m[32m      RDS_PORT: 3306[m
+[32m+[m[32m      RDS_DB_NAME: lxfutbol[m
+[32m+[m[32m      RDS_USERNAME: lxfutbol[m
+[32m+[m[32m      RDS_PASSWORD: lxfutbolPass[m
+[32m+[m[32m    networks:[m
+[32m+[m[32m      - lxfutbol-compose-network[m
+[32m+[m
+[32m+[m[32m  transform-json-service:[m
+[32m+[m[32m    image: lxfutbol/transform-json-service:dockerfile1[m
+[32m+[m[32m    ports:[m
+[32m+[m[32m      - "8086:8086"[m
+[32m+[m[32m    restart: always[m
+[32m+[m[32m    depends_on:[m[41m [m
+[32m+[m[32m      - eureka-service[m
+[32m+[m[32m      - mysql[m
+[32m+[m[32m      - provider-service[m
+[32m+[m[32m    environment:[m[41m [m
+[32m+[m[32m      HOST_URL: localhost[m
+[32m+[m[32m      RDS_HOSTNAME: mysql[m
+[32m+[m[32m      RDS_PORT: 3306[m
+[32m+[m[32m      RDS_DB_NAME: lxfutbol[m
+[32m+[m[32m      RDS_USERNAME: lxfutbol[m
+[32m+[m[32m      RDS_PASSWORD: lxfutbolPass[m
+[32m+[m[32m    networks:[m
+[32m+[m[32m      - lxfutbol-compose-network[m[41m                  [m
+ [m
+ # Volumes[m
+ volumes:[m
+[1mdiff --git a/integratorService/src/main/java/com/lxfutbol/integrator/controller/IntegratorController.java b/integratorService/src/main/java/com/lxfutbol/integrator/controller/IntegratorController.java[m
+[1mindex 953848b..4f4d86f 100644[m
+[1m--- a/integratorService/src/main/java/com/lxfutbol/integrator/controller/IntegratorController.java[m
+[1m+++ b/integratorService/src/main/java/com/lxfutbol/integrator/controller/IntegratorController.java[m
+[36m@@ -141,5 +141,11 @@[m [mpublic class IntegratorController {[m
+         JsonNode json = mapper.readTree(transportResponse);[m
+         return ResponseEntity.ok(json);[m
+ 		[m
+[31m-	}		[m
+[32m+[m	[32m}[m[41m	[m
+[32m+[m[41m	[m
+[32m+[m[41m	[m
+[32m+[m	[32m@GetMapping("/integrator/status")[m
+[32m+[m	[32mpublic String status() {[m
+[32m+[m		[32mreturn "status ok";[m
+[32m+[m	[32m}[m[41m	[m
+ }[m
+[1mdiff --git a/integratorService/src/main/java/com/lxfutbol/integrator/kafka/KafkaProducerConfig.java b/integratorService/src/main/java/com/lxfutbol/integrator/kafka/KafkaProducerConfig.java[m
+[1mindex 8b1c21f..39d74ee 100644[m
+[1m--- a/integratorService/src/main/java/com/lxfutbol/integrator/kafka/KafkaProducerConfig.java[m
+[1m+++ b/integratorService/src/main/java/com/lxfutbol/integrator/kafka/KafkaProducerConfig.java[m
+[36m@@ -1,19 +1,11 @@[m
+ package com.lxfutbol.integrator.kafka;[m
+ [m
+[31m-import java.util.Map;[m
+[31m-import java.util.HashMap;[m
+[31m-[m
+[31m-import org.apache.kafka.clients.consumer.ConsumerConfig;[m
+[31m-import org.apache.kafka.clients.producer.ProducerConfig;[m
+[31m-import org.apache.kafka.common.serialization.StringDeserializer;[m
+[31m-import org.apache.kafka.common.serialization.StringSerializer;[m
+ import org.slf4j.Logger;[m
+ import org.slf4j.LoggerFactory;[m
+ import org.springframework.beans.factory.annotation.Value;[m
+ import org.springframework.context.annotation.Bean;[m
+ import org.springframework.context.annotation.Configuration;[m
+ import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory;[m
+[31m-import org.springframework.kafka.core.DefaultKafkaProducerFactory;[m
+ import org.springframework.kafka.core.KafkaTemplate;[m
+ import org.springframework.kafka.core.ProducerFactory;[m
+ import org.springframework.kafka.listener.ConcurrentMessageListenerContainer;[m
+[36m@@ -29,44 +21,22 @@[m [mclass KafkaProducerConfig {[m
+ [m
+ 	@Value("${com.lxfutbol.integrator.kafka.bootstrap-servers}")[m
+ 	private String bootstrapServers;[m
+[31m-[m
+[31m-	@Bean[m
+[31m-	Map<String, Object> producerConfigs() {[m
+[31m-		Map<String, Object> props = new HashMap<>();[m
+[31m-		props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);[m
+[31m-		props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);[m
+[31m-		props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class);[m
+[31m-		LOG.debug("***************************************************");[m
+[31m-		LOG.debug("Paso por producerConfigs");[m
+[31m-		[m
+[31m-		return props;		[m
+[31m-	}[m
+[31m-	[m
+[31m-	@Bean[m
+[31m-	ProducerFactory<String, String> producerFactory() {[m
+[31m-		System.out.println("***************************************************");[m
+[31m-		System.out.println("Paso por ProducerFactory");[m
+[31m-		return new DefaultKafkaProducerFactory<>(producerConfigs());[m
+[31m-	}[m
+ 	[m
+     @Bean[m
+[31m-    public ReplyingKafkaTemplate<String, String, String> replyingKafkaTemplate(ConcurrentKafkaListenerContainerFactory<String, String> factory) {[m
+[32m+[m[32m    public ReplyingKafkaTemplate<String, String, String> replyingKafkaTemplate(ProducerFactory<String, String> pf,[m
+[32m+[m[32m            ConcurrentKafkaListenerContainerFactory<String, String> factory) {[m
+         ConcurrentMessageListenerContainer<String, String> replyContainer = factory.createContainer("reply-integrator-provider");[m
+         replyContainer.getContainerProperties().setMissingTopicsFatal(false);[m
+         replyContainer.getContainerProperties().setGroupId("integrator_group_1");[m
+[31m-        System.out.println("***************************************************");[m
+[31m-        System.out.println("Paso por ReplyingKafkaTemplate");		[m
+[31m-        return new ReplyingKafkaTemplate<>(producerFactory(), replyContainer);[m
+[32m+[m[32m        return new ReplyingKafkaTemplate<>(pf, replyContainer);[m
+     }[m
+ [m
+     @Bean[m
+[31m-    public KafkaTemplate<String, String> replyTemplate(ConcurrentKafkaListenerContainerFactory<String, String> factory) {[m
+[31m-        KafkaTemplate<String, String> kafkaTemplate = new KafkaTemplate<>(producerFactory());[m
+[32m+[m[32m    public KafkaTemplate<String, String> replyTemplate(ProducerFactory<String, String> pf,[m
+[32m+[m[32m            ConcurrentKafkaListenerContainerFactory<String, String> factory) {[m
+[32m+[m[32m        KafkaTemplate<String, String> kafkaTemplate = new KafkaTemplate<>(pf);[m
+         factory.getContainerProperties().setMissingTopicsFatal(false);[m
+         factory.setReplyTemplate(kafkaTemplate);[m
+[31m-        System.out.println("***************************************************");[m
+[31m-        System.out.println("Paso por KafkaTemplate");[m
+[31m-		[m
+         return kafkaTemplate;[m
+     }[m
+ }[m
+\ No newline at end of file[m
+[1mdiff --git a/integratorService/src/main/resources/application.properties b/integratorService/src/main/resources/application.properties[m
+[1mindex 69f2641..bd7e4bb 100644[m
+[1m--- a/integratorService/src/main/resources/application.properties[m
+[1m+++ b/integratorService/src/main/resources/application.properties[m
+[36m@@ -14,9 +14,12 @@[m [mspring.datasource.password=docemonos[m
+ eureka.client.service-url.defaultZone=http://eureka-service:8761/eureka/[m
+ eureka.client.fetchRegistry=true[m
+ [m
+[31m-com.lxfutbol.integrator.kafka.bootstrap-servers: localhost:9092[m
+[32m+[m[32mcom.lxfutbol.integrator.kafka.bootstrap-servers: kafka:9092[m
+ com.lxfutbol.integrator.kafka.topic-1: integrator-provider[m
+ #com.lxfutbol.integrador.kafka.topic-2: reflectoring-2[m
+ #com.lxfutbol.integrador.kafka.topic-3: reflectoring-3[m
+ #com.lxfutbol.integrador.kafka.topic-4: reflectoring-user[m
+[31m-logging.level.org.apache.kafka = WARN[m
+\ No newline at end of file[m
+[32m+[m[32mlogging.level.org.apache.kafka = WARN[m
+[32m+[m
+[32m+[m[32mspring.kafka.bootstrap-servers=kafka:9092[m
+[32m+[m[32mspring.kafka.listener.missing-topics-fatal=false[m
+\ No newline at end of file[m
+[1mdiff --git a/providerService/src/main/java/com/lxfutbol/provider/conf/RedisConfig.java b/providerService/src/main/java/com/lxfutbol/provider/conf/RedisConfig.java[m
+[1mindex bca0c8e..7f1cc4b 100644[m
+[1m--- a/providerService/src/main/java/com/lxfutbol/provider/conf/RedisConfig.java[m
+[1m+++ b/providerService/src/main/java/com/lxfutbol/provider/conf/RedisConfig.java[m
+[36m@@ -1,4 +1,5 @@[m
+ package com.lxfutbol.provider.conf;[m
+[32m+[m[32mimport org.springframework.beans.factory.annotation.Value;[m
+ import org.springframework.context.annotation.Bean;[m
+ import org.springframework.context.annotation.Configuration;[m
+ import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;[m
+[36m@@ -15,7 +16,7 @@[m [mimport com.lxfutbol.provider.repository.ProviderTemplateEntity;[m
+  [m
+ @Configuration[m
+ public class RedisConfig {[m
+[31m-     [m
+[32m+[m[41m	[m
+     @Bean[m
+     JedisConnectionFactory jedisConnectionFactory() {[m
+     	JedisConnectionFactory factory = new JedisConnectionFactory();[m
+[1mdiff --git a/providerService/src/main/resources/application.properties b/providerService/src/main/resources/application.properties[m
+[1mindex 03a28b7..e6e3ff6 100644[m
+[1m--- a/providerService/src/main/resources/application.properties[m
+[1m+++ b/providerService/src/main/resources/application.properties[m
+[36m@@ -12,15 +12,19 @@[m [mspring.datasource.url=jdbc:mysql://tb-providers.cff5umpa7ju3.us-east-1.rds.amazo[m
+ spring.datasource.username=admin[m
+ spring.datasource.password=docemonos[m
+ [m
+[31m-eureka.client.service-url.defaultZone=http://localhost:8761/eureka/[m
+[32m+[m[32meureka.client.service-url.defaultZone=http://eureka-service:8761/eureka/[m
+ eureka.client.fetchRegistry=true[m
+ [m
+[31m-com.lxfutbol.provider.kafka.bootstrap-servers: localhost:9092[m
+[32m+[m[32mcom.lxfutbol.provider.kafka.bootstrap-servers: kafka:9092[m
+ com.lxfutbol.provider.kafka.topic-1: integrator-provider[m
+ #com.lxfutbol.provider.kafka.topic-2: reflectoring-2[m
+ #com.lxfutbol.provider.kafka.topic-3: reflectoring-3[m
+ #com.lxfutbol.provider.kafka.topic-4: reflectoring-user[m
+ logging.level.org.apache.kafka = WARN[m
+ [m
+[31m-spring.redis.host=localhost[m
+[32m+[m
+[32m+[m[32mspring.kafka.bootstrap-servers=kafka:9092[m
+[32m+[m[32mspring.kafka.listener.missing-topics-fatal=false[m
+[32m+[m
+[32m+[m[32mspring.redis.host=redis[m
+ spring.redis.port=6379[m
+\ No newline at end of file[m
+[1mdiff --git a/spectacleService/src/main/java/com/lxfutbol/spectacle/controller/SpectacleController.java b/spectacleService/src/main/java/com/lxfutbol/spectacle/controller/SpectacleController.java[m
+[1mindex 7bedf71..d29376c 100644[m
+[1m--- a/spectacleService/src/main/java/com/lxfutbol/spectacle/controller/SpectacleController.java[m
+[1m+++ b/spectacleService/src/main/java/com/lxfutbol/spectacle/controller/SpectacleController.java[m
+[36m@@ -30,4 +30,4 @@[m [mpublic class SpectacleController {[m
+ 			return servicesDao.findCategorySpectacle();[m
+ 		}[m
+ 	[m
+[31m-}[m
+[32m+[m[32m}[m
+\ No newline at end of file[m
+[1mdiff --git a/spectacleService/src/main/java/com/lxfutbol/spectacle/service/SpectacleServicesDao.java b/spectacleService/src/main/java/com/lxfutbol/spectacle/service/SpectacleServicesDao.java[m
+[1mindex 29d376d..d23450f 100644[m
+[1m--- a/spectacleService/src/main/java/com/lxfutbol/spectacle/service/SpectacleServicesDao.java[m
+[1m+++ b/spectacleService/src/main/java/com/lxfutbol/spectacle/service/SpectacleServicesDao.java[m
+[36m@@ -21,7 +21,7 @@[m [mpublic class SpectacleServicesDao {[m
+ 		[m
+ 		List<PlacesDto> listCitys = new ArrayList<>();[m
+ 		PlacesDto cityDto = null;[m
+[31m-		List<Object[]> citys = entityManager.createNativeQuery("select DISTINCT city, country from spectacle").getResultList();[m
+[32m+[m		[32mList<Object[]> citys = entityManager.createNativeQuery("select DISTINCT city, country from espectacle").getResultList();[m
+ 		[m
+ 		for(Object[] city : citys) {[m
+ 			cityDto = new PlacesDto();[m
+[36m@@ -35,7 +35,7 @@[m [mpublic class SpectacleServicesDao {[m
+ 	public List<String> findCategorySpectacle() {[m
+ 		[m
+ 		List<String> listCategorys = new ArrayList<>();[m
+[31m-		List<Object[]> citys = entityManager.createNativeQuery("select DISTINCT type, country from spectacle").getResultList();[m
+[32m+[m		[32mList<Object[]> citys = entityManager.createNativeQuery("select DISTINCT type, country from espectacle").getResultList();[m
+ 		[m
+ 		for(Object[] city : citys) {[m
+ 			listCategorys.add(String.valueOf(city[0]));[m
+[36m@@ -43,4 +43,4 @@[m [mpublic class SpectacleServicesDao {[m
+ 		return listCategorys;[m
+ 	}[m
+ 	[m
+[31m-}[m
+[32m+[m[32m}[m
+\ No newline at end of file[m
+[1mdiff --git a/spectacleService/src/main/resources/application.properties b/spectacleService/src/main/resources/application.properties[m
+[1mindex 2a38b51..0275a73 100644[m
+[1m--- a/spectacleService/src/main/resources/application.properties[m
+[1m+++ b/spectacleService/src/main/resources/application.properties[m
+[36m@@ -16,3 +16,6 @@[m [meureka.client.fetchRegistry=true[m
+ com.lxfutbol.spectacle.kafka.bootstrap-servers: kafka:9092[m
+ com.lxfutbol.spectacle.kafka.topic-2: integrator-spectacle[m
+ logging.level.org.apache.kafka = WARN[m
+[32m+[m
+[32m+[m[32mspring.kafka.bootstrap-servers=kafka:9092[m
+[32m+[m[32mspring.kafka.listener.missing-topics-fatal=false[m
+\ No newline at end of file[m
+[1mdiff --git a/spectacleService/target/classes/application.properties b/spectacleService/target/classes/application.properties[m
+[1mindex 2a38b51..0275a73 100644[m
+[1m--- a/spectacleService/target/classes/application.properties[m
+[1m+++ b/spectacleService/target/classes/application.properties[m
+[36m@@ -16,3 +16,6 @@[m [meureka.client.fetchRegistry=true[m
+ com.lxfutbol.spectacle.kafka.bootstrap-servers: kafka:9092[m
+ com.lxfutbol.spectacle.kafka.topic-2: integrator-spectacle[m
+ logging.level.org.apache.kafka = WARN[m
+[32m+[m
+[32m+[m[32mspring.kafka.bootstrap-servers=kafka:9092[m
+[32m+[m[32mspring.kafka.listener.missing-topics-fatal=false[m
+\ No newline at end of file[m
+[1mdiff --git a/spectacleService/target/classes/com/lxfutbol/spectacle/service/SpectacleServicesDao.class b/spectacleService/target/classes/com/lxfutbol/spectacle/service/SpectacleServicesDao.class[m
+[1mindex 0baa32a..a6e9339 100644[m
+Binary files a/spectacleService/target/classes/com/lxfutbol/spectacle/service/SpectacleServicesDao.class and b/spectacleService/target/classes/com/lxfutbol/spectacle/service/SpectacleServicesDao.class differ
+[1mdiff --git a/spectacleService/target/dependency/BOOT-INF/classes/application.properties b/spectacleService/target/dependency/BOOT-INF/classes/application.properties[m
+[1mindex 2a38b51..0275a73 100644[m
+[1m--- a/spectacleService/target/dependency/BOOT-INF/classes/application.properties[m
+[1m+++ b/spectacleService/target/dependency/BOOT-INF/classes/application.properties[m
+[36m@@ -16,3 +16,6 @@[m [meureka.client.fetchRegistry=true[m
+ com.lxfutbol.spectacle.kafka.bootstrap-servers: kafka:9092[m
+ com.lxfutbol.spectacle.kafka.topic-2: integrator-spectacle[m
+ logging.level.org.apache.kafka = WARN[m
+[32m+[m
+[32m+[m[32mspring.kafka.bootstrap-servers=kafka:9092[m
+[32m+[m[32mspring.kafka.listener.missing-topics-fatal=false[m
+\ No newline at end of file[m
+[1mdiff --git a/spectacleService/target/dependency/BOOT-INF/classes/com/lxfutbol/spectacle/service/SpectacleServicesDao.class b/spectacleService/target/dependency/BOOT-INF/classes/com/lxfutbol/spectacle/service/SpectacleServicesDao.class[m
+[1mindex 0baa32a..a6e9339 100644[m
+Binary files a/spectacleService/target/dependency/BOOT-INF/classes/com/lxfutbol/spectacle/service/SpectacleServicesDao.class and b/spectacleService/target/dependency/BOOT-INF/classes/com/lxfutbol/spectacle/service/SpectacleServicesDao.class differ
+[1mdiff --git a/spectacleService/target/spectacle-microservice.jar b/spectacleService/target/spectacle-microservice.jar[m
+[1mindex 34a73f4..9be0eb8 100644[m
+Binary files a/spectacleService/target/spectacle-microservice.jar and b/spectacleService/target/spectacle-microservice.jar differ
+[1mdiff --git a/spectacleService/target/spectacle-microservice.jar.original b/spectacleService/target/spectacle-microservice.jar.original[m
+[1mindex 4a1afe2..6c22426 100644[m
+Binary files a/spectacleService/target/spectacle-microservice.jar.original and b/spectacleService/target/spectacle-microservice.jar.original differ
+[1mdiff --git a/transformJsonService/src/main/java/com/lxfutbol/transformRest/conf/RedisConfig.java b/transformJsonService/src/main/java/com/lxfutbol/transformRest/conf/RedisConfig.java[m
+[1mindex 29d2cf3..5d4f7db 100644[m
+[1m--- a/transformJsonService/src/main/java/com/lxfutbol/transformRest/conf/RedisConfig.java[m
+[1m+++ b/transformJsonService/src/main/java/com/lxfutbol/transformRest/conf/RedisConfig.java[m
+[36m@@ -1,4 +1,5 @@[m
+ package com.lxfutbol.transformRest.conf;[m
+[32m+[m[32mimport org.springframework.beans.factory.annotation.Value;[m
+ import org.springframework.context.annotation.Bean;[m
+ import org.springframework.context.annotation.Configuration;[m
+ import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;[m
+[36m@@ -15,7 +16,6 @@[m [mimport com.lxfutbol.transformRest.repository.ProviderTemplateEntity;[m
+  [m
+ @Configuration[m
+ public class RedisConfig {[m
+[31m-     [m
+     @Bean[m
+     JedisConnectionFactory jedisConnectionFactory() {[m
+     	JedisConnectionFactory factory = new JedisConnectionFactory();[m
+[1mdiff --git a/transformJsonService/src/main/java/com/lxfutbol/transformRest/controller/TransformRestController.java b/transformJsonService/src/main/java/com/lxfutbol/transformRest/controller/TransformRestController.java[m
+[1mindex 204c8d2..395941c 100644[m
+[1m--- a/transformJsonService/src/main/java/com/lxfutbol/transformRest/controller/TransformRestController.java[m
+[1m+++ b/transformJsonService/src/main/java/com/lxfutbol/transformRest/controller/TransformRestController.java[m
+[36m@@ -7,6 +7,8 @@[m [mimport org.codehaus.jettison.json.JSONObject;[m
+ import org.slf4j.Logger;[m
+ import org.slf4j.LoggerFactory;[m
+ import org.springframework.beans.factory.annotation.Autowired;[m
+[32m+[m[32mimport org.springframework.web.bind.annotation.CrossOrigin;[m
+[32m+[m[32mimport org.springframework.web.bind.annotation.GetMapping;[m
+ import org.springframework.web.bind.annotation.PathVariable;[m
+ import org.springframework.web.bind.annotation.PostMapping;[m
+ import org.springframework.web.bind.annotation.RequestBody;[m
+[36m@@ -16,6 +18,7 @@[m [mimport com.lxfutbol.transformRest.service.RedisService;[m
+ import com.lxfutbol.transformRest.service.TransformRestService;[m
+ [m
+ @RestController[m
+[32m+[m[32m@CrossOrigin(origins="*")[m
+ public class TransformRestController {[m
+ 	[m
+ 	private final Logger LOG = LoggerFactory.getLogger(TransformRestController.class);[m
+[36m@@ -44,12 +47,21 @@[m [mpublic class TransformRestController {[m
+ 	}[m
+ 	[m
+ 	@PostMapping("/transformSpectacle/{idProvider}")[m
+[31m-	public String transforEspectacle(@PathVariable int idProvider, @RequestBody String params) throws JSONException {		[m
+[32m+[m	[32mpublic String transforEspectacle(@PathVariable int idProvider, @RequestBody String params) throws JSONException {[m[41m	[m
+[32m+[m[41m		[m
+[32m+[m		[32mSystem.out.println("**********************");[m
+ 	[m
+ 		ArrayList<JSONObject> result = transformRestService.getProviderData(idProvider, params);[m
+[32m+[m		[32mSystem.out.println("**********************");[m
+[32m+[m		[32mSystem.out.println(result);[m
+ 	    JSONObject espectacleResult = new JSONObject();[m
+ 	    espectacleResult.put("spectacle", result);	[m
+ 		[m
+ 		return espectacleResult.toString();[m
+[32m+[m	[32m}[m
+[32m+[m[41m	[m
+[32m+[m	[32m@GetMapping("/status")[m
+[32m+[m	[32mpublic String transforLodge()  {[m
+[32m+[m		[32mreturn "ok";[m
+ 	}	[m
+ }[m
