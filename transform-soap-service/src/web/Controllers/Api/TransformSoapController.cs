@@ -3,6 +3,7 @@ using ApplicationCore.Entities;
 using ApplicationCore.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Distributed;
+using Newtonsoft.Json.Linq;
 using web.Models;
 
 namespace web.Controllers
@@ -64,7 +65,7 @@ namespace web.Controllers
                 {
                     return BadRequest(ModelState);
                 }
-                string template = _distributedCache.GetString(PROVIDER_TEMPLATE_CACHE);
+                //string template = _distributedCache.GetString(PROVIDER_TEMPLATE_CACHE);
                 Lodge search = Message.Params;
                 string Type = "Lodging";
                 Lodging lodging = new Lodging() {
@@ -74,8 +75,9 @@ namespace web.Controllers
                 };
                 return Ok(_transformSoapService.ListenerLodge(idProvider, lodging, Type));
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Console.WriteLine(ex);
                 return StatusCode(500);
             }
         }

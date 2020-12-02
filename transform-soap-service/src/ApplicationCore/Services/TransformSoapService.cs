@@ -42,6 +42,9 @@ namespace ApplicationCore.Services
 
         private List<TransportSearchResponse> arrayList;
 
+        private List<TransportBookResponse> result;
+
+
         private List<LodgingSearchResponse> arrayHotelList;
 
 
@@ -50,18 +53,18 @@ namespace ApplicationCore.Services
 
         }
 
-        public string Listener(int idProvider, Transport transport, string Type)
+        public List<TransportSearchResponse> Listener(int idProvider, Transport transport, string Type)
         {
             CheckProvider(Type, transport.Operation, transport, lodging, idProvider);
-            string jsonResult = transport.Operation == "search" ? JsonConvert.SerializeObject(arrayList) : JsonConvert.SerializeObject(arrayList);
-            return jsonResult;
+            return  transport.Operation == "search" ? (arrayList) : (arrayList);
+             
         }
 
-        public string ListenerLodge(int idProvider, Lodging lodging, string Type)
+        public List<LodgingSearchResponse> ListenerLodge(int idProvider, Lodging lodging, string Type)
         {
             CheckProvider(Type, lodging.Operation, transport, lodging, idProvider);
-            string jsonResult = lodging.Operation == "search" ? JsonConvert.SerializeObject(arrayHotelList) : JsonConvert.SerializeObject(lodgingBookResponse);
-            return jsonResult;
+            return lodging.Operation == "search" ? (arrayHotelList) : (arrayHotelList);
+            
         }
 
         private void CheckProvider(string type, string operation, Transport message, Lodging lodging, int idProvider)
@@ -71,10 +74,10 @@ namespace ApplicationCore.Services
                 switch (operation)
                 {
                     case "search":
-                        _ = idProvider != 1 ? AviancaSearch(message, idProvider).Result : AASearhFlight(message, idProvider).Result;
+                        _ = idProvider != 4 ? AviancaSearch(message, idProvider).Result : AASearhFlight(message, idProvider).Result;
                         break;
                     case "book":
-                        _ = idProvider != 1 ? AviancaBook(message).Result : AAFlightBook(message).Result;
+                        _ = idProvider != 4 ? AviancaBook(message).Result : AAFlightBook(message).Result;
                         break;
                 }
             }
