@@ -8,10 +8,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 
 //Feign sabe que tiene que hablar con Eureka server
-@FeignClient(name = "transform-soap-service", url = "http://transform-soap-service:80")
+@FeignClient(name = "transform-soap-service", url = "http://transform-soap-service")
 //@FeignClient(name = "zuul-api-gateway-service") //zuul name app
 public interface TransformSoapProxyService {
 
-	@RequestMapping(method = RequestMethod.POST, path="/transformLodge/{idProvider}")
+	@RequestMapping(method = RequestMethod.POST, path="/api/TransformSoap/transformLodge/{idProvider}")
 	public String transforLodge(@PathVariable int idProvider, @RequestBody String menssage);	
 }
