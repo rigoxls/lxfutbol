@@ -362,7 +362,7 @@ namespace AviancaServices
         {
             if ((endpointConfiguration == EndpointConfiguration.ServicioAviancaVuelosSoapHttpPort))
             {
-                return new System.ServiceModel.EndpointAddress("http://localhost:8084/consultar");
+                return new System.ServiceModel.EndpointAddress("http://run.mocky.io/v3/2b2c230a-5ce2-4ffc-bc9b-f2ef5640b6ff");
             }
             throw new System.InvalidOperationException(string.Format("Could not find endpoint with name \'{0}\'.", endpointConfiguration));
         }
