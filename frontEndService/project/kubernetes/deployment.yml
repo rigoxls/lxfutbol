@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: touresbalon-deployment
+  labels:
+    name: touresbalon-deployment
+    env: prod
+spec:
+  template:
+    metadata:
+      name: touresbalon-pod
+      labels:
+        name: touresbalon-pod
+    spec:
+      containers:
+        - name: front-service
+          image: touresbalonpage:dockerfile1
+          ports:
+            - containerPort: 80
+      restartPolicy: Always
+  replicas: 1
+  selector:
+    matchLabels:
+      name: touresbalon-pod
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: front-service
+  labels:
+    name: front-service
+spec:
+  type: ClusterIP
+  ports:
+    - port: 80
+      protocol: TCP
+  selector:
+    name: touresbalon-pod
+
+# ---
+
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   labels:
+#     service-label-key: service-label-value 
+#   name: service-frontend-loadbalancer
+# spec:
+#   type: LoadBalancer
+#   ports:
+#   - name: service-port-name
+#     port: 80
+#     protocol: TCP
+#   selector:
+#     name: touresbalon-pod

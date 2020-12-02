@@ -427,7 +427,7 @@ namespace AAFlightService
         {
             if ((endpointConfiguration == EndpointConfiguration.AAFlightsServiceSoapHttpPort))
             {
-                return new System.ServiceModel.EndpointAddress("http://localhost:8099/SearchFlight");
+                return new System.ServiceModel.EndpointAddress("http://run.mocky.io/v3/a2040df6-f838-49a1-a525-f7b41fe818d7");
             }
             throw new System.InvalidOperationException(string.Format("Could not find endpoint with name \'{0}\'.", endpointConfiguration));
         }
