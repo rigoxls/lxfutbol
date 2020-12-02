@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: quotation-deployment
+  labels:
+    name: quotation-deployment
+    env: prod
+spec:
+  template:
+    metadata:
+      name: quotation-pod
+      labels:
+        name: quotation-pod
+    spec:
+      containers:
+        - name: quotation-container
+          image: quotation:dockerfile1      
+      restartPolicy: Always
+  replicas: 1
+  selector:
+    matchLabels:
+      name: quotation-pod
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: quotation-service
+  labels:
+    name: quotation-service
+spec:
+  type: NodePort
+  ports:
+    - port: 83
+      targetPort: 83
+      nodePort: 30012
+  selector:
+    name: quotation-pod

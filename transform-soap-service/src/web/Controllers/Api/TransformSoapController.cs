@@ -46,8 +46,9 @@ namespace web.Controllers
                 };
                 return Ok(_transformSoapService.Listener(idProvider, transport, Type));
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Console.WriteLine(ex);
                 return StatusCode(500);
             }
         }
