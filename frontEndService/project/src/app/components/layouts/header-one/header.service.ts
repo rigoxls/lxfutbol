@@ -10,8 +10,8 @@ import { environment } from "src/environments/environment";
 })
 export class HeaderService {
 
-    private placeUrl = environment.APIEndPoint+'spectacle/list';
-    private categoriesUrl = environment.APIEndPoint + 'spectacle/list/category';
+    private placeUrl = environment.spectacleServiceUrl + 'spectacle/list';
+    private categoriesUrl = environment.spectacleServiceUrl + 'spectacle/list/category';
 
     constructor(private http: HttpClient) {
     }

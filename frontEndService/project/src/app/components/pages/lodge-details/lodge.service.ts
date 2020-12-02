@@ -8,7 +8,7 @@ import {environment} from '../../../../environments/environment';
 })
 export class LodgeService {
 
-    private url = environment.APIEndPoint + 'integrator/lodge';
+    private url = environment.integratorServiceUrl + 'integrator/lodge';
 
     constructor(private http: HttpClient) {
     }

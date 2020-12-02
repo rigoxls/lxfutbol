@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: payment-container
-          image: paymentservice:dockerfile1      
+          image: lxfutbol/payment-service:dockerfile1
       restartPolicy: Always
   replicas: 1
   selector:
@@ -34,6 +34,6 @@ spec:
   ports:
     - port: 80
       targetPort: 80
-      nodePort: 30012
+      nodePort: 30015
   selector:
     name: payment-pod
