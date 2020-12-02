@@ -179,7 +179,7 @@ namespace ApplicationCore.Services
                 lodgingSearchResponse.PriceRoom = Int32.Parse(room.Price.ToString());
                 lodgingSearchResponse.TypeRoom = room.Type;
                 lodgingSearchResponse.CheckIn = lodging.CheckIn;
-                lodgingSearchResponse.CheckIn = lodging.Checkout;
+                lodgingSearchResponse.CheckIn = lodging.CheckOut;
                 arrayHotelList.Add(lodgingSearchResponse);
 
             }

@@ -70,7 +70,7 @@ namespace web.Controllers
                 Lodging lodging = new Lodging() {
                     Operation = search.Operation,
                     CheckIn = search.CheckIn,
-                    Checkout = search.Checkout
+                    Checkout = search.CheckOut
                 };
                 return Ok(_transformSoapService.ListenerLodge(idProvider, lodging, Type));
             }

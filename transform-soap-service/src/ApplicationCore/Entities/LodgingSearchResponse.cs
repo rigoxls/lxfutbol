@@ -8,7 +8,7 @@ namespace ApplicationCore.Entities
 
 		public Cabin Hotel { get; set; }
 		public DateTime CheckIn { get; set; }
-		public DateTime Checkout { get; set; }
+		public DateTime CheckOut { get; set; }
 
 		public int PriceRoom { get; set; }
 		public string TypeRoom { get; set; }
