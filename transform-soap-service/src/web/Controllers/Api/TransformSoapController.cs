@@ -9,7 +9,7 @@ namespace web.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class TransformSoapController : ControllerBase
+    public class TransformSoapController : Controller
     {
         private readonly ITransformSoapService _transformSoapService;
 
