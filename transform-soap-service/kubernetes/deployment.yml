@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: soap-service
-          image: transformsoap:dev
+          image: lxfutbol/soap-service:dockerfile1
       restartPolicy: Always
   replicas: 1
   selector:

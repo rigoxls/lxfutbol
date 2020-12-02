@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: front-service
-          image: touresbalonpage:dockerfile1
+          image: lxfutbol/webpage:dockerfile1
           ports:
             - containerPort: 80
       restartPolicy: Always
@@ -28,30 +28,14 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: front-service
+  name: touresbalon-service
   labels:
-    name: front-service
+    name: touresbalon-service
 spec:
-  type: ClusterIP
+  type: NodePort
   ports:
     - port: 80
-      protocol: TCP
+      targetPort: 80
+      nodePort: 30014
   selector:
     name: touresbalon-pod
-
-# ---
-
-# apiVersion: v1
-# kind: Service
-# metadata:
-#   labels:
-#     service-label-key: service-label-value 
-#   name: service-frontend-loadbalancer
-# spec:
-#   type: LoadBalancer
-#   ports:
-#   - name: service-port-name
-#     port: 80
-#     protocol: TCP
-#   selector:
-#     name: touresbalon-pod

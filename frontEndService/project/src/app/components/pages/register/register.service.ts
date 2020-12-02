@@ -7,7 +7,7 @@ import {Registry} from '../../interfaces/registry';
     providedIn: 'root',
 })
 export class RegisterService {
-    private url = environment.APIEndPoint + 'user/registry';
+    private url = environment.userServiceUrl + 'user/registry';
     constructor(private http: HttpClient) {
     }
 

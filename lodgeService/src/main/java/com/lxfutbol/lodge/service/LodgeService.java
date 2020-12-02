@@ -179,11 +179,17 @@ public class LodgeService {
 		LOG.info("Entra a saveTransport: ");
 		LodgeEntity lodge = new LodgeEntity();
 		try {
+			
+			System.out.println("**********************");
+			System.out.println("**********************");
+			System.out.println(params);
+			
+			
 			String number = (String) params.get("number");
 			BigDecimal price = new BigDecimal((Integer) params.get("price"));
 			String type = (String) params.get("type");
 			String checkIn = (String) params.get("checkIn");
-			String checkout = (String) params.get("checkout");
+			String checkout = (String) params.get("checkOut");
 
 			JSONObject hotel = params.getJSONObject("hotel");
 			String name = (String) hotel.get("name");

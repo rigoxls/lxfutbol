@@ -13,8 +13,8 @@ spec:
         name: quotation-pod
     spec:
       containers:
-        - name: quotation-container
-          image: quotation:dockerfile1      
+        - name: quotation-service
+          image: lxfutbol/quotation-service:dockerfile1
       restartPolicy: Always
   replicas: 1
   selector:
@@ -32,8 +32,8 @@ metadata:
 spec:
   type: NodePort
   ports:
-    - port: 83
-      targetPort: 83
-      nodePort: 30012
+    - port: 80
+      targetPort: 80
+      nodePort: 30013
   selector:
     name: quotation-pod

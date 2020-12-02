@@ -8,7 +8,7 @@ import {Transport} from '../../interfaces/transport.interface';
 })
 export class TransportService {
 
-    private url = environment.APIEndPoint + 'integrator/transport';
+    private url = environment.integratorServiceUrl + 'integrator/transport';
 
     constructor(private http: HttpClient) {
     }

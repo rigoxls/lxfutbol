@@ -1,20 +1,21 @@
-import { Component, OnInit } from "@angular/core";
-import { FormGroup, FormBuilder, Validators } from "@angular/forms";
-import { Email } from "../../interfaces/email.interface";
-import { CartService } from "../cart/cart.service";
-import { ToastService } from "../Toast/toast-container/toast.service";
-import { NgbProgressbarConfig } from '@ng-bootstrap/ng-bootstrap';
-import { Router } from '@angular/router';
-import { loadStripe } from '@stripe/stripe-js';
-import { PaymentService } from './payment.service'
-import { QuotationDetails } from '../../interfaces/ctemporal.interface';
+import {Component, OnInit} from '@angular/core';
+import {FormGroup, FormBuilder, Validators} from '@angular/forms';
+import {Email} from '../../interfaces/email.interface';
+import {CartService} from '../cart/cart.service';
+import {ToastService} from '../Toast/toast-container/toast.service';
+import {NgbProgressbarConfig} from '@ng-bootstrap/ng-bootstrap';
+import {Router} from '@angular/router';
+import {loadStripe} from '@stripe/stripe-js';
+import {PaymentService} from './payment.service';
+import {QuotationDetails} from '../../interfaces/ctemporal.interface';
+import {environment} from 'src/environments/environment';
 
 const stripePromise = loadStripe('pk_test_TYooMQauvdEDq54NiTphI7jx');
 
 @Component({
-    selector: "app-checkout",
-    templateUrl: "./checkout.component.html",
-    styleUrls: ["./checkout.component.scss"],
+    selector: 'app-checkout',
+    templateUrl: './checkout.component.html',
+    styleUrls: ['./checkout.component.scss'],
 })
 export class CheckoutComponent implements OnInit {
     email: Email = new Email();
@@ -23,23 +24,22 @@ export class CheckoutComponent implements OnInit {
     isPaying: boolean;
     date: string;
     cotizacion: any;
-    total:number;
+    total: number;
     numOrden: number;
-    
+
     constructor(
-      private router: Router,
+        private router: Router,
         private cartService: CartService,
         public toastService: ToastService,
         private formBuilder: FormBuilder,
-        private paymentService:PaymentService,
+        private paymentService: PaymentService,
         config: NgbProgressbarConfig
-
     ) {
-      config.max = 1000;
-      config.striped = true;
-      config.animated = true;
-      config.type = "info";
-      config.height = "6px";
+        config.max = 1000;
+        config.striped = true;
+        config.animated = true;
+        config.type = 'info';
+        config.height = '6px';
         this.loadContent();
     }
 
@@ -56,71 +56,72 @@ export class CheckoutComponent implements OnInit {
     }
 
     ngOnInit(): void {
-      this.numOrden=new Date().valueOf()
-        this.cotizacion= JSON.parse(localStorage.getItem("Cotizacion")) as QuotationDetails;
-        this.total= JSON.parse(localStorage.getItem("Total"));
+        this.numOrden = new Date().valueOf();
+        this.cotizacion = JSON.parse(localStorage.getItem('Cotizacion')) as QuotationDetails;
+        this.total = JSON.parse(localStorage.getItem('Total'));
         this.setInfoProfile();
         this.getDate();
 
 
     }
+
     getDate() {
-        if (localStorage.getItem("fechaViaje")) {
-            let date = JSON.parse(localStorage.getItem("fechaViaje"));
-            this.date = date.month+"/"+date.day+"/"+date.year;
+        if (localStorage.getItem('fechaViaje')) {
+            let date = JSON.parse(localStorage.getItem('fechaViaje'));
+            this.date = date.month + '/' + date.day + '/' + date.year;
 
         }
     }
 
 
     setInfoProfile() {
-        if (localStorage.getItem("userAutenticado")) {
-            let user = JSON.parse(localStorage.getItem("userAutenticado"));
-            this.frmGroup.get("txtName").setValue(user.nombreUsuario);
-            this.frmGroup.get("txtLastName").setValue(user.apellidosUsuario);
-            this.frmGroup.get("txtEmail").setValue(user.emailUsuario);
-            this.frmGroup.get("txtPhone").setValue(user.telefonoUsuario);
-            this.frmGroup.get("txtCity").setValue("Bogotá");
-            this.frmGroup.get("txtState").setValue("D.C");
+        if (localStorage.getItem('userAutenticado')) {
+            let user = JSON.parse(localStorage.getItem('userAutenticado'));
+            this.frmGroup.get('txtName').setValue(user.name);
+            this.frmGroup.get('txtLastName').setValue(user.lastName);
+            this.frmGroup.get('txtEmail').setValue(user.email);
+            this.frmGroup.get('txtPhone').setValue(user.phone);
+            this.frmGroup.get('txtCity').setValue('Bogotá');
+            this.frmGroup.get('txtState').setValue('D.C');
             this.loggedIn = true;
         }
     }
 
     async goToPay() {
 
-      this.isPaying=true;
+        this.isPaying = true;
 
-      let payment={ total:this.total, items: "Paquete de V+H+E", quantity: 1}
+        const payment = {total: this.total, items: 'Paquete de V+H+E', quantity: 1};
 
-      const stripe =  await stripePromise;
+        const stripe = await stripePromise;
 
-      const response = await fetch("http://localhost:53472/api/PaymentController/create-checkout-session", {
-        method: "POST",
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(payment)
-      });
-      
-      const session = await response.json();
-  
-      const result = await stripe.redirectToCheckout({
-        sessionId: session.id,
-      });
+        const response = await fetch(`${environment.paymentServiceUrl}api/PaymentController/create-checkout-session`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(payment)
+        });
 
-      if(result.error){
-        this.toastService.show("Hubo un problema al procesar su pago", { classname: 'bg-danger text-light', delay: 15000 });
-      }
-    //   setTimeout(() => {
-    //     this.isPaying=true;
-    // }, 1000);
-    //  this.toastService
-    //  .show("!Pago éxitoso!, se ha enviado los detalles de la reserva a su correo", { classname: 'bg-danger text-light', delay: 15000 });
-    //   this.sendEmail();
+        const session = await response.json();
+
+        const result = await stripe.redirectToCheckout({
+            sessionId: session.id,
+        });
+
+        if (result.error) {
+            this.toastService.show('Hubo un problema al procesar su pago', {classname: 'bg-danger text-light', delay: 15000});
+        }
+        //   setTimeout(() => {
+        //     this.isPaying=true;
+        // }, 1000);
+        //  this.toastService
+        //  .show("!Pago éxitoso!, se ha enviado los detalles de la reserva a su correo", { classname: 'bg-danger text-light', delay: 15000 });
+        //   this.sendEmail();
     }
 
     sendEmail() {
-        this.email.email =  this.frmGroup.get("txtEmail").value;
+        this.email.email = this.frmGroup.get('txtEmail').value;
         this.email.content = `
     <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
     <html xmlns="http://www.w3.org/1999/xhtml" xmlns:o="urn:schemas-microsoft-com:office:office" style="width:100%;font-family:arial, 'helvetica neue', helvetica, sans-serif;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;padding:0;Margin:0">
@@ -619,10 +620,10 @@ export class CheckoutComponent implements OnInit {
     </html>
    
   `;
-        this.email.subject = "Resumen cotización";
+        this.email.subject = 'Resumen cotización';
         this.cartService.sendEmail(this.email).subscribe((result) => {
-          this.isPaying=false;
-          this.router.navigate(["/"]);
+            this.isPaying = false;
+            this.router.navigate(['/']);
 
         });
     }

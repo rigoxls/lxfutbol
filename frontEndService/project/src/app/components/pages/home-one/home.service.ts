@@ -8,7 +8,7 @@ import {environment} from 'src/environments/environment';
 })
 export class HomeService {
 
-    private url = environment.APIEndPoint + 'integrator/spectacle';
+    private url = environment.integratorServiceUrl + 'integrator/spectacle';
 
     constructor(private http: HttpClient) {
     }

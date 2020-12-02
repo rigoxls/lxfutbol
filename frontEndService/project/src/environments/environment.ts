@@ -8,7 +8,12 @@ var port = '8080';
 export const environment = {
     production: false,
     APIEndPoint: 'http://127.0.0.1:8092/',
-
+    integratorServiceUrl: 'http://127.0.0.1:30005/',
+    spectacleServiceUrl: 'http://127.0.0.1:30006/',
+    userServiceUrl: 'http://127.0.0.1:30010/',
+    ordersServiceUrl: 'http://127.0.0.1:30012/',
+    quotationServiceUrl: 'http://127.0.0.1:30013/',
+    paymentServiceUrl: 'http://127.0.0.1:30015/',
 };
 
 

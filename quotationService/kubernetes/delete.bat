@@ -1,2 +1,2 @@
-kubectl delete -n default deployment transform-json-deployment
-kubectl delete service/transform-json-service
+kubectl delete -n default deployment quotation-deployment
+kubectl delete service/quotation-service

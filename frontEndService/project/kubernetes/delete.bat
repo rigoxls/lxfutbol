@@ -1,2 +1,2 @@
-kubectl delete -n default deployment soap-deployment
-kubectl delete service/soap-service
+kubectl delete -n default deployment touresbalon-deployment
+kubectl delete service/touresbalon-service

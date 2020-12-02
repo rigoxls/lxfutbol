@@ -2,6 +2,7 @@ import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {Transport} from '../../interfaces/transport.interface';
 import {NgbCalendar, NgbDate, NgbDateParserFormatter} from '@ng-bootstrap/ng-bootstrap';
 import {TransportService} from './transport.service';
+import {Router} from '@angular/router';
 
 @Component({
     selector: 'app-transport-details',
@@ -24,7 +25,7 @@ export class TransportDetailsComponent implements OnInit {
     fromDate: NgbDate | null;
     toDate: NgbDate | null;
 
-    constructor(private transportService: TransportService, private calendar: NgbCalendar, public formatter: NgbDateParserFormatter) {
+    constructor(private transportService: TransportService, private calendar: NgbCalendar, public formatter: NgbDateParserFormatter, private router: Router) {
         this.getTransports();
         setTimeout(() => {
             const lis = document.getElementsByClassName('option');
@@ -188,7 +189,7 @@ export class TransportDetailsComponent implements OnInit {
         if (lodgeBook) {
             lodgeBook = JSON.parse(lodgeBook);
             order.selectProviders.push({
-                type: 1,
+                type: 2,
                 numPeople: lodgeBook['persons'],
                 name: lodgeBook['name'],
                 price: lodgeBook['price'],
@@ -200,7 +201,7 @@ export class TransportDetailsComponent implements OnInit {
         if (transportBook) {
             transportBook = JSON.parse(transportBook);
             order.selectProviders.push({
-                type: 1,
+                type: 3,
                 numPeople: transportBook['persons'],
                 name: transportBook['name'],
                 price: transportBook['price'],
@@ -210,6 +211,7 @@ export class TransportDetailsComponent implements OnInit {
         }
 
         localStorage.setItem('order', JSON.stringify(order));
+        this.router.navigate(['/cart']);
     }
 
 }
