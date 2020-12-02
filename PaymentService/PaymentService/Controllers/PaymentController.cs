@@ -39,7 +39,7 @@ namespace PaymentService.Controllers
         [HttpPost("create-checkout-session")]
         public ActionResult CreateCheckoutSession(PaymentDTO payment)
         {
-            var domain = "http://localhost:4200";
+            var domain = "http://localhost:30012";
             var options = new SessionCreateOptions
             {
                 PaymentMethodTypes = new List<string>
@@ -52,7 +52,7 @@ namespace PaymentService.Controllers
           {
             PriceData = new SessionLineItemPriceDataOptions
             {
-              UnitAmount = 3301254,
+              UnitAmount = payment.Quantity,
               Currency = "USD",
               ProductData = new SessionLineItemPriceDataProductDataOptions
               {

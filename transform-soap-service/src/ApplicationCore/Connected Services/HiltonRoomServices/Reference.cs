@@ -425,7 +425,7 @@ namespace HiltonRoomServices
         {
             if ((endpointConfiguration == EndpointConfiguration.HiltonRoomServiceSoapHttpPort))
             {
-                return new System.ServiceModel.EndpointAddress("http://localhost:8082/RoomService");
+                return new System.ServiceModel.EndpointAddress("http://run.mocky.io/v3/f679d94e-cced-42eb-a559-e28f190d6083");
             }
             throw new System.InvalidOperationException(string.Format("Could not find endpoint with name \'{0}\'.", endpointConfiguration));
         }
