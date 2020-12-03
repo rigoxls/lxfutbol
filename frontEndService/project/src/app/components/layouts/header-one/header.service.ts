@@ -10,8 +10,11 @@ import { environment } from "src/environments/environment";
 })
 export class HeaderService {
 
-    private placeUrl = environment.spectacleServiceUrl + 'spectacle/list';
-    private categoriesUrl = environment.spectacleServiceUrl + 'spectacle/list/category';
+   // private placeUrl = environment.spectacleServiceUrl + 'spectacle/list';
+    private placeUrl = 'http://localhost:8758/spectacle/list';
+    //private categoriesUrl = environment.spectacleServiceUrl + 'spectacle/list/category';
+
+    private categoriesUrl = 'http://localhost:8758/spectacle/list/category';
 
     constructor(private http: HttpClient) {
     }

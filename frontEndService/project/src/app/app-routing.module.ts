@@ -29,6 +29,7 @@ import {ErrorComponent} from './components/pages/error/error.component';
 import {ComingSoonComponent} from './components/pages/coming-soon/coming-soon.component';
 import {LoginComponent} from './components/pages/login/login.component';
 import {RegisterComponent} from './components/pages/register/register.component';
+import { SuccessComponent } from './components/pages/success/success.component';
 
 const routes: Routes = [
     {path: '', component: HomeOneComponent},
@@ -60,6 +61,7 @@ const routes: Routes = [
     {path: 'login', component: LoginComponent},
     {path: 'register', component: RegisterComponent},
     {path: 'contact', component: ContactComponent},
+    {path: 'success', component: SuccessComponent},
     {path: '**', component: ErrorComponent}
 ];
 
