@@ -52,7 +52,7 @@ namespace PaymentService.Controllers
           {
             PriceData = new SessionLineItemPriceDataOptions
             {
-              UnitAmount = payment.Quantity,
+              UnitAmount = 3232333,
               Currency = "USD",
               ProductData = new SessionLineItemPriceDataProductDataOptions
               {
