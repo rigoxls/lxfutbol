@@ -1,10 +1,11 @@
 package com.lxfutbol.orders.service;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.kafka.KafkaProperties.Producer;
 import org.springframework.stereotype.Service;
 
 import com.lxfutbol.orders.dto.ItemDto;
@@ -48,6 +49,7 @@ public class OrdersService implements IOrdersService{
 		orderCreate.setAddress(order.getAddress());
 		orderCreate.setPaidStatus(order.getPaidStatus());
 		orderCreate.setPhone(order.getPhone());
+		orderCreate.setDateOrder(Calendar.getInstance());
 		
 		orderDb.save(orderCreate);
 		itemDb.saveAll(items);
@@ -55,6 +57,7 @@ public class OrdersService implements IOrdersService{
 	}
 	
 	public List<OrderDto> findAllOrders(){
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		List<OrderEntity> orders = orderDb.findAll();
 		List<OrderDto> resultOrders = new ArrayList<>();
 		List<ItemDto> listItems = null;
@@ -71,7 +74,8 @@ public class OrdersService implements IOrdersService{
 			order.setEmail(orderE.getEmail());
 			order.setAddress(orderE.getAddress());
 			order.setPaidStatus(orderE.getPaidStatus());
-			order.setPhone(orderE.getPhone());
+			order.setPhone(orderE.getPhone());			
+			order.setDateOrder(dateFormat.format(orderE.getDateOrder().getTime()));
 			listItems = new ArrayList<>();
 			for (ItemsEntity item : orderE.getItems()) {
 				items = new ItemDto();

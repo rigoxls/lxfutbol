@@ -15,6 +15,7 @@ public class OrderDto {
 	private String address;
 	private String paidStatus;
 	private String phone;
+	private String dateOrder;
 
 	
 	public Integer getNoOrder() {
@@ -78,5 +79,10 @@ public class OrderDto {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-	
+	public String getDateOrder() {
+		return dateOrder;
+	}
+	public void setDateOrder(String dateOrder) {
+		this.dateOrder = dateOrder;
+	}	
 }

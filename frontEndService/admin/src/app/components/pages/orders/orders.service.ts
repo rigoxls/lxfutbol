@@ -8,7 +8,9 @@ import {environment} from 'src/environments/environment';
 })
 export class OrdersService {
 
-  private url = environment.APIEndPoint + 'orders/findAll';
+  //private url = environment.APIEndPoint + 'orders/findAll';
+
+  private url = 'http://localhost:9898/orders/findAll';
 
   constructor(private http: HttpClient) {
 
