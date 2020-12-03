@@ -52,6 +52,8 @@ export class CheckoutComponent implements OnInit {
             txtState: [null, [Validators.required]],
             txtEmail: [null, [Validators.required]],
             txtPhone: [null, [Validators.required]],
+            txtId: [null, [Validators.required]],
+
         });
     }
 
@@ -119,7 +121,10 @@ export class CheckoutComponent implements OnInit {
 
     this.OrderPayment.name =  this.frmGroup.get('txtName').value;
     this.OrderPayment.email =  this.frmGroup.get('txtEmail').value;
-    this.OrderPayment.lasName  =  this.frmGroup.get('txtLastName').value;
+    this.OrderPayment.lastName  =  this.frmGroup.get('txtLastName').value;
+    this.OrderPayment.idDocument  =  this.frmGroup.get('txtId').value;
+    this.OrderPayment.phone  =  this.frmGroup.get('txtId').value;
+    this.OrderPayment.addres  =  this.frmGroup.get('txtAddress').value;
     this.OrderPayment.selectProviders = this.cotizacion.selectProviders;
     this.OrderPayment.totalOrder =  this.total;
 
