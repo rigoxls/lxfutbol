@@ -97,8 +97,8 @@ export class CheckoutComponent implements OnInit {
 
         const stripe = await stripePromise;
 
-        const response = await fetch(`http://localhost:5000/api/PaymentController/create-checkout-session`, {
-            method: 'POST',
+        const response = await fetch(`${environment.paymentServiceUrl}api/PaymentController/create-checkout-session`, {
+          method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
