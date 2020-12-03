@@ -18,27 +18,38 @@ public class SpectacleServicesDao {
 	private EntityManager entityManager;
 	
 	public List<PlacesDto> findPlacesSpectacle() {
-		
+
 		List<PlacesDto> listCitys = new ArrayList<>();
-		PlacesDto cityDto = null;
-		List<Object[]> citys = entityManager.createNativeQuery("select DISTINCT city, country from espectacle").getResultList();
-		
-		for(Object[] city : citys) {
-			cityDto = new PlacesDto();
-			cityDto.setCity(String.valueOf(city[0]));
-			cityDto.setCountry((String.valueOf(city[1])));
-			listCitys.add(cityDto);
+		try {
+
+			PlacesDto cityDto = null;
+			List<Object[]> citys = entityManager.createNativeQuery("select DISTINCT city, country from spectacles")
+					.getResultList();
+
+			for (Object[] city : citys) {
+				cityDto = new PlacesDto();
+				cityDto.setCity(String.valueOf(city[0]));
+				cityDto.setCountry((String.valueOf(city[1])));
+				listCitys.add(cityDto);
+			}
+		} catch (Exception ex) {
+			System.out.print("Error consultando la lista de ciudades." + ex.getCause());
 		}
 		return listCitys;
 	}
-	
+
 	public List<String> findCategorySpectacle() {
-		
+
 		List<String> listCategorys = new ArrayList<>();
-		List<Object[]> citys = entityManager.createNativeQuery("select DISTINCT type, country from espectacle").getResultList();
-		
-		for(Object[] city : citys) {
-			listCategorys.add(String.valueOf(city[0]));
+		try {
+			List<String> categorys = entityManager.createNativeQuery("select DISTINCT type from spectacles")
+					.getResultList();
+
+			for (String category : categorys) {
+				listCategorys.add(category);
+			}
+		} catch (Exception ex) {
+			System.out.print("Error consultando la lista de categorias." + ex.getCause());
 		}
 		return listCategorys;
 	}
