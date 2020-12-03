@@ -18,7 +18,6 @@ const stripePromise = loadStripe('pk_test_TYooMQauvdEDq54NiTphI7jx');
     styleUrls: ['./checkout.component.scss'],
 })
 export class CheckoutComponent implements OnInit {
-    email: Email = new Email();
     frmGroup: FormGroup;
     loggedIn: boolean;
     isPaying: boolean;
@@ -130,14 +129,5 @@ export class CheckoutComponent implements OnInit {
 
   }
 
-    sendEmail() {
-        this.email.email = this.frmGroup.get('txtEmail').value;
-        this.email.content = ``;
-        this.email.subject = 'Resumen de su compra';
-        this.cartService.sendEmail(this.email).subscribe((result) => {
-            this.isPaying = false;
-            this.router.navigate(['/']);
-
-        });
-    }
+  
 }
