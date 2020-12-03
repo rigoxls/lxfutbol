@@ -1,6 +1,7 @@
 package com.lxfutbol.orders.repository;
 
 import java.math.BigDecimal;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -27,6 +28,7 @@ public class OrderEntity {
 	private String address;
 	private String paidStatus;
 	private String phone;
+	private Calendar dateOrder;
 	
 	
 	public Integer getNoOrder() {
@@ -89,5 +91,11 @@ public class OrderEntity {
 	}
 	public void setPhone(String phone) {
 		this.phone = phone;
-	}	
+	}
+	public Calendar getDateOrder() {
+		return dateOrder;
+	}
+	public void setDateOrder(Calendar dateOrder) {
+		this.dateOrder = dateOrder;
+	}
 }

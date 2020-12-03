@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.lxfutbol.orders.dto.OrderDto;
 import com.lxfutbol.orders.interfaces.IOrdersService;
 
-@CrossOrigin(origins="*")
 @RestController
+@CrossOrigin(origins="*")
 @RequestMapping("/orders")
 public class Orders {
 
