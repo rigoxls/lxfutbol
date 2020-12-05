@@ -28,8 +28,8 @@ namespace PaymentService
             services.AddCors(options =>
             {
                 options.AddPolicy(
-                  "AllowAllOrigins",
-                  builder => builder.WithOrigins("AllowAnyOrigin")
+                  "CorsPolicy",
+                  builder => builder.WithOrigins("http://localhost:30014")
                   .AllowAnyMethod()
                   .AllowAnyHeader()
                   .AllowCredentials());

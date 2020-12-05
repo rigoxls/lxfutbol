@@ -44,9 +44,9 @@ namespace quotationService
             services.AddControllers();
             services.AddCors(options =>
             {
-             options.AddPolicy(
-                  "AllowAllOrigins",
-                  builder => builder.WithOrigins("AllowAnyOrigin")
+                options.AddPolicy(
+                  "CorsPolicy",
+                  builder => builder.WithOrigins("http://localhost:4200")
                   .AllowAnyMethod()
                   .AllowAnyHeader()
                   .AllowCredentials());
