@@ -14,5 +14,6 @@ public interface ProviderProxyService {
 
 	//@PutMapping("/provider-service/provider/status/{providerId}/{status}")
 	@PutMapping("/provider/status/{providerId}/{status}")
-	public Providerdto statusProviderById(@PathVariable("providerId") long providerId, @PathVariable("status") int status);	
+	public Providerdto statusProviderById(@PathVariable("providerId") long providerId, @PathVariable("status") int status);		
+	
 }

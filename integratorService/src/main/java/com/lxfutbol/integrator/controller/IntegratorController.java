@@ -20,9 +20,14 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lxfutbol.integrator.dto.Providerdto;
+import com.lxfutbol.integrator.dto.ReserveLodge;
+import com.lxfutbol.integrator.dto.ReserveSpectacle;
+import com.lxfutbol.integrator.dto.ReserveTransport;
 import com.lxfutbol.integrator.kafka.KafkaIntegratorSender;
 import com.lxfutbol.integrator.service.IntegratorService;
 import com.lxfutbol.integrator.service.ProviderProxyService;
+import com.lxfutbol.integrator.service.ReserveService;
+import com.netflix.discovery.converters.Auto;
 
 //import com.lxfutbol.integratorDTO;
 
@@ -32,6 +37,9 @@ public class IntegratorController {
 
 	@Autowired
 	private IntegratorService integratorService;
+	
+	@Autowired
+	private ReserveService reserveService;
 	
 	@Autowired
 	private KafkaIntegratorSender kafkaIntegratorSender;	
@@ -79,6 +87,24 @@ public class IntegratorController {
 		
 	}
 	
+	@PostMapping("/integrator/transport")	
+	public Boolean reserveTransport(@RequestBody  ReserveTransport transport) throws JSONException{
+		
+		JSONObject params = new JSONObject();	
+		params.put("departureCity", transport.getOriginCity());
+		params.put("arrivalCity", transport.getDestinationCity());
+		params.put("departureDate", transport.getDepartureDate());
+		params.put("arrivalDate", transport.getArrivalDate());
+		params.put("flight", transport.getFlight());
+		params.put("class", transport.getClassFlight());
+		params.put("price", transport.getPrice());
+		params.put("passengerName", transport.getPassengerName());
+		params.put("passengerIdentityNumber", transport.getPassengerIdentityNumber());
+		params.put("idProvider", transport.getIdProvider());
+		
+		return reserveService.reserve(params);
+	}
+	
 	@PostMapping("/integrator/lodge")	
 	public ResponseEntity<JsonNode> searchLodge(@RequestBody String request) 
 					throws InterruptedException, ExecutionException, JSONException, JsonMappingException, JsonProcessingException {
@@ -112,6 +138,21 @@ public class IntegratorController {
 		
 	}
 	
+	@PostMapping("/integrator/transport")	
+	public Boolean reserveLodge(@RequestBody  ReserveLodge lodge) throws JSONException{
+		
+		JSONObject params = new JSONObject();	
+		params.put("guestName", lodge.getGuestName());
+		params.put("roomNumber", lodge.getRoomNumber());
+		params.put("checkout", lodge.getCheckout());
+		params.put("checkin", lodge.getCheckin());
+		params.put("type", lodge.getType());
+		params.put("numberPeople", lodge.getNumberPeople());
+		params.put("idProvider", lodge.getIdProvider());
+		
+		return reserveService.reserve(params);
+	}
+	
 	@PostMapping("/integrator/spectacle")	
 	public ResponseEntity<JsonNode> searchEspectacle(@RequestBody String request) 
 					throws InterruptedException, ExecutionException, JSONException, JsonMappingException, JsonProcessingException {
@@ -143,6 +184,19 @@ public class IntegratorController {
 		
 	}	
 	
+	
+	@PostMapping("/integrator/transport")	
+	public Boolean reserveSpectacle(@RequestBody ReserveSpectacle spectacle) throws JSONException{
+		
+		JSONObject params = new JSONObject();	
+		params.put("description", spectacle.getDescription());
+		params.put("date", spectacle.getDate());
+		params.put("city", spectacle.getCity());
+		params.put("country", spectacle.getCountry());
+		params.put("idProvider", spectacle.getIdProvider());
+		
+		return reserveService.reserve(params);
+	}
 	
 	@GetMapping("/integrator/status")
 	public String status() {
