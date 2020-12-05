@@ -37,9 +37,9 @@ namespace PaymentService.Controllers
 
         // POST api/<controller>
         [HttpPost("create-checkout-session")]
-        public ActionResult CreateCheckoutSession(PaymentDTO payment)
+        public ActionResult CreateCheckoutSession()
         {
-            var domain = "http://localhost:30012";
+            var domain = "http://localhost:4200";
             var options = new SessionCreateOptions
             {
                 PaymentMethodTypes = new List<string>
@@ -56,10 +56,10 @@ namespace PaymentService.Controllers
               Currency = "USD",
               ProductData = new SessionLineItemPriceDataProductDataOptions
               {
-                Name = payment.Items,
+                Name = "Paquete de TouresBalón",
               },
             },
-            Quantity = payment.Quantity,
+            Quantity = 1,
           },
         },
                 Mode = "payment",
