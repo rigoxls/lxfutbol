@@ -1,7 +1,9 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { environment } from 'src/environments/environment';
+import { Email } from '../../interfaces/email.interface';
 import { ItemsInterface } from '../../interfaces/items.interface';
 import { OrderInterface } from '../../interfaces/orders.interface';
-import { Usuario } from '../../interfaces/usuario.interface';
 import { ErrorService } from './error.service';
 
 @Component({
@@ -15,7 +17,10 @@ export class ErrorComponent implements OnInit {
   order: OrderInterface = {} as any;
   itemsOrder: ItemsInterface[] = [];
   item: ItemsInterface = {} as any;
-  constructor(private errorService: ErrorService) { }
+  private email: Email = new Email();
+  private url = environment.userServiceUrl;
+
+  constructor(private errorService: ErrorService,private http: HttpClient) { }
 
   ngOnInit(): void {
     this.orderPayment = JSON.parse(localStorage.getItem('OrderPayment'));
@@ -40,5 +45,6 @@ export class ErrorComponent implements OnInit {
     console.log(JSON.stringify(this.order));
     this.errorService.createOrder(this.order);
   }
+
 
 }
