@@ -73,8 +73,6 @@
                     <input formControlName="phone2" type="text" class="form-control"
                            placeholder="">
                     <div *ngIf="submitted && form.controls.phone2.errors" class="error-form">
-                        <div class="error-message" *ngIf="form.controls.phone2.errors.required">Campo requerido</div>
-                        <div class="error-message" *ngIf="form.controls.phone2.errors.minlength">Campo debe tener mínimo 3 caracteres</div>
                     </div>
                 </div>
             </div>
