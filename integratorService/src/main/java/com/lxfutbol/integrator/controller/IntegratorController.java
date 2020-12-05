@@ -87,7 +87,7 @@ public class IntegratorController {
 		
 	}
 	
-	@PostMapping("/integrator/transport")	
+	@PostMapping("/integrator/reserve/transport")	
 	public Boolean reserveTransport(@RequestBody  ReserveTransport transport) throws JSONException{
 		
 		JSONObject params = new JSONObject();	
@@ -138,7 +138,7 @@ public class IntegratorController {
 		
 	}
 	
-	@PostMapping("/integrator/transport")	
+	@PostMapping("/integrator/reserve/lodge")	
 	public Boolean reserveLodge(@RequestBody  ReserveLodge lodge) throws JSONException{
 		
 		JSONObject params = new JSONObject();	
@@ -185,7 +185,7 @@ public class IntegratorController {
 	}	
 	
 	
-	@PostMapping("/integrator/transport")	
+	@PostMapping("/integrator/reserve/spectacle")	
 	public Boolean reserveSpectacle(@RequestBody ReserveSpectacle spectacle) throws JSONException{
 		
 		JSONObject params = new JSONObject();	
